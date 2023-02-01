@@ -21,13 +21,16 @@
 }
 
 .todo__list-item {
+  padding: 1.6rem;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 2px 1px 10px #ddd;
+}
+
+.todo__list-label {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  padding: 1.6rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 2px 1px 10px #ddd;
 }
 
 .list-item__icon {

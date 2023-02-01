@@ -47,18 +47,20 @@ function App() {
         <ul className="todo__list">
           {todos.map(todo => (
             <li key={todo.text}>
-              <label for={todo.text} className="todo__list-item">
-                {todo.isChecked && (
-                  <CheckSquare className="list-item__icon" weight="fill" />
-                )}
-                {!todo.isChecked && <Square className="list-item__icon" />}
-                <input
-                  type="checkbox"
-                  id={todo.text}
-                  className="list-item__checkbox"
-                />
-                <span className="list-item__text">{todo.text}</span>
-              </label>
+              <article className="todo__list-item">
+                <label for={todo.text} className="todo__list-label">
+                  {todo.isChecked && (
+                    <CheckSquare className="list-item__icon" weight="fill" />
+                  )}
+                  {!todo.isChecked && <Square className="list-item__icon" />}
+                  <input
+                    type="checkbox"
+                    id={todo.text}
+                    className="list-item__checkbox"
+                  />
+                  <span className="list-item__text">{todo.text}</span>
+                </label>
+              </article>
             </li>
           ))}
         </ul>
