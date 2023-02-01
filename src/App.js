@@ -1,38 +1,39 @@
 import './App.css';
 import { IconContext, Square, CheckSquare } from 'phosphor-react';
 
-function App() {
-  const todos = [
-    {
-      item: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
-      isChecked: false,
-    },
+const todos = [
+  {
+    text: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
+    isChecked: false,
+  },
 
-    {
-      item: 'CS-121 Assignment Deadline on Monday',
-      isChecked: false,
-    },
-    {
-      item: 'Get the electric bulb repaired',
-      isChecked: false,
-    },
-    {
-      item: 'Soccer Club Meeting @ Sunday',
-      isChecked: true,
-    },
-    {
-      item: "Buy Gift for Dad's Birthday",
-      isChecked: true,
-    },
-    {
-      item: 'Submit Assignment on Friday',
-      isChecked: true,
-    },
-    {
-      item: 'Bring Groceries From Supermarket',
-      isChecked: true,
-    },
-  ];
+  {
+    text: 'CS-121 Assignment Deadline on Monday',
+    isChecked: false,
+  },
+  {
+    text: 'Get the electric bulb repaired',
+    isChecked: false,
+  },
+  {
+    text: 'Soccer Club Meeting @ Sunday',
+    isChecked: true,
+  },
+  {
+    text: "Buy Gift for Dad's Birthday",
+    isChecked: true,
+  },
+  {
+    text: 'Submit Assignment on Friday',
+    isChecked: true,
+  },
+  {
+    text: 'Bring Groceries From Supermarket',
+    isChecked: true,
+  },
+];
+
+function App() {
   return (
     <IconContext.Provider
       value={{
@@ -45,18 +46,18 @@ function App() {
         <h1 className="heading-1">Tasks</h1>
         <ul className="todo__list">
           {todos.map(todo => (
-            <li key={todo.item}>
-              <label for={todo.item} className="todo__list-item">
+            <li key={todo.text}>
+              <label for={todo.text} className="todo__list-item">
                 {todo.isChecked && (
                   <CheckSquare className="list-item__icon" weight="fill" />
                 )}
                 {!todo.isChecked && <Square className="list-item__icon" />}
                 <input
                   type="checkbox"
-                  id={todo.item}
+                  id={todo.text}
                   className="list-item__checkbox"
                 />
-                <span className="list-item__text">{todo.item}</span>
+                <span className="list-item__text">{todo.text}</span>
               </label>
             </li>
           ))}
