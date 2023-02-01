@@ -2,14 +2,36 @@ import './App.css';
 import { IconContext, Square, CheckSquare } from 'phosphor-react';
 
 function App() {
-  const todoItems = [
-    'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
-    'CS-121 Assignment Deadline on Monday',
-    'Get the electric bulb repaired',
-    'Soccer Club Meeting @ Sunday',
-    "Buy Gift for Dad's Birthday",
-    'Submit Assignment on Friday',
-    'Bring Groceries From Supermarket',
+  const todos = [
+    {
+      item: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
+      isChecked: false,
+    },
+
+    {
+      item: 'CS-121 Assignment Deadline on Monday',
+      isChecked: false,
+    },
+    {
+      item: 'Get the electric bulb repaired',
+      isChecked: false,
+    },
+    {
+      item: 'Soccer Club Meeting @ Sunday',
+      isChecked: true,
+    },
+    {
+      item: "Buy Gift for Dad's Birthday",
+      isChecked: true,
+    },
+    {
+      item: 'Submit Assignment on Friday',
+      isChecked: true,
+    },
+    {
+      item: 'Bring Groceries From Supermarket',
+      isChecked: true,
+    },
   ];
   return (
     <IconContext.Provider
@@ -22,11 +44,21 @@ function App() {
       <div className="wrapper">
         <h1 className="heading-1">Tasks</h1>
         <ul className="todo__list">
-          {todoItems.map(item => (
-            <li key={item}>
+          {todos.map(todo => (
+            <li key={todo.item}>
               <article className="todo__list-item">
-                <Square className="list-item__icon" />
-                <span className="list-item__text">{item}</span>
+                {todo.isChecked && (
+                  <CheckSquare className="list-item__icon" weight="fill" />
+                )}
+                {!todo.isChecked && <Square className="list-item__icon" />}
+                <input
+                  type="checkbox"
+                  id={todo.item}
+                  className="list-item__checkbox"
+                />
+                <label for={todo.item} className="list-item__text">
+                  {todo.item}
+                </label>
               </article>
             </li>
           ))}

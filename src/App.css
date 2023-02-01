@@ -33,6 +33,11 @@
   flex-shrink: 0;
 }
 
+.list-item__checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
 .list-item__text {
   font-size: 1.4rem;
   color: #333;
