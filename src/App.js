@@ -1,5 +1,5 @@
-import Button from './UI/Button'
-import TodoList from './components/TodoList'
+import { Button, TodoList } from './components'
+import { AddCircleIcon } from './components/icons'
 
 import './App.css'
 
@@ -48,7 +48,7 @@ function App() {
       <h1 className="title">Tasks</h1>
       <TodoList todos={todos} />
       <Button type="submit" shape="round">
-        +
+        <AddCircleIcon />
       </Button>
     </div>
   )
