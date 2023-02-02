@@ -1,6 +1,7 @@
 import Button from './UI/Button'
 import TodoList from './components/TodoList'
-import Wrapper from './UI/Wrapper'
+
+import './App.css'
 
 const todos = [
   {
@@ -43,10 +44,11 @@ const todos = [
 
 function App() {
   return (
-    <Wrapper title="Tasks">
+    <div className="wrapper">
+      <h1 className="title">Tasks</h1>
       <TodoList todos={todos} />
       <Button type="submit" shape="round" text="+" />
-    </Wrapper>
+    </div>
   )
 }
 
