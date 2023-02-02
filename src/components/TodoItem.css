@@ -4,24 +4,3 @@
   border-radius: 5px;
   box-shadow: 2px 1px 10px #ddd;
 }
-
-.todo__list-label {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.list-item__icon {
-  flex-shrink: 0;
-}
-
-.list-item__checkbox {
-  position: absolute;
-  visibility: hidden;
-}
-
-.list-item__text {
-  padding: 0.5rem;
-  font-size: 1.4rem;
-  color: #333;
-}
