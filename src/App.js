@@ -1,4 +1,5 @@
 import Button from './UI/Button'
+import AddIcon from './UI/AddIcon'
 import TodoList from './components/TodoList'
 
 import './App.css'
@@ -48,7 +49,7 @@ function App() {
       <h1 className="title">Tasks</h1>
       <TodoList todos={todos} />
       <Button type="submit" shape="round">
-        +
+        <AddIcon />
       </Button>
     </div>
   )

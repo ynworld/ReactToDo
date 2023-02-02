@@ -1,6 +1,8 @@
 /* Round Button */
 .button-round {
   position: absolute;
+  display: flex;
+  align-items: center;
   bottom: 2rem;
   right: 2rem;
   width: 4.8rem;
