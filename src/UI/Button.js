@@ -1,9 +1,10 @@
 import './Button.css'
+import classnames from 'classnames'
 
-const Button = ({ type = 'button', shape, text }) => {
+const Button = ({ className, children, type = 'button', shape, ...restProps }) => {
   return (
-    <button type={type} className={`button-${shape}`}>
-      {text}
+    <button type={type} className={classnames(`button-${shape}`, className)} {...restProps}>
+      {children}
     </button>
   )
 }

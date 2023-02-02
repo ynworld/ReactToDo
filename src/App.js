@@ -47,7 +47,9 @@ function App() {
     <div className="wrapper">
       <h1 className="title">Tasks</h1>
       <TodoList todos={todos} />
-      <Button type="submit" shape="round" text="+" />
+      <Button type="submit" shape="round">
+        +
+      </Button>
     </div>
   )
 }
