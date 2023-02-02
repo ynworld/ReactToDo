@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  cursor: pointer;
 }
 
 .checkbox {
@@ -30,7 +31,8 @@
   cursor: pointer;
 }
 
-.checkbox-custom:hover {
+.checkbox-custom:hover,
+.label:hover .checkbox-custom {
   background-color: rgba(79, 196, 29, 0.4);
 }
 
