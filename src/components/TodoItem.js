@@ -1,5 +1,7 @@
 import { IconContext, Square, CheckSquare } from 'phosphor-react'
 
+import './TodoItem.css'
+
 const TodoItem = (props) => {
   const { text, id, isChecked } = props.todo
   return (
