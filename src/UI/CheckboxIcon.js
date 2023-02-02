@@ -1,8 +1,6 @@
 import { IconContext, Square, CheckSquare } from 'phosphor-react'
 
-const CheckboxIcon = (props) => {
-  const { isChecked } = props
-
+const CheckboxIcon = ({ isChecked }) => {
   return (
     <IconContext.Provider
       value={{

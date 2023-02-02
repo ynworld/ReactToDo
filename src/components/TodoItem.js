@@ -2,8 +2,8 @@ import './TodoItem.css'
 
 import CheckboxIcon from '../UI/CheckboxIcon'
 
-const TodoItem = (props) => {
-  const { text, id, isChecked } = props.todo
+const TodoItem = ({ todo }) => {
+  const { text, id, isChecked } = todo
   return (
     <article className="todo__list-item">
       <label htmlFor={id} className="todo__list-label">

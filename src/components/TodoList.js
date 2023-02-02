@@ -1,9 +1,7 @@
 import TodoItem from './TodoItem'
 import './TodoList.css'
 
-const TodoList = (props) => {
-  const { todos } = props
-
+const TodoList = ({ todos }) => {
   return (
     <ul className="todo__list">
       {todos.map((todo) => (
