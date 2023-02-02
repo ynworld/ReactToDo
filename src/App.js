@@ -1,4 +1,3 @@
-import './App.css'
 import Button from './UI/Button'
 import TodoList from './components/TodoList'
 import Wrapper from './UI/Wrapper'
