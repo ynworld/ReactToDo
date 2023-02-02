@@ -1,6 +1,6 @@
 import './App.css'
 import Button from './UI/Button'
-import TodoItem from './components/TodoItem'
+import TodoList from './components/TodoList'
 
 const todos = [
   {
@@ -45,13 +45,7 @@ function App() {
   return (
     <div className="wrapper">
       <h1 className="heading-1">Tasks</h1>
-      <ul className="todo__list">
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <TodoItem todo={todo} />
-          </li>
-        ))}
-      </ul>
+      <TodoList todos={todos} />
       <Button type="submit" style="round">
         +
       </Button>

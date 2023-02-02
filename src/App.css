@@ -12,10 +12,3 @@
   margin-bottom: 1.6rem;
   color: #333;
 }
-
-.todo__list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  margin: 2rem 0rem;
-}
