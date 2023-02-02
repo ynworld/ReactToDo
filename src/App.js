@@ -6,38 +6,38 @@ const todos = [
   {
     text: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
     isChecked: false,
-    id: 'td1',
+    id: 1,
   },
 
   {
     text: 'CS-121 Assignment Deadline on Monday',
     isChecked: false,
-    id: 'td2',
+    id: 2,
   },
   {
     text: 'Get the electric bulb repaired',
     isChecked: false,
-    id: 'td3',
+    id: 3,
   },
   {
     text: 'Soccer Club Meeting @ Sunday',
     isChecked: true,
-    id: 'td4',
+    id: 4,
   },
   {
     text: "Buy Gift for Dad's Birthday",
     isChecked: true,
-    id: 'td5',
+    id: 5,
   },
   {
     text: 'Submit Assignment on Friday',
     isChecked: true,
-    id: 'td6',
+    id: 6,
   },
   {
     text: 'Bring Groceries From Supermarket',
     isChecked: true,
-    id: 'td7',
+    id: 7,
   },
 ]
 
