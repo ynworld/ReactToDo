@@ -48,7 +48,7 @@ function App() {
           {todos.map(todo => (
             <li key={todo.text}>
               <article className="todo__list-item">
-                <label for={todo.text} className="todo__list-label">
+                <label htmlFor={todo.text} className="todo__list-label">
                   {todo.isChecked && (
                     <CheckSquare className="list-item__icon" weight="fill" />
                   )}
