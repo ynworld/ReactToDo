@@ -1,5 +1,6 @@
-import './App.css';
-import { IconContext, Square, CheckSquare } from 'phosphor-react';
+import './App.css'
+import { IconContext, Square, CheckSquare } from 'phosphor-react'
+import Button from './UI/Button'
 
 const todos = [
   {
@@ -31,7 +32,7 @@ const todos = [
     text: 'Bring Groceries From Supermarket',
     isChecked: true,
   },
-];
+]
 
 function App() {
   return (
@@ -45,31 +46,25 @@ function App() {
       <div className="wrapper">
         <h1 className="heading-1">Tasks</h1>
         <ul className="todo__list">
-          {todos.map(todo => (
+          {todos.map((todo) => (
             <li key={todo.text}>
               <article className="todo__list-item">
                 <label htmlFor={todo.text} className="todo__list-label">
-                  {todo.isChecked && (
-                    <CheckSquare className="list-item__icon" weight="fill" />
-                  )}
+                  {todo.isChecked && <CheckSquare className="list-item__icon" weight="fill" />}
                   {!todo.isChecked && <Square className="list-item__icon" />}
-                  <input
-                    type="checkbox"
-                    id={todo.text}
-                    className="list-item__checkbox"
-                  />
+                  <input type="checkbox" id={todo.text} className="list-item__checkbox" />
                   <span className="list-item__text">{todo.text}</span>
                 </label>
               </article>
             </li>
           ))}
         </ul>
-        <button type="submit" className="button-add">
+        <Button type="submit" style="round">
           +
-        </button>
+        </Button>
       </div>
     </IconContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default App
