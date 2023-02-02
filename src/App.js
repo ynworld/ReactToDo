@@ -1,6 +1,7 @@
 import './App.css'
 import { IconContext, Square, CheckSquare } from 'phosphor-react'
 import Button from './UI/Button'
+import TodoItem from './components/TodoItem'
 
 const todos = [
   {
@@ -55,14 +56,7 @@ function App() {
         <ul className="todo__list">
           {todos.map((todo) => (
             <li key={todo.id}>
-              <article className="todo__list-item">
-                <label htmlFor={todo.id} className="todo__list-label">
-                  {todo.isChecked && <CheckSquare className="list-item__icon" weight="fill" />}
-                  {!todo.isChecked && <Square className="list-item__icon" />}
-                  <input type="checkbox" id={todo.id} className="list-item__checkbox" />
-                  <span className="list-item__text">{todo.text}</span>
-                </label>
-              </article>
+              <TodoItem todo={todo} />
             </li>
           ))}
         </ul>
