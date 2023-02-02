@@ -32,11 +32,6 @@
   cursor: pointer;
 }
 
-.checkbox-custom:hover,
-.label:hover .checkbox-custom {
-  background-color: rgba(79, 196, 29, 0.4);
-}
-
 input:checked ~ .checkbox-custom {
   background-color: #4fc41d;
   border-radius: 5px;
@@ -45,8 +40,14 @@ input:checked ~ .checkbox-custom {
   border: 2px solid #4fc41d;
 }
 
-input:checked ~ .checkbox-custom:hover {
-  background-color: rgba(79, 196, 29, 0.6);
+input:checked ~ .checkbox-custom:hover,
+.label:hover input:checked ~ .checkbox-custom {
+  background-color: #fff;
+}
+
+.checkbox-custom:hover,
+.label:hover .checkbox-custom {
+  background-color: #4fc41d;
 }
 
 .checkbox-custom::after {
@@ -77,6 +78,12 @@ input:checked ~ .checkbox-custom::after {
   border-width: 0 2px 2px 0;
   background-color: transparent;
   border-radius: 0;
+}
+
+input:checked .checkbox-custom:hover ~ .checkbox-custom::after,
+.label:hover input:checked ~ .checkbox-custom::after {
+  border: solid #4fc41d;
+  border-width: 0 2px 2px 0;
 }
 
 /* For Ripple Effect */
