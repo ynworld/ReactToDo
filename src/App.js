@@ -46,9 +46,7 @@ function App() {
     <div className="wrapper">
       <h1 className="heading-1">Tasks</h1>
       <TodoList todos={todos} />
-      <Button type="submit" style="round">
-        +
-      </Button>
+      <Button type="submit" style="round" text="+" />
     </div>
   )
 }
