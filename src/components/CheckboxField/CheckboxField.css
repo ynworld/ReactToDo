@@ -27,6 +27,11 @@
   border-radius: 5px;
   transition: all 0.3s ease-out;
   border: 2px solid #4fc41d;
+  cursor: pointer;
+}
+
+.checkbox-custom:hover {
+  background-color: rgba(79, 196, 29, 0.4);
 }
 
 input:checked ~ .checkbox-custom {
@@ -35,6 +40,10 @@ input:checked ~ .checkbox-custom {
   transform: rotate(0deg) scale(1);
   opacity: 1;
   border: 2px solid #4fc41d;
+}
+
+input:checked ~ .checkbox-custom:hover {
+  background-color: rgba(79, 196, 29, 0.6);
 }
 
 .checkbox-custom::after {
