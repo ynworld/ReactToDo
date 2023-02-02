@@ -1,6 +1,6 @@
-import Button from './UI/Button'
+import { Button } from './UI/Button'
 import AddIcon from './UI/AddIcon'
-import TodoList from './components/TodoList'
+import { TodoList } from './components/TodoList/'
 
 import './App.css'
 

@@ -1,5 +1,5 @@
 import './TodoItem.css'
-import CheckboxField from './CheckboxField'
+import { CheckboxField } from '../CheckboxField/'
 
 const TodoItem = ({ todo }) => {
   const { id, text, isChecked } = todo
