@@ -1,5 +1,4 @@
 import './App.css'
-import { IconContext, Square, CheckSquare } from 'phosphor-react'
 import Button from './UI/Button'
 import TodoItem from './components/TodoItem'
 
@@ -44,27 +43,19 @@ const todos = [
 
 function App() {
   return (
-    <IconContext.Provider
-      value={{
-        color: '#4fc41d',
-        size: 32,
-        weight: 'bold',
-      }}
-    >
-      <div className="wrapper">
-        <h1 className="heading-1">Tasks</h1>
-        <ul className="todo__list">
-          {todos.map((todo) => (
-            <li key={todo.id}>
-              <TodoItem todo={todo} />
-            </li>
-          ))}
-        </ul>
-        <Button type="submit" style="round">
-          +
-        </Button>
-      </div>
-    </IconContext.Provider>
+    <div className="wrapper">
+      <h1 className="heading-1">Tasks</h1>
+      <ul className="todo__list">
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <TodoItem todo={todo} />
+          </li>
+        ))}
+      </ul>
+      <Button type="submit" style="round">
+        +
+      </Button>
+    </div>
   )
 }
 
