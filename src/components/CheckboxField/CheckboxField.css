@@ -42,6 +42,10 @@ input:checked ~ .checkbox-custom {
   border: 2px solid #4fc41d;
 }
 
+input:checked ~ .checkbox-custom:hover {
+  background-color: rgba(79, 196, 29, 0.6);
+}
+
 .checkbox-custom::after {
   position: absolute;
   content: '';
