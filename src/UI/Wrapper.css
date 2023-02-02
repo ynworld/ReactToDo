@@ -1,0 +1,14 @@
+.wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 42rem;
+  height: 100vh;
+}
+
+.title {
+  font-size: 4.8rem;
+  font-weight: 800;
+  margin-bottom: 1.6rem;
+  color: #333;
+}
