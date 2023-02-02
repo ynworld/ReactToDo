@@ -1,75 +1,57 @@
-import './App.css';
-import { IconContext, Square, CheckSquare } from 'phosphor-react';
+import Button from './UI/Button'
+import TodoList from './components/TodoList'
+
+import './App.css'
 
 const todos = [
   {
     text: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
     isChecked: false,
+    id: 1,
   },
 
   {
     text: 'CS-121 Assignment Deadline on Monday',
     isChecked: false,
+    id: 2,
   },
   {
     text: 'Get the electric bulb repaired',
     isChecked: false,
+    id: 3,
   },
   {
     text: 'Soccer Club Meeting @ Sunday',
     isChecked: true,
+    id: 4,
   },
   {
     text: "Buy Gift for Dad's Birthday",
     isChecked: true,
+    id: 5,
   },
   {
     text: 'Submit Assignment on Friday',
     isChecked: true,
+    id: 6,
   },
   {
     text: 'Bring Groceries From Supermarket',
     isChecked: true,
+    id: 7,
   },
-];
+]
 
 function App() {
   return (
-    <IconContext.Provider
-      value={{
-        color: '#4fc41d',
-        size: 32,
-        weight: 'bold',
-      }}
-    >
-      <div className="wrapper">
-        <h1 className="heading-1">Tasks</h1>
-        <ul className="todo__list">
-          {todos.map(todo => (
-            <li key={todo.text}>
-              <article className="todo__list-item">
-                <label for={todo.text} className="todo__list-label">
-                  {todo.isChecked && (
-                    <CheckSquare className="list-item__icon" weight="fill" />
-                  )}
-                  {!todo.isChecked && <Square className="list-item__icon" />}
-                  <input
-                    type="checkbox"
-                    id={todo.text}
-                    className="list-item__checkbox"
-                  />
-                  <span className="list-item__text">{todo.text}</span>
-                </label>
-              </article>
-            </li>
-          ))}
-        </ul>
-        <button type="submit" className="button-add">
-          +
-        </button>
-      </div>
-    </IconContext.Provider>
-  );
+    <div className="wrapper">
+      <h1 className="title">Tasks</h1>
+      <TodoList todos={todos} />
+      <Button type="submit" shape="round">
+        +
+      </Button>
+    </div>
+  )
 }
 
-export default App;
+export default App

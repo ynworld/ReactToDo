@@ -1,0 +1,6 @@
+.todo__list-item {
+  padding: 1.6rem;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 2px 1px 10px #ddd;
+}
