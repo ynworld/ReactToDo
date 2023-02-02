@@ -1,6 +1,5 @@
-import { Button } from './components/Button'
+import { Button, TodoList } from './components'
 import { AddCircleIcon } from './components/icons'
-import { TodoList } from './components/TodoList'
 
 import './App.css'
 
