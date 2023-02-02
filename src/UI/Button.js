@@ -1,9 +1,11 @@
 import './Button.css'
 
 const Button = (props) => {
+  const { type, shape, text } = props
+
   return (
-    <button type={props.type} className={`button-${props.style}`}>
-      {props.text}
+    <button type={type} className={`button-${shape}`}>
+      {text}
     </button>
   )
 }

@@ -45,7 +45,7 @@ function App() {
   return (
     <Wrapper title="Tasks">
       <TodoList todos={todos} />
-      <Button type="submit" style="round" text="+" />
+      <Button type="submit" shape="round" text="+" />
     </Wrapper>
   )
 }
