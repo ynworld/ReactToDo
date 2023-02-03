@@ -1,29 +1,24 @@
+import { useEffect, useState } from 'react'
+
+import AppStore from './stores/AppStore'
+
 import { Button, TodoList } from './components'
 import { AddCircleIcon } from './components/icons'
 
-import ListItem from './store/ListItem'
-import ListStore from './store/ListStore'
-
 import './App.css'
 
-const todos = new ListStore([
-  new ListItem(
-    'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
-  ),
-  new ListItem('CS-121 Assignment Deadline on Monday'),
-  new ListItem('Get the electric bulb repaired'),
-  new ListItem('Soccer Club Meeting @ Sunday'),
-  new ListItem("Buy Gift for Dad's Birthday"),
-  new ListItem('Submit Assignment on Friday'),
-  new ListItem('Get the electric bulb repaired'),
-])
-
 const App = () => {
+  const [appStore] = useState(() => new AppStore())
+
+  useEffect(() => {
+    appStore.loadTodoList()
+  }, [])
+
   return (
     <div className="wrapper">
       <h1 className="title">Tasks</h1>
-      <TodoList todos={todos.items} />
-      <Button type="submit" shape="round" addItem={todos.addItem}>
+      <TodoList todos={appStore.todoList.items} />
+      <Button type="submit" shape="round" addItem={appStore.todoList.addItem}>
         <AddCircleIcon />
       </Button>
     </div>

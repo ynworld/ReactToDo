@@ -4,11 +4,11 @@ import './TodoItem.css'
 import { CheckboxField } from '../CheckboxField'
 
 const TodoItem = observer(({ todo }) => {
-  const { id, title, isChecked, toggle } = todo
+  const { id, text, isChecked, toggle } = todo
 
   return (
     <article className="todo__list-item">
-      <CheckboxField id={id} label={title} isChecked={isChecked} onChange={toggle} />
+      <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
     </article>
   )
 })
