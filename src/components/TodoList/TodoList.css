@@ -4,3 +4,16 @@
   gap: 1.6rem;
   margin: 2rem 0rem;
 }
+
+.list-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit__icons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+  width: 2.4rem;
+}

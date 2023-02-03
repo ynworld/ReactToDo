@@ -1,4 +1,5 @@
 .todo__list-item {
+  flex-grow: 1;
   padding: 1.6rem;
   border: 1px solid #eee;
   border-radius: 5px;

@@ -1,2 +1,5 @@
 export { default as AddIcon } from './AddIcon'
 export { default as AddCircleIcon } from './AddCircleIcon'
+export { default as TrashIcon } from './TrashIcon'
+export { default as EditIcon } from './EditIcon'
+export { default as EllipsisHorizontalIcon } from './EllipsisHorizontalIcon'
