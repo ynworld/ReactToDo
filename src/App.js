@@ -10,21 +10,27 @@ import './App.css'
 
 const App = () => {
   const [appStore] = useState(() => new AppStore())
-  const isLoading = appStore.isLoading
 
   useEffect(() => {
     appStore.loadTodoList()
   }, [])
 
+  const { isLoading, todoList} = appStore
+
   return (
-    <div className="wrapper">
-      <h1 className="title">Tasks</h1>
-      {isLoading && <Loading text="Tasks are Loading" />}
-      <TodoList todos={appStore.todoList.items} />
-      <Button shape="round" onClick={appStore.todoList.addItem}>
-        <AddCircleIcon />
-      </Button>
-    </div>
+    <main className="wrapper">
+      {isLoading ? (
+        <Loading text="Tasks are Loading" />
+      ) : (
+        <>
+          <h1 className="title">Tasks</h1>
+          <TodoList todos={todoList.items} />
+          <Button shape="round" onClick={todoList.addItem}>
+            <AddCircleIcon />
+          </Button>
+        </>
+      )}
+    </main>
   )
 }
 
