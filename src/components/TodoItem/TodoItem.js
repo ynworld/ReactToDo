@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import './TodoItem.css'
 import { CheckboxField } from '../CheckboxField'
 
-const TodoItem = observer(({ todo }) => {
+const TodoItem = ({ todo }) => {
   const { id, text, isChecked, toggle } = todo
 
   return (
@@ -11,6 +11,6 @@ const TodoItem = observer(({ todo }) => {
       <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
     </article>
   )
-})
+}
 
-export default TodoItem
+export default observer(TodoItem)

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
 
 import AppStore from './stores/AppStore'
 
@@ -18,11 +19,11 @@ const App = () => {
     <div className="wrapper">
       <h1 className="title">Tasks</h1>
       <TodoList todos={appStore.todoList.items} />
-      <Button type="submit" shape="round" addItem={appStore.todoList.addItem}>
+      <Button shape="round" onClick={appStore.todoList.addItem}>
         <AddCircleIcon />
       </Button>
     </div>
   )
 }
 
-export default App
+export default observer(App)
