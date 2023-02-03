@@ -1,0 +1,7 @@
+.input__container {
+  margin: 3rem 0;
+  padding: 1.6rem;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 2px 1px 10px #ddd;
+}

@@ -32,6 +32,6 @@ const App = () => {
       )}
     </main>
   )
-}
+})
 
 export default observer(App)
