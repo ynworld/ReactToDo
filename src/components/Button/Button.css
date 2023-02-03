@@ -1,5 +1,6 @@
 .button {
   display: flex;
+  justify-content: center;
   align-items: center;
   border: none;
   background-color: #4fc41d;
@@ -19,16 +20,13 @@
 
 /* Small Rectangle */
 .button-small-rectangle {
+  width: 4.8rem;
+  height: 3.2rem;
   color: #fff;
   font-weight: 600;
   border-radius: 4px;
   padding: 0.8rem;
   font-size: 1.2rem;
-}
-
-.button-small-rectangle:hover {
-  color: #4fc41d;
-  background-color: #fff;
 }
 
 /* Round Button */
