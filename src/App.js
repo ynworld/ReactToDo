@@ -1,52 +1,28 @@
 import { Button, TodoList } from './components'
 import { AddCircleIcon } from './components/icons'
 
+import ListItem from './store/ListItem'
+import ListStore from './store/ListStore'
+
 import './App.css'
 
-const todos = [
-  {
-    text: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
-    isChecked: false,
-    id: 1,
-  },
+const todos = new ListStore([
+  new ListItem(
+    'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
+  ),
+  new ListItem('CS-121 Assignment Deadline on Monday'),
+  new ListItem('Get the electric bulb repaired'),
+  new ListItem('Soccer Club Meeting @ Sunday'),
+  new ListItem("Buy Gift for Dad's Birthday"),
+  new ListItem('Submit Assignment on Friday'),
+  new ListItem('Get the electric bulb repaired'),
+])
 
-  {
-    text: 'CS-121 Assignment Deadline on Monday',
-    isChecked: false,
-    id: 2,
-  },
-  {
-    text: 'Get the electric bulb repaired',
-    isChecked: false,
-    id: 3,
-  },
-  {
-    text: 'Soccer Club Meeting @ Sunday',
-    isChecked: true,
-    id: 4,
-  },
-  {
-    text: "Buy Gift for Dad's Birthday",
-    isChecked: true,
-    id: 5,
-  },
-  {
-    text: 'Submit Assignment on Friday',
-    isChecked: true,
-    id: 6,
-  },
-  {
-    text: 'Bring Groceries From Supermarket',
-    isChecked: true,
-    id: 7,
-  },
-]
-
-function App() {
+const App = () => {
   return (
     <div className="wrapper">
       <h1 className="title">Tasks</h1>
-      <TodoList todos={todos} />
+      <TodoList todos={todos.items} />
       <Button type="submit" shape="round">
         <AddCircleIcon />
       </Button>
