@@ -23,7 +23,7 @@ const App = () => {
     <div className="wrapper">
       <h1 className="title">Tasks</h1>
       <TodoList todos={todos.items} />
-      <Button type="submit" shape="round">
+      <Button type="submit" shape="round" addItem={todos.addItem}>
         <AddCircleIcon />
       </Button>
     </div>

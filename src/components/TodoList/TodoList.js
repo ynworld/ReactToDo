@@ -1,7 +1,8 @@
+import { observer } from 'mobx-react'
 import { TodoItem } from '../TodoItem'
 import './TodoList.css'
 
-const TodoList = ({ todos }) => {
+const TodoList = observer(({ todos }) => {
   return (
     <ul className="todo__list">
       {todos.map((todo) => (
@@ -11,6 +12,6 @@ const TodoList = ({ todos }) => {
       ))}
     </ul>
   )
-}
+})
 
 export default TodoList
