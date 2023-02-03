@@ -7,6 +7,7 @@ class TodoListStore {
   constructor() {
     makeObservable(this, {
       items: observable,
+      addItem: action.bound,
       setItems: action.bound,
     })
   }
