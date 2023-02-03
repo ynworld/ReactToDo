@@ -20,7 +20,9 @@ class ListStore {
   }
 
   addItem(item) {
-    this.items = [new ListItem(item), ...this.items]
+    if (item.trim().length !== 0) {
+      this.items = [new ListItem(item), ...this.items]
+    }
     this.isAdding = false
   }
 }
