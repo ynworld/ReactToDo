@@ -1,11 +1,13 @@
 import { TodoListStore } from './TodoListStore'
-import { todoItems } from '../mocks/todo-items'
+import { getTodoList } from '../api/get-todo-list'
 
 class AppStore {
   todoList = new TodoListStore()
 
   loadTodoList() {
-    this.todoList.setItems(todoItems)
+    getTodoList().then((data) => {
+      this.todoList.setItems(data.items)
+    })
   }
 }
 
