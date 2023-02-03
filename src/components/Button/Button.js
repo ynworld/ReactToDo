@@ -1,12 +1,18 @@
-import './Button.css'
+import { observer } from 'mobx-react'
 import classnames from 'classnames'
+
+import './Button.css'
 
 const Button = ({ className, children, type = 'button', shape, ...restProps }) => {
   return (
-    <button type={type} className={classnames(`button-${shape}`, className)} {...restProps}>
+    <button
+      type={type}
+      className={classnames(`button-${shape}`, className)}
+      {...restProps}
+    >
       {children}
     </button>
   )
 }
 
-export default Button
+export default observer(Button)

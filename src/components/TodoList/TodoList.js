@@ -1,3 +1,5 @@
+import { observer } from 'mobx-react'
+
 import { TodoItem } from '../TodoItem'
 import './TodoList.css'
 
@@ -13,4 +15,4 @@ const TodoList = ({ todos }) => {
   )
 }
 
-export default TodoList
+export default observer(TodoList)
