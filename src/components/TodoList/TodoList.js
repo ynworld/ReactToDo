@@ -5,7 +5,8 @@ import './TodoList.css'
 
 import { TrashIcon, EditIcon } from '../icons'
 
-const TodoList = ({ todos, editItem }) => {
+const TodoList = ({ todoList }) => {
+  const { items: todos, deleteItem } = todoList
   return (
     <ul className="todo__list">
       {todos.map((todo) => (
@@ -15,7 +16,7 @@ const TodoList = ({ todos, editItem }) => {
             <span onClick={todo.setIsEditing.bind(null, true)}>
               <EditIcon className="edit__icons-icon" />
             </span>
-            <span>
+            <span onClick={deleteItem.bind(null, todo.id)}>
               <TrashIcon className="edit__icons-icon" />
             </span>
           </div>

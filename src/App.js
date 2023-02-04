@@ -20,7 +20,7 @@ const App = () => {
   return (
     <main className="wrapper">
       <h1 className="title">Tasks</h1>
-      {isLoading ? <Loading text="Tasks are Loading" /> : <TodoList todos={todoList.items} />}
+      {isLoading ? <Loading text="Tasks are Loading" /> : <TodoList todoList={todoList} />}
       <Button shape="round" className="top-right" onClick={() => {}}>
         <AddCircleIcon />
       </Button>
