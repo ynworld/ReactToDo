@@ -1,4 +1,6 @@
-import { makeObservable, observable, action } from 'mobx'
+import { makeObservable, observable, action, runInAction } from 'mobx'
+import { post } from '../../api'
+
 import TodoListItem from './TodoListItem'
 
 class TodoListStore {
@@ -12,8 +14,12 @@ class TodoListStore {
     })
   }
 
-  addItem(item) {
-    this.items.unshift(new TodoListItem(item))
+  addItem() {
+    post('/api/todos', { text: 'New Todo' }).then(({ todoItem }) => {
+      runInAction(() => {
+        this.items.unshift(new TodoListItem(todoItem))
+      })
+    })
   }
 
   setItems(items) {
