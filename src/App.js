@@ -27,7 +27,7 @@ const App = () => {
       <h1 className="title">Tasks</h1>
       {isAdding && <NewTodo addItem={addItemHandler} />}
       {isLoading ? <Loading text="Tasks are Loading" /> : <TodoList todos={todoList.items} />}
-      <Button shape="round" className="top-right" onClick={setIsAdding.bind(null, true)}>
+      <Button shape="round" className="top-right" onClick={() => {}}>
         <AddCircleIcon />
       </Button>
     </main>

@@ -5,23 +5,16 @@ import { makeObservable, observable, action } from 'mobx'
 class AppStore {
   todoList = new TodoListStore()
   isLoading = true
-  isAdding = false
 
   constructor() {
     makeObservable(this, {
       isLoading: observable,
-      isAdding: observable,
       setIsLoading: action.bound,
-      setIsAdding: action.bound,
     })
   }
 
   setIsLoading(value) {
     this.isLoading = value
-  }
-
-  setIsAdding(value) {
-    this.isAdding = value
   }
 
   loadTodoList() {
