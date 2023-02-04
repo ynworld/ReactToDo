@@ -4,5 +4,5 @@ export const getTodoList = () =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve({ items: todoItems })
-    }, 100)
+    }, 1000)
   })

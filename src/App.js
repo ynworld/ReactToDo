@@ -19,11 +19,17 @@ const App = () => {
 
   return (
     <main className="wrapper">
-      <h1 className="title">Tasks</h1>
-      {isLoading ? <Loading text="Tasks are Loading" /> : <TodoList todoList={todoList} />}
-      <Button shape="round" className="top-right" onClick={todoList.addNewItem}>
-        <AddCircleIcon />
-      </Button>
+      {isLoading ? (
+        <Loading text="Tasks are Loading" />
+      ) : (
+        <>
+          <h1 className="title">Tasks</h1>
+          <TodoList todoList={todoList} />
+          <Button shape="round" className="top-right" onClick={todoList.addNewItem}>
+            <AddCircleIcon />
+          </Button>
+        </>
+      )}
     </main>
   )
 }
