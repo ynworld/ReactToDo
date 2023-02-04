@@ -6,20 +6,14 @@ import './CheckboxField.css'
 import { Button } from '../../components'
 import { CheckCircleIcon } from '../icons'
 
-const CheckboxField = ({ todo, deleteItem }) => {
+const CheckboxField = ({ todo, deleteItem, passInputValue }) => {
   const { text, id, isChecked, isEditing, editItem, toggle } = todo
 
   const [inputValue, setInputValue] = useState(text || '')
 
   const inputChangeHandler = (event) => {
     setInputValue(event.target.value)
-  }
-
-  const submitEditHandler = (event) => {
-    event.preventDefault()
-    const text = event.target[0].value.trim()
-    if (text.length !== 0) editItem(text)
-    else deleteItem(id)
+    passInputValue(event.target.value)
   }
 
   return (
@@ -27,19 +21,14 @@ const CheckboxField = ({ todo, deleteItem }) => {
       <input type="checkbox" id={id} className="checkbox" checked={isChecked} onChange={toggle} />
       <span className="checkbox-custom" />
       {isEditing ? (
-        <form onSubmit={submitEditHandler} className="input__form">
-          <input
-            id="input"
-            type="text"
-            value={inputValue}
-            placeholder="New To Do"
-            className="input"
-            onChange={inputChangeHandler}
-          />
-          <Button type="submit" shape="small-rectangle">
-            <CheckCircleIcon className="icon" />
-          </Button>
-        </form>
+        <input
+          id="input"
+          type="text"
+          value={inputValue}
+          placeholder="New To Do"
+          className="input"
+          onChange={inputChangeHandler}
+        />
       ) : (
         <span className="checkbox__text">{text}</span>
       )}
