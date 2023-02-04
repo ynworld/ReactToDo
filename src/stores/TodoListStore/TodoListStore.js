@@ -19,7 +19,7 @@ class TodoListStore {
   }
 
   addNewItem(item) {
-    this.items.unshift(new TodoListItem(item))
+    this.items.unshift(new TodoListItem(item, this))
   }
 
   deleteItem(todoItem) {
@@ -27,7 +27,7 @@ class TodoListStore {
   }
 
   setItems(items) {
-    const itemModels = items.map((item) => new TodoListItem(item))
+    const itemModels = items.map((item) => new TodoListItem(item, this))
 
     this.items.replace(itemModels)
   }

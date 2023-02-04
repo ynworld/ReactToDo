@@ -6,7 +6,7 @@ class TodoListItem {
   isChecked = false
   isEditing = false
 
-  constructor({ id, text, isChecked }) {
+  constructor({ id, text, isChecked }, todoListStore) {
     makeObservable(this, {
       text: observable,
       isChecked: observable,
@@ -21,10 +21,16 @@ class TodoListItem {
     this.isChecked = isChecked
     this.text = text || ''
     this.isEditing = !id
+
+    this.todoListStore = todoListStore
   }
 
   get key() {
     return this.id || 'new-todo-item'
+  }
+
+  delete() {
+    this.todoListStore.deleteItem(this)
   }
 
   setText(value) {
