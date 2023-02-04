@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react'
+import { useState } from 'react'
 
 import { CheckboxField } from '../CheckboxField'
 import { CheckCircleIcon, CloseIcon, EditIcon, TrashIcon } from '../icons'
@@ -6,34 +7,38 @@ import { CheckCircleIcon, CloseIcon, EditIcon, TrashIcon } from '../icons'
 import './TodoItem.css'
 
 const TodoItem = ({ todo, canEdit, deleteItem }) => {
-  let inputValue = ''
+  const [todoText, setTodoText] = useState(todo.text || '')
 
-  const passInputValue = (text) => {
-    inputValue = text
+  const handleTodoTextChange = ({ target: { value } }) => {
+    setTodoText(value)
   }
 
   const handleSubmit = () => {
-    let text = ''
-    if (inputValue === '') text = todo.text
-    else text = inputValue
-    if (text.trim().length !== 0) todo.editItem(text)
-    else todo.editItem('New To Do')
+    const isTodoTextEmpty = todoText.trim().length === 0
+
+    if (todo.id) {
+      todo.setText(isTodoTextEmpty ? todo.text : todoText)
+    } else {
+      todo.setText(isTodoTextEmpty ? 'New Todo' : todoText)
+      todo.setId(Math.random())
+    }
+
+    todo.finishEdit()
   }
 
   const handleEditCancel = () => {
-    if (!todo.id) {
+    if (todo.id) {
+      setTodoText(todo.text)
+      todo.finishEdit()
+    } else {
       deleteItem(todo)
-
-      return
     }
-
-    todo.setIsEditing(false)
   }
 
-  const handleEditingStart = () => {
+  const handleEditStart = () => {
     if (!canEdit) return
 
-    todo.setIsEditing(true)
+    todo.startEdit()
   }
 
   const handleItemDelete = () => {
@@ -42,7 +47,23 @@ const TodoItem = ({ todo, canEdit, deleteItem }) => {
 
   return (
     <article className="todo__list-item">
-      <CheckboxField todo={todo} deleteItem={deleteItem} passInputValue={passInputValue} />
+      {todo.isEditing ? (
+        <input
+          id="input"
+          type="text"
+          value={todoText}
+          placeholder="I have to..."
+          className="input"
+          onChange={handleTodoTextChange}
+        />
+      ) : (
+        <CheckboxField
+          id={todo.id}
+          label={todo.text}
+          onChange={todo.toggle}
+          isChecked={todo.isChecked}
+        />
+      )}
       <div className="edit__icons">
         {todo.isEditing ? (
           <>
@@ -55,7 +76,7 @@ const TodoItem = ({ todo, canEdit, deleteItem }) => {
           </>
         ) : (
           <>
-            <span onClick={handleEditingStart}>
+            <span onClick={handleEditStart}>
               <EditIcon className="edit__icons-icon" />
             </span>
             <span onClick={handleItemDelete}>

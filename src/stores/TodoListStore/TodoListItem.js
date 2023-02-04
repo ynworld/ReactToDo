@@ -12,8 +12,9 @@ class TodoListItem {
       isChecked: observable,
       isEditing: observable,
       toggle: action.bound,
-      setIsEditing: action.bound,
-      editItem: action.bound,
+      setIsEditing: action,
+      setText: action,
+      setId: action,
     })
 
     this.id = id
@@ -26,8 +27,19 @@ class TodoListItem {
     return this.id || 'new-todo-item'
   }
 
-  editItem(text) {
-    this.text = text
+  setText(value) {
+    this.text = value
+  }
+
+  startEdit() {
+    this.setIsEditing(true)
+  }
+
+  setId(id) {
+    this.id = id
+  }
+
+  finishEdit() {
     this.setIsEditing(false)
   }
 
