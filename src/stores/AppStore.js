@@ -9,7 +9,7 @@ class AppStore {
   constructor() {
     makeObservable(this, {
       isLoading: observable,
-      setIsLoading: action.bound,
+      setIsLoading: action,
     })
   }
 
@@ -18,7 +18,6 @@ class AppStore {
   }
 
   loadTodoList() {
-    this.setIsLoading(true)
     getTodoList().then((data) => {
       this.todoList.setItems(data.items)
       this.setIsLoading(false)
