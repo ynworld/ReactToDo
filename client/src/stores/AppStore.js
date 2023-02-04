@@ -1,5 +1,6 @@
 import { TodoListStore } from './TodoListStore'
 import { makeObservable, observable, action } from 'mobx'
+import { get } from '../api'
 
 class AppStore {
   todoList = new TodoListStore()
@@ -17,7 +18,7 @@ class AppStore {
   }
 
   loadTodoList() {
-    fetch('/api/todo-list').then((response) => response.json()).then(({ todoList }) => {
+    get('/api/todo-list').then(({ todoList }) => {
       this.todoList.setItems(todoList)
       this.setIsLoading(false)
     })
