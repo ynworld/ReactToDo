@@ -1,5 +1,6 @@
 .label {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
   gap: 1.2rem;
   cursor: pointer;
