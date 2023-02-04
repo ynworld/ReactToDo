@@ -12,13 +12,16 @@ const TodoList = ({ todoList }) => {
   }
 
   const submitEditHandler = (todo) => {
-    const text = inputValue.trim()
-    if (text.length !== 0) todo.editItem(text)
-    else todoList.deleteItem(todo.id)
+    let text = ''
+    if (inputValue === '') text = todo.text
+    else text = inputValue
+    if (text.trim().length !== 0) todo.editItem(text)
+    else todo.editItem('New To Do')
   }
 
   const cancelEditHandler = (todo) => {
-    todoList.deleteItem(todo.id)
+    if (todo.isNew) todoList.deleteItem(todo.id)
+    else todo.setIsEditing(false)
   }
 
   const { items: todos, deleteItem } = todoList
