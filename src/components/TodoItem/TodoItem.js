@@ -12,7 +12,7 @@ const TodoItem = ({ todo, canEdit, deleteItem }) => {
     inputValue = text
   }
 
-  const submitEditHandler = (todo) => {
+  const handleSubmit = () => {
     let text = ''
     if (inputValue === '') text = todo.text
     else text = inputValue
@@ -20,7 +20,7 @@ const TodoItem = ({ todo, canEdit, deleteItem }) => {
     else todo.editItem('New To Do')
   }
 
-  const cancelEditHandler = (todo) => {
+  const handleEditCancel = () => {
     if (!todo.id) {
       deleteItem(todo)
 
@@ -30,25 +30,35 @@ const TodoItem = ({ todo, canEdit, deleteItem }) => {
     todo.setIsEditing(false)
   }
 
+  const handleEditingStart = () => {
+    if (!canEdit) return
+
+    todo.setIsEditing(true)
+  }
+
+  const handleItemDelete = () => {
+    deleteItem(todo)
+  }
+
   return (
     <article className="todo__list-item">
       <CheckboxField todo={todo} deleteItem={deleteItem} passInputValue={passInputValue} />
       <div className="edit__icons">
         {todo.isEditing ? (
           <>
-            <span onClick={cancelEditHandler.bind(null, todo)}>
+            <span onClick={handleEditCancel}>
               <CloseIcon className="edit__icons-icon" />
             </span>
-            <span onClick={submitEditHandler.bind(null, todo)}>
+            <span onClick={handleSubmit}>
               <CheckCircleIcon className="edit__icons-icon" />
             </span>
           </>
         ) : (
           <>
-            <span onClick={canEdit ? todo.setIsEditing.bind(null, true) : undefined}>
+            <span onClick={handleEditingStart}>
               <EditIcon className="edit__icons-icon" />
             </span>
-            <span onClick={deleteItem.bind(null, todo)}>
+            <span onClick={handleItemDelete}>
               <TrashIcon className="edit__icons-icon" />
             </span>
           </>
