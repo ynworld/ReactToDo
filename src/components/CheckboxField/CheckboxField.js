@@ -8,7 +8,6 @@ import { CheckCircleIcon } from '../icons'
 
 const CheckboxField = ({ todo, deleteItem }) => {
   const { text, id, isChecked, isEditing, editItem, toggle } = todo
-  console.log(deleteItem)
 
   const [inputValue, setInputValue] = useState(text || '')
 

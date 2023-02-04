@@ -12,3 +12,9 @@
   margin-bottom: 1.6rem;
   color: #333;
 }
+
+.circle-icon {
+  width: 3.4rem;
+  stroke-width: 1.6;
+  color: #eee;
+}
