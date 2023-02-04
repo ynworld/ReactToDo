@@ -7,13 +7,8 @@ class TodoListStore {
   constructor() {
     makeObservable(this, {
       items: observable,
-      addItem: action.bound,
       setItems: action.bound,
     })
-  }
-
-  addItem(item) {
-    this.items.unshift(new TodoListItem(item))
   }
 
   setItems(items) {

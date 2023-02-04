@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 
 import AppStore from './stores/AppStore'
 
-import { Button, TodoList, Loading, NewTodo } from './components'
+import { Button, TodoList, Loading } from './components'
 import { AddCircleIcon } from './components/icons'
 
 import './App.css'
@@ -15,17 +15,11 @@ const App = () => {
     appStore.loadTodoList()
   }, [])
 
-  const { isLoading, isAdding, todoList, setIsAdding } = appStore
-
-  const addItemHandler = (event) => {
-    event.preventDefault()
-    todoList.addItem({ text: event.target[0].value })
-  }
+  const { isLoading, todoList } = appStore
 
   return (
     <main className="wrapper">
       <h1 className="title">Tasks</h1>
-      {isAdding && <NewTodo addItem={addItemHandler} />}
       {isLoading ? <Loading text="Tasks are Loading" /> : <TodoList todos={todoList.items} />}
       <Button shape="round" className="top-right" onClick={() => {}}>
         <AddCircleIcon />

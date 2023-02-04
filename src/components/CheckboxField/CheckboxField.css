@@ -10,7 +10,7 @@
   visibility: hidden;
 }
 
-.checkbox__label {
+.checkbox__text {
   padding: 0.5rem;
   font-size: 1.4rem;
   color: #333;
@@ -122,4 +122,39 @@ input:checked ~ .checkbox-custom::before {
     transform: scale(0);
     opacity: 0;
   }
+}
+
+/* Input Form */
+
+.input__form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  height: 3rem;
+  padding: 1rem;
+}
+
+.input {
+  flex-grow: 1;
+  height: 3.2rem;
+  padding: 8px;
+  border: 2px solid #4fc41d;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.input:focus {
+  outline: none;
+  border: 2px solid #4fc41d;
+  box-shadow: 1px 2px 5px #1d4f08;
+}
+
+/* Icons */
+
+.icon {
+  color: #eee;
+  width: 2.4rem;
+  stroke-width: 1.8;
 }

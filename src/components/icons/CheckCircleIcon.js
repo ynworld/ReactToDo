@@ -1,4 +1,4 @@
-const EllipsisHorizontalIcon = ({ className }) => {
+const CheckCircleIcon = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,10 +11,10 @@ const EllipsisHorizontalIcon = ({ className }) => {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
   )
 }
 
-export default EllipsisHorizontalIcon
+export default CheckCircleIcon
