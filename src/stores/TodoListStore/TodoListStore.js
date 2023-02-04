@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from 'mobx'
+import { makeObservable, observable, action, computed } from 'mobx'
 import TodoListItem from './TodoListItem'
 
 class TodoListStore {
@@ -6,11 +6,16 @@ class TodoListStore {
 
   constructor() {
     makeObservable(this, {
+      hasItemInEditingMode: computed,
       items: observable,
       setItems: action.bound,
       addNewItem: action.bound,
       deleteItem: action.bound,
     })
+  }
+
+  get hasItemInEditingMode() {
+    return this.items.some((item) => item.isEditing)
   }
 
   addNewItem(item) {

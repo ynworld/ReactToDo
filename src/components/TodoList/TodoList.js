@@ -11,6 +11,10 @@ const TodoList = ({ todoList }) => {
     inputValue = text
   }
 
+  const { hasItemInEditingMode, items: todos, deleteItem } = todoList
+
+  const canEdit = !hasItemInEditingMode
+
   const submitEditHandler = (todo) => {
     let text = ''
     if (inputValue === '') text = todo.text
@@ -21,15 +25,13 @@ const TodoList = ({ todoList }) => {
 
   const cancelEditHandler = (todo) => {
     if (!todo.id) {
-      todoList.deleteItem(todo)
+      deleteItem(todo)
 
       return
     }
 
     todo.setIsEditing(false)
   }
-
-  const { items: todos, deleteItem } = todoList
 
   return (
     <ul className="todo__list">
@@ -48,7 +50,7 @@ const TodoList = ({ todoList }) => {
               </>
             ) : (
               <>
-                <span onClick={todo.setIsEditing.bind(null, true)}>
+                <span onClick={canEdit ? todo.setIsEditing.bind(null, true) : undefined}>
                   <EditIcon className="edit__icons-icon" />
                 </span>
                 <span onClick={deleteItem.bind(null, todo)}>

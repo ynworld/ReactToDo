@@ -25,7 +25,13 @@ const App = () => {
         <>
           <h1 className="title">Tasks</h1>
           <TodoList todoList={todoList} />
-          <Button shape="round" className="top-right" onClick={todoList.addNewItem}>
+          <Button
+            // TODO: add disabled button styles
+            disabled={todoList.hasItemInEditingMode}
+            shape="round"
+            className="top-right"
+            onClick={todoList.addNewItem}
+          >
             <AddCircleIcon className="circle-icon" />
           </Button>
         </>
