@@ -13,8 +13,8 @@ class TodoListStore {
     })
   }
 
-  addNewItem() {
-    this.items.unshift(new TodoListItem({ isChecked: false, isEditing: true, isNew: true }))
+  addNewItem(item) {
+    this.items.unshift(new TodoListItem(item))
   }
 
   deleteItem(id) {

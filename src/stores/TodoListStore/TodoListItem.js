@@ -7,7 +7,7 @@ class TodoListItem {
   isEditing = false
   isNew = true
 
-  constructor({ id, text, isChecked, isEditing, isNew }) {
+  constructor({ id, text, isChecked, isNew }) {
     makeObservable(this, {
       text: observable,
       isChecked: observable,
@@ -22,7 +22,7 @@ class TodoListItem {
     this.id = id || Math.random()
     this.isChecked = isChecked
     this.text = text || ''
-    this.isEditing = isEditing
+    this.isEditing = !id
     this.isNew = isNew
   }
 
@@ -36,8 +36,8 @@ class TodoListItem {
     this.isChecked = !this.isChecked
   }
 
-  setIsEditing(value) {
-    this.isEditing = value
+  setIsEditing(isEditing) {
+    this.isEditing = isEditing
   }
 
   setNotIsNew() {
