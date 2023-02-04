@@ -11,7 +11,7 @@ const TodoList = ({ todoList }) => {
     <ul className="todo__list">
       {todos.map((todo) => (
         <li key={todo.id} className="list-item">
-          <TodoItem todo={todo} />
+          <TodoItem todo={todo} deleteItem={deleteItem} />
           <div className="edit__icons">
             <span onClick={todo.setIsEditing.bind(null, true)}>
               <EditIcon className="edit__icons-icon" />

@@ -6,8 +6,9 @@ import './CheckboxField.css'
 import { Button } from '../../components'
 import { CheckCircleIcon } from '../icons'
 
-const CheckboxField = ({ todo }) => {
+const CheckboxField = ({ todo, deleteItem }) => {
   const { text, id, isChecked, isEditing, editItem, toggle } = todo
+  console.log(deleteItem)
 
   const [inputValue, setInputValue] = useState(text || '')
 
@@ -17,7 +18,9 @@ const CheckboxField = ({ todo }) => {
 
   const submitEditHandler = (event) => {
     event.preventDefault()
-    editItem(event.target[0].value)
+    const text = event.target[0].value.trim()
+    if (text.length !== 0) editItem(text)
+    else deleteItem(id)
   }
 
   return (
