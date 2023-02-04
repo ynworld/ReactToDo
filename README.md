@@ -6,9 +6,10 @@ Todo app written with React + express
 
 ### How to run
 
+Prerequisites: `npm install` in both directories: `server` and `client`.
+
 ```shell
-cd server
-npm start
+cd server && npm start
 ```
 
 ### Current deploy
