@@ -18,7 +18,7 @@ class TodoListItem {
 
     this.id = id || Math.random()
     this.isChecked = isChecked
-    this.text = text || 'New Todo'
+    this.text = text || ''
     this.isEditing = isEditing
   }
 

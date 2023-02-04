@@ -8,8 +8,13 @@ class TodoListStore {
     makeObservable(this, {
       items: observable,
       setItems: action.bound,
+      addNewItem: action.bound,
       deleteItem: action.bound,
     })
+  }
+
+  addNewItem() {
+    this.items.unshift(new TodoListItem({ isChecked: false, isEditing: true }))
   }
 
   deleteItem(id) {
