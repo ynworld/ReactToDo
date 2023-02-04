@@ -1,4 +1,4 @@
-export const todoItems = [
+const todoItems = [
   {
     text: 'Dentist Appointment - Prepare the files and do the necessary tests suggested beforehand.',
     isChecked: false,
@@ -35,3 +35,5 @@ export const todoItems = [
     id: 7,
   },
 ]
+
+module.exports = todoItems
