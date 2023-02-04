@@ -17,9 +17,8 @@ class TodoListStore {
     this.items.unshift(new TodoListItem(item))
   }
 
-  deleteItem(id) {
-    const deleteIndex = this.items.findIndex((item) => item.id === id)
-    this.items.splice(deleteIndex, 1)
+  deleteItem(todoItem) {
+    this.items.remove(todoItem)
   }
 
   setItems(items) {

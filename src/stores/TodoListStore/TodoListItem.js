@@ -5,31 +5,30 @@ class TodoListItem {
   text = ''
   isChecked = false
   isEditing = false
-  isNew = true
 
-  constructor({ id, text, isChecked, isNew }) {
+  constructor({ id, text, isChecked }) {
     makeObservable(this, {
       text: observable,
       isChecked: observable,
       isEditing: observable,
-      isNew: observable,
       toggle: action.bound,
       setIsEditing: action.bound,
-      setNotIsNew: action.bound,
       editItem: action.bound,
     })
 
-    this.id = id || Math.random()
+    this.id = id
     this.isChecked = isChecked
     this.text = text || ''
     this.isEditing = !id
-    this.isNew = isNew
+  }
+
+  get key() {
+    return this.id || 'new-todo-item'
   }
 
   editItem(text) {
     this.text = text
     this.setIsEditing(false)
-    this.setNotIsNew()
   }
 
   toggle() {
@@ -38,10 +37,6 @@ class TodoListItem {
 
   setIsEditing(isEditing) {
     this.isEditing = isEditing
-  }
-
-  setNotIsNew() {
-    this.isNew = false
   }
 }
 

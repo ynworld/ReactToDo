@@ -20,15 +20,21 @@ const TodoList = ({ todoList }) => {
   }
 
   const cancelEditHandler = (todo) => {
-    if (todo.isNew) todoList.deleteItem(todo.id)
-    else todo.setIsEditing(false)
+    if (!todo.id) {
+      todoList.deleteItem(todo)
+
+      return
+    }
+
+    todo.setIsEditing(false)
   }
 
   const { items: todos, deleteItem } = todoList
+
   return (
     <ul className="todo__list">
       {todos.map((todo) => (
-        <li key={todo.id} className="list-item">
+        <li key={todo.key} className="list-item">
           <TodoItem todo={todo} deleteItem={deleteItem} passInputValue={passInputValue} />
           <div className="edit__icons">
             {todo.isEditing ? (
@@ -45,7 +51,7 @@ const TodoList = ({ todoList }) => {
                 <span onClick={todo.setIsEditing.bind(null, true)}>
                   <EditIcon className="edit__icons-icon" />
                 </span>
-                <span onClick={deleteItem.bind(null, todo.id)}>
+                <span onClick={deleteItem.bind(null, todo)}>
                   <TrashIcon className="edit__icons-icon" />
                 </span>
               </>
