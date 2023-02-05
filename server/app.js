@@ -3,6 +3,7 @@ const app = express()
 const port = process.env.PORT || 3131
 app.use(express.json())
 
+const _omit = require('lodash/omit')
 const todoList = require('./mocks/todo-list')
 
 const todoListItems = [...todoList]
@@ -32,6 +33,18 @@ app.delete('/api/todos/:id', (req, res) => {
     res.status(404).send('Todo item not found')
   } else {
     todoListItems.splice(itemIndex, 1)
+  }
+})
+
+app.put('/api/todos/:id', (req, res) => {
+  const todoId = Number(req.params.id)
+  const itemIndex = todoListItems.findIndex((item) => item.id !== todoId)
+
+  if (itemIndex === -1) {
+    res.status(404).send('Todo item not found')
+  } else {
+    todoListItems[itemIndex] = { ...todoListItems[itemIndex], ..._omit(req.body, 'id') }
+    res.send({ todoItem: todoListItems[itemIndex] })
   }
 })
 
