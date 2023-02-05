@@ -1,6 +1,6 @@
 import { TodoListStore } from './TodoListStore'
-import { getTodoList } from '../api/get-todo-list'
 import { makeObservable, observable, action } from 'mobx'
+import { get } from '../api'
 
 class AppStore {
   todoList = new TodoListStore()
@@ -18,9 +18,8 @@ class AppStore {
   }
 
   loadTodoList() {
-    this.setIsLoading(true)
-    getTodoList().then((data) => {
-      this.todoList.setItems(data.items)
+    get('/api/todo-list').then(({ todoList }) => {
+      this.todoList.setItems(todoList)
       this.setIsLoading(false)
     })
   }
