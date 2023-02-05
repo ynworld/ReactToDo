@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from 'mobx'
+import { makeObservable, observable, action, computed } from 'mobx'
 
 class TodoListItem {
   id = null
@@ -8,6 +8,7 @@ class TodoListItem {
 
   constructor({ id, text, isChecked }, todoListStore) {
     makeObservable(this, {
+      canEdit: computed,
       text: observable,
       isChecked: observable,
       isEditing: observable,
@@ -23,6 +24,10 @@ class TodoListItem {
     this.isEditing = !id
 
     this.todoListStore = todoListStore
+  }
+
+  get canEdit() {
+    return !this.todoListStore.hasItemInEditingMode
   }
 
   get key() {

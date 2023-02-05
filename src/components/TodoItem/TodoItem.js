@@ -6,7 +6,7 @@ import { CheckCircleIcon, CloseIcon, EditIcon, TrashIcon } from '../icons'
 
 import './TodoItem.css'
 
-const TodoItem = ({ todo, canEdit }) => {
+const TodoItem = ({ todo }) => {
   const [todoText, setTodoText] = useState(todo.text || '')
 
   const handleTodoTextChange = ({ target: { value } }) => {
@@ -28,7 +28,7 @@ const TodoItem = ({ todo, canEdit }) => {
 
   const handleEditCancel = () => {
     if (todo.id) {
-      setTodoText(todo.text)
+      setTodoText(todo.text) // Is it necessary?
       todo.finishEdit()
     } else {
       todo.delete()
@@ -36,7 +36,7 @@ const TodoItem = ({ todo, canEdit }) => {
   }
 
   const handleEditStart = () => {
-    if (!canEdit) return
+    if (!todo.canEdit) return
 
     todo.startEdit()
   }
