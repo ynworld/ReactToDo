@@ -24,6 +24,17 @@ app.post('/api/todos', (req, res) => {
   res.send({ todoItem: newItem })
 })
 
+app.delete('/api/todos/:id', (req, res) => {
+  const todoId = Number(req.params.id)
+  const itemIndex = todoListItems.findIndex((item) => item.id !== todoId)
+
+  if (itemIndex === -1) {
+    res.status(404).send('Todo item not found')
+  } else {
+    todoListItems.splice(itemIndex, 1)
+  }
+})
+
 app.listen(port, () => {
   console.log(`ReactToDo app listening at http://localhost:${port}`)
 })
