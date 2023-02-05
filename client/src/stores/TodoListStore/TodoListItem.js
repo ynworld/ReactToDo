@@ -5,9 +5,8 @@ class TodoListItem {
   text = ''
   isChecked = false
 
-  constructor({ id, text, isChecked, todoListStore }) {
+  constructor({ id, text, isChecked }, todoListStore) {
     makeObservable(this, {
-      todoListStore,
       text: observable,
       isChecked: observable,
       toggle: action.bound,
@@ -17,6 +16,8 @@ class TodoListItem {
     this.id = id || Math.random()
     this.isChecked = isChecked
     this.text = text || 'New Todo'
+
+    this.todoListStore = todoListStore
   }
 
   delete() {
