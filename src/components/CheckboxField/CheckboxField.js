@@ -6,10 +6,10 @@ import './CheckboxField.css'
 import { Button } from '../../components'
 import { CheckCircleIcon } from '../icons'
 
-const CheckboxField = ({ id, label, isChecked, onChange }) => {
+const CheckboxField = ({ todo: { id, isChecked, toggle } }) => {
   return (
     <label htmlFor={id} className="label">
-      <input type="checkbox" id={id} className="checkbox" checked={isChecked} onChange={onChange} />
+      <input type="checkbox" id={id} className="checkbox" checked={isChecked} onChange={toggle} />
       <span className="checkbox-custom" />
     </label>
   )
