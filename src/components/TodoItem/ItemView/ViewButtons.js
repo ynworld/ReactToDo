@@ -2,10 +2,10 @@ import { Button } from '../..'
 
 import { EditIcon, TrashIcon } from '../../icons'
 
-const ViewButtons = ({ handleEditStart, handleItemDelete }) => {
+const ViewButtons = ({ canEdit, handleEditStart, handleItemDelete }) => {
   return (
     <div className="view__icons">
-      <Button shape="" className="view__icon-button" onClick={handleEditStart}>
+      <Button shape="" className="view__icon-button" onClick={handleEditStart} disabled={!canEdit}>
         <EditIcon className="view__icon" />
       </Button>
       <Button shape="" className="view__icon-button" onClick={handleItemDelete}>

@@ -53,3 +53,9 @@
 .view__icon-button:hover .view__icon.delete {
   color: #7c1010;
 }
+
+.view__icon-button:disabled,
+.view__icon-button:disabled .view__icon {
+  cursor: default;
+  color: #ccc;
+}

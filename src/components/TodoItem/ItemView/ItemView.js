@@ -19,7 +19,11 @@ const ItemView = ({ todo }) => {
     <article className="view__container">
       <CheckboxField todo={todo} />
       <div className="item__text">{todo.text}</div>
-      <ViewButtons handleEditStart={handleEditStart} handleItemDelete={handleItemDelete} />
+      <ViewButtons
+        canEdit={todo.canEdit}
+        handleEditStart={handleEditStart}
+        handleItemDelete={handleItemDelete}
+      />
     </article>
   )
 }
