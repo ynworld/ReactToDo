@@ -26,7 +26,6 @@ const ItemEdit = ({ todo }) => {
 
   const handleEditCancel = () => {
     if (todo.id) {
-      setTodoText(todo.text) // Is it necessary?
       todo.finishEdit()
     } else {
       todo.delete()
