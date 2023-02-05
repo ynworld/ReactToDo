@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react'
 
-import { Button } from '../../'
-import { CloseIcon, CheckIcon } from '../../icons'
-
 import EditIcons from './EditIcons'
 import './ItemEdit.css'
 
