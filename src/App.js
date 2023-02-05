@@ -19,23 +19,16 @@ const App = () => {
 
   return (
     <main className="wrapper">
-      {isLoading ? (
-        <Loading text="Tasks are Loading" />
-      ) : (
-        <>
-          <h1 className="title">Tasks</h1>
-          <TodoList todoList={todoList} />
-          <Button
-            // TODO: add disabled button styles
-            disabled={todoList.hasItemInEditingMode}
-            shape="round"
-            className="top-right"
-            onClick={todoList.addNewItem}
-          >
-            <AddCircleIcon className="circle-icon" />
-          </Button>
-        </>
-      )}
+      <h1 className="title">Tasks</h1>
+      <Button
+        disabled={todoList.hasItemInEditingMode || isLoading}
+        shape="round"
+        className="add-button top-right"
+        onClick={todoList.addNewItem}
+      >
+        <AddCircleIcon className="add-icon" />
+      </Button>
+      {isLoading ? <Loading text="Tasks are Loading" /> : <TodoList todoList={todoList} />}
     </main>
   )
 }

@@ -3,36 +3,20 @@
   justify-content: center;
   align-items: center;
   border: none;
-  background-color: #4fc41d;
-  color: #eee;
-  font-size: 2.4rem;
-  box-shadow: 2px 2px 12px #aaa;
+
   transition: all 0.3s;
 }
 
-.button:hover,
 .button:focus {
   outline: none;
-  background-color: #268000;
 }
 
-.button:active {
-  box-shadow: 1px 0px 5px #aaa;
-}
-
-/* Small Rectangle */
-.button-small-rectangle {
-  width: 4.8rem;
-  height: 3.2rem;
-  color: #fff;
-  border-radius: 4px;
-  padding: 0.8rem;
+.button:disabled {
+  cursor: default;
 }
 
 /* Round Button */
 .button-round {
-  width: 4.8rem;
-  height: 4.8rem;
   border-radius: 100%;
 }
 
@@ -42,5 +26,3 @@
   top: 2rem;
   right: 2rem;
 }
-
-/* Icons */
