@@ -17,7 +17,12 @@ const ItemView = ({ todo }) => {
 
   return (
     <article className="view__container">
-      <CheckboxField todo={todo} />
+      <CheckboxField
+        id={todo.id}
+        label={todo.text}
+        onChange={todo.toggle}
+        isChecked={todo.isChecked}
+      />
       <ViewButtons
         canEdit={todo.canEdit}
         handleEditStart={handleEditStart}
