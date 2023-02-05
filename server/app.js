@@ -27,12 +27,13 @@ app.post('/api/todos', (req, res) => {
 
 app.delete('/api/todos/:id', (req, res) => {
   const todoId = Number(req.params.id)
-  const itemIndex = todoListItems.findIndex((item) => item.id !== todoId)
+  const itemIndex = todoListItems.findIndex((item) => item.id === todoId)
 
   if (itemIndex === -1) {
     res.status(404).send('Todo item not found')
   } else {
-    todoListItems.splice(itemIndex, 1)
+    const [removedItem] = todoListItems.splice(itemIndex, 1)
+    res.status(200).send({ todoItem: removedItem })
   }
 })
 
@@ -48,6 +49,10 @@ app.put('/api/todos/:id', (req, res) => {
   }
 })
 
-app.listen(port, () => {
-  console.log(`ReactToDo app listening at http://localhost:${port}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`ReactToDo app listening at http://localhost:${port}`)
+  })
+}
+
+module.exports = app
