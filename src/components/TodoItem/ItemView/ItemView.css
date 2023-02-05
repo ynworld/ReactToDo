@@ -1,13 +1,13 @@
 .view__container {
-  align-items: center;
-  flex: 1 1 auto;
   display: flex;
+  flex: 1 1 auto;
+  align-items: center;
   gap: 2rem;
 }
 
 .item__text {
-  flex: 1 1 0;
-  padding: 0.5rem;
+  flex: 1 1 auto;
+  padding: 5px;
   font-size: 1.4rem;
   color: #333;
 }
