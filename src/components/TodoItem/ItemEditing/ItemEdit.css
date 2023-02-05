@@ -5,7 +5,7 @@
 }
 
 .edit__input {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   height: 4.2rem;
   padding: 8px;
   border: 1px solid #4fc41d;
@@ -21,31 +21,38 @@
 
 .edit__icons {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
 .edit__icon-button {
-  width: 3rem;
-  height: 3rem;
-  background-color: #f4f2f2;
-  box-shadow: 1px 2px 9px #ccc;
-}
-
-.edit__icon-button:hover,
-.edit__icon-button:focus {
-  outline: none;
-  background-color: #fff;
-}
-
-.edit__icon-button:active {
-  box-shadow: 0px 1px 3px #ccc;
+  padding: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .edit__icon {
   color: #4fc41d;
-  stroke-width: 2.4;
+  stroke-width: 1.6;
+  transition: all 0.3s;
+}
+
+.edit__icon-button:hover,
+.edit__icon-button:active,
+.edit__icon-button:focus,
+.edit__icon-button:hover .edit__icon {
+  outline: none;
+  background-color: transparent;
+  color: #268000;
+  stroke-width: 1.8;
 }
 
 .cancel {
   color: #c41d1d;
+}
+
+.edit__icon-button:hover .edit__icon.cancel {
+  color: #7c1010;
 }
