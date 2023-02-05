@@ -42,6 +42,7 @@ const ItemEdit = ({ todo }) => {
         placeholder="I have to..."
         className="edit__input"
         onChange={handleTodoTextChange}
+        autoFocus
       />
       <EditIcons handleEditCancel={handleEditCancel} handleSubmit={handleSubmit} />
     </article>
