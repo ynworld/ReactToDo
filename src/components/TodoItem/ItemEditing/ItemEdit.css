@@ -29,6 +29,16 @@
   height: 3rem;
 }
 
+.cancel {
+  background: #d33232;
+}
+
+.cancel:hover,
+.cancel:focus {
+  outline: none;
+  background: #8e2121;
+}
+
 .edit__icon {
   color: #eee;
   stroke-width: 2.4;

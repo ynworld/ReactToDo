@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { observer } from 'mobx-react'
 
 import { Button } from '../../'
-import { CloseIcon, CheckCircleIcon } from '../../icons'
+import { CloseIcon, CheckIcon } from '../../icons'
 
 import './ItemEdit.css'
 
@@ -46,11 +46,11 @@ const ItemEdit = ({ todo }) => {
         onChange={handleTodoTextChange}
       />
       <div className="edit__icons">
-        <Button shape="round" className="edit__icon-button" onClick={handleEditCancel}>
+        <Button shape="round" className="edit__icon-button cancel" onClick={handleEditCancel}>
           <CloseIcon className="edit__icon" />
         </Button>
         <Button shape="round" className="edit__icon-button" onClick={handleSubmit}>
-          <CheckCircleIcon className="edit__icon" />
+          <CheckIcon className="edit__icon" />
         </Button>
       </div>
     </article>

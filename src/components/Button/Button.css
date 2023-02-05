@@ -10,7 +10,9 @@
   transition: all 0.3s;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
+  outline: none;
   background-color: #268000;
 }
 
