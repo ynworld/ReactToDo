@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import { Button } from '../../'
 import { CloseIcon, CheckIcon } from '../../icons'
 
+import EditIcons from './EditIcons'
 import './ItemEdit.css'
 
 const ItemEdit = ({ todo }) => {
@@ -45,14 +46,7 @@ const ItemEdit = ({ todo }) => {
         className="edit__input"
         onChange={handleTodoTextChange}
       />
-      <div className="edit__icons">
-        <Button shape="round" className="edit__icon-button cancel" onClick={handleEditCancel}>
-          <CloseIcon className="edit__icon" />
-        </Button>
-        <Button shape="round" className="edit__icon-button" onClick={handleSubmit}>
-          <CheckIcon className="edit__icon" />
-        </Button>
-      </div>
+      <EditIcons handleEditCancel={handleEditCancel} handleSubmit={handleSubmit} />
     </article>
   )
 }

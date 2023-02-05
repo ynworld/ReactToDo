@@ -27,19 +27,25 @@
 .edit__icon-button {
   width: 3rem;
   height: 3rem;
+  background-color: #f4f2f2;
+  box-shadow: 1px 2px 9px #ccc;
 }
 
-.cancel {
-  background: #d33232;
-}
-
-.cancel:hover,
-.cancel:focus {
+.edit__icon-button:hover,
+.edit__icon-button:focus {
   outline: none;
-  background: #8e2121;
+  background-color: #fff;
+}
+
+.edit__icon-button:active {
+  box-shadow: 0px 1px 3px #ccc;
 }
 
 .edit__icon {
-  color: #eee;
+  color: #4fc41d;
   stroke-width: 2.4;
+}
+
+.cancel {
+  color: #c41d1d;
 }
