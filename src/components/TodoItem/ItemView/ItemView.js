@@ -24,7 +24,7 @@ const ItemView = ({ todo }) => {
         isChecked={todo.isChecked}
       />
       <ViewButtons
-        canEdit={todo.canEdit}
+        todo={todo}
         handleEditStart={handleEditStart}
         handleItemDelete={handleItemDelete}
       />
