@@ -11,7 +11,6 @@ const CheckboxField = ({ id, label, isChecked, onChange }) => {
     <label htmlFor={id} className="label">
       <input type="checkbox" id={id} className="checkbox" checked={isChecked} onChange={onChange} />
       <span className="checkbox-custom" />
-      <span className="checkbox__text">{label}</span>
     </label>
   )
 }

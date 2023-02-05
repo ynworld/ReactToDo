@@ -1,0 +1,55 @@
+.view__container {
+  align-items: center;
+  flex: 1 1 auto;
+  display: flex;
+  gap: 2rem;
+}
+
+.item__text {
+  flex: 1 1 0;
+  padding: 0.5rem;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.view__icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.view__icon-button {
+  padding: 0;
+  display: inline;
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.view__icon-button:active {
+  box-shadow: 0px 1px 3px #ccc;
+}
+
+.view__icon {
+  color: #4fc41d;
+  stroke-width: 1.6;
+  transition: all 0.3s;
+}
+
+.view__icon-button:hover,
+.view__icon-button:active,
+.view__icon-button:focus,
+.view__icon-button:hover .view__icon {
+  outline: none;
+  background-color: transparent;
+  color: #268000;
+  stroke-width: 1.8;
+}
+
+.delete {
+  color: #c41d1d;
+}
+
+.view__icon-button:hover .view__icon.delete {
+  color: #7c1010;
+}

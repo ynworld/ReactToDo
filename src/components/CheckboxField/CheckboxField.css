@@ -1,6 +1,5 @@
 .label {
   display: flex;
-  flex: 1 1 auto;
   align-items: center;
   gap: 1.2rem;
   cursor: pointer;
@@ -9,12 +8,6 @@
 .checkbox {
   position: absolute;
   visibility: hidden;
-}
-
-.checkbox__text {
-  padding: 0.5rem;
-  font-size: 1.4rem;
-  color: #333;
 }
 
 /* Styled Checkbox */
