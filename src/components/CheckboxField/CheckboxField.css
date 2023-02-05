@@ -1,13 +1,21 @@
 .label {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.4rem;
   cursor: pointer;
 }
 
 .checkbox {
   position: absolute;
   visibility: hidden;
+}
+
+.checkbox__text {
+  flex: 1 1 auto;
+  padding: 5px 0;
+  font-size: 1.4rem;
+  color: #333;
 }
 
 /* Styled Checkbox */

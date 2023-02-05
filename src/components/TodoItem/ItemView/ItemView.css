@@ -2,14 +2,7 @@
   display: flex;
   flex: 1 1 auto;
   align-items: center;
-  gap: 2rem;
-}
-
-.item__text {
-  flex: 1 1 auto;
-  padding: 5px;
-  font-size: 1.4rem;
-  color: #333;
+  gap: 5px;
 }
 
 .view__icons {
