@@ -11,6 +11,7 @@ class TodoListStore {
       items: observable,
       addItem: action.bound,
       setItems: action.bound,
+      deleteItem: action.bound,
     })
   }
 
@@ -22,8 +23,12 @@ class TodoListStore {
     })
   }
 
+  deleteItem(todoItem) {
+    this.items.remove(todoItem)
+  }
+
   setItems(items) {
-    const itemModels = items.map((item) => new TodoListItem(item))
+    const itemModels = items.map((item) => new TodoListItem(item, this))
 
     this.items.replace(itemModels)
   }
