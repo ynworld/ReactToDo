@@ -1,53 +1,41 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
+
 const app = express()
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+app.use('/todos', require('./routes/todos'))
+
 const port = process.env.PORT || 3131
-app.use(express.json())
 
-const _omit = require('lodash/omit')
-const todoList = require('./mocks/todo-list')
+const options = {
+  apis: ['./routes/*.js'],
+  definition: {
+    servers: [{ url: `http://localhost:${port}` }],
+    openapi: '3.0.3',
+    info: {
+      license: {
+        name: 'MIT',
+        url: 'https://spdx.org/licenses/MIT.html',
+      },
+      contact: {
+        name: 'Aleksandr',
+        url: 'https://alexdus.com',
+        email: 'sd@alexdus.com',
+      },
+      description: 'Leaning app',
+      title: 'React Todo App',
+      version: '0.1.0',
+    },
+  },
+}
 
-const todoListItems = [...todoList]
+const specs = swaggerJSDoc(options)
 
-app.get('/api/todo-list', (req, res) => {
-  res.send({ todoList: todoListItems })
-})
-
-app.post('/api/todos', (req, res) => {
-  const todoItem = req.body
-
-  if (!todoItem) return
-
-  const { isChecked = false, text } = todoItem
-  const newItem = { id: Date.now(), isChecked, text }
-
-  todoListItems.unshift(newItem)
-
-  res.send({ todoItem: newItem })
-})
-
-app.delete('/api/todos/:id', (req, res) => {
-  const todoId = Number(req.params.id)
-  const itemIndex = todoListItems.findIndex((item) => item.id === todoId)
-
-  if (itemIndex === -1) {
-    res.status(404).send('Todo item not found')
-  } else {
-    const [removedItem] = todoListItems.splice(itemIndex, 1)
-    res.status(200).send({ todoItem: removedItem })
-  }
-})
-
-app.put('/api/todos/:id', (req, res) => {
-  const todoId = Number(req.params.id)
-  const itemIndex = todoListItems.findIndex((item) => item.id !== todoId)
-
-  if (itemIndex === -1) {
-    res.status(404).send('Todo item not found')
-  } else {
-    todoListItems[itemIndex] = { ...todoListItems[itemIndex], ..._omit(req.body, 'id') }
-    res.send({ todoItem: todoListItems[itemIndex] })
-  }
-})
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {

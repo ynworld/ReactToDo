@@ -12,6 +12,10 @@ Prerequisites: `npm install` in both directories: `server` and `client`.
 cd server && npm start
 ```
 
-### Current deploy
+### Demo
 
-http://yn-react-todo.surge.sh
+`http://yn-react-todo.surge.sh`
+
+### API documentation
+
+`http://localhost:3131/api-docs/`

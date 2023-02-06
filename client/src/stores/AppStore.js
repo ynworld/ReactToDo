@@ -18,8 +18,8 @@ class AppStore {
   }
 
   loadTodoList() {
-    get('/api/todo-list').then(({ todoList }) => {
-      this.todoList.setItems(todoList)
+    get('/todos').then(({ items }) => {
+      this.todoList.setItems(items)
       this.setIsLoading(false)
     })
   }
