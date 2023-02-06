@@ -24,11 +24,7 @@ class TodoListStore {
   }
 
   deleteItem(todoItem) {
-    del(`/todos/${todoItem.id}`).then(() => {
-      runInAction(() => {
-        this.items.remove(todoItem)
-      })
-    })
+    this.items.remove(todoItem)
   }
 
   setItems(items) {
