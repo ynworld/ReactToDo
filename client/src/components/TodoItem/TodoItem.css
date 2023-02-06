@@ -6,12 +6,12 @@
   box-shadow: 2px 1px 10px #ddd;
 }
 
-.edit__icons {
+.todo__list-icons {
   flex: 0 0 auto;
   width: 2.4rem;
   height: 2.4rem;
 }
 
-.edit__icon {
+.todo__list-icon {
   stroke-width: 1.5;
 }
