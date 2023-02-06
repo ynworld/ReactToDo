@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 
 import './TodoItem.css'
-import { CheckboxField } from '../'
+import { CheckboxField, Button } from '../'
 import { TrashIcon } from '../icons'
 
 const TodoItem = ({ todo }) => {
@@ -12,8 +12,10 @@ const TodoItem = ({ todo }) => {
   return (
     <article className="todo__list-item">
       <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
-      <div className="todo__list-icons" onClick={handleItemDelete}>
-        <TrashIcon className="todo__list-icon" />
+      <div className="todo__list-icons">
+        <Button className="todo__list-button" onClick={handleItemDelete}>
+          <TrashIcon className="todo__list-icon" />
+        </Button>
       </div>
     </article>
   )

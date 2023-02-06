@@ -12,6 +12,11 @@
   height: 2.4rem;
 }
 
+.todo__list-button {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
 .todo__list-icon {
   stroke-width: 1.5;
 }
