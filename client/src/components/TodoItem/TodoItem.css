@@ -1,5 +1,6 @@
 .todo__list-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   padding: 1.6rem;
@@ -11,9 +12,7 @@
 .todo__list-icons {
   display: flex;
   align-items: center;
-  flex: 0 0 auto;
-  width: 2.4rem;
-  height: 2.4rem;
+  gap: 5px;
 }
 
 .todo__list-button {
@@ -23,8 +22,13 @@
 
 .todo__list-button:hover .todo__list-icon,
 .todo__list-button:focus .todo__list-icon {
-  color: #a30e0e;
+  color: #268000;
   stroke-width: 1.7;
+}
+
+.todo__list-button:hover .todo__list-icon--red,
+.todo__list-button:focus .todo__list-icon--red {
+  color: #a30e0e;
 }
 
 .todo__list-icon {
