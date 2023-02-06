@@ -1,5 +1,6 @@
 .todo__list-item {
   display: flex;
+  align-items: center;
   padding: 1.6rem;
   border: 1px solid #eee;
   border-radius: 5px;
@@ -7,6 +8,8 @@
 }
 
 .todo__list-icons {
+  display: flex;
+  align-items: center;
   flex: 0 0 auto;
   width: 2.4rem;
   height: 2.4rem;
@@ -17,6 +20,13 @@
   height: 2.4rem;
 }
 
+.todo__list-button:hover .todo__list-icon,
+.todo__list-button:focus .todo__list-icon {
+  color: #a30e0e;
+  stroke-width: 1.7;
+}
+
 .todo__list-icon {
-  stroke-width: 1.5;
+  color: #333;
+  transition: all 0.3s;
 }
