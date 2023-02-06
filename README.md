@@ -19,3 +19,8 @@ cd server && npm start
 ### API documentation
 
 `http://localhost:3131/api-docs/`
+
+### Development Environment
+
+Node version: 14.21.2
+NPM version: 6.14.17
