@@ -19,7 +19,8 @@ h5,
 h6,
 p,
 ol,
-ul {
+ul,
+button {
   margin: 0;
   padding: 0;
   font-weight: normal;
@@ -37,4 +38,7 @@ img {
 
 button {
   cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }

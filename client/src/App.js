@@ -15,7 +15,7 @@ const App = () => {
     appStore.loadTodoList()
   }, [])
 
-  const { isLoading, todoList} = appStore
+  const { isLoading, todoList } = appStore
 
   return (
     <main className="wrapper">
@@ -25,8 +25,13 @@ const App = () => {
         <>
           <h1 className="title">Tasks</h1>
           <TodoList todos={todoList.items} />
-          <Button shape="round" onClick={todoList.addItem}>
-            <AddCircleIcon />
+          <Button
+            shape="round"
+            position="top-right"
+            className="add-button"
+            onClick={todoList.addItem}
+          >
+            <AddCircleIcon className="add-icon" />
           </Button>
         </>
       )}

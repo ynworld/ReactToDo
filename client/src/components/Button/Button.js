@@ -3,13 +3,9 @@ import classnames from 'classnames'
 
 import './Button.css'
 
-const Button = ({ className, children, type = 'button', shape, ...restProps }) => {
+const Button = ({ className, children, type = 'button', shape, position, ...restProps }) => {
   return (
-    <button
-      type={type}
-      className={classnames(`button-${shape}`, className)}
-      {...restProps}
-    >
+    <button type={type} className={classnames('button', shape, position, className)} {...restProps}>
       {children}
     </button>
   )
