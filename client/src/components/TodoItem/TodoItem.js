@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 
 import './TodoItem.css'
 import { CheckboxField, Button } from '../'
-import { TrashIcon } from '../icons'
+import { TrashIcon } from '@heroicons/react/24/outline'
 
 const TodoItem = ({ todo }) => {
   const { id, text, isChecked, toggle } = todo
