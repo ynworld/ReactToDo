@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, runInAction } from 'mobx'
+import { makeObservable, observable, action } from 'mobx'
 
 import { post, del } from '../../api'
 
@@ -28,9 +28,7 @@ class TodoListItem {
 
   delete() {
     del(`/todos/${this.id}`).then(() => {
-      runInAction(() => {
-        this.todoListStore.deleteItem(this)
-      })
+      this.todoListStore.deleteItem(this)
     })
   }
 }
