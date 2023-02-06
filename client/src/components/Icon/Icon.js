@@ -1,21 +1,25 @@
-import * as IconsOutline from '@heroicons/react/24/outline'
-import * as IconsSolid from '@heroicons/react/24/solid'
+import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { iconNames, iconVariants } from '../../constants'
 
-const iconNames = ['PlusCircleIcon', 'TrashIcon']
+const outlineIconRenderers = {
+  [iconNames.plusCircle]: PlusCircleIcon,
+  [iconNames.trash]: TrashIcon,
+}
 
-const icons = {}
-iconNames.forEach((icon) => {
-  const componentOutline = IconsOutline[icon]
-  const componentSolid = IconsSolid[icon]
-  icons[icon] = {
-    outline: componentOutline,
-    solid: componentSolid,
-  }
-})
+const solidIconRenderers = {}
+
+const iconRenderersByVariant = {
+  [iconVariants.outline]: outlineIconRenderers,
+  [iconVariants.solid]: solidIconRenderers,
+}
 
 const Icon = ({ name, className, variant = 'outline' }) => {
-  const RenderIcon = icons[name][variant]
-  return <RenderIcon className={className} />
+  const variantIconRenderers = iconRenderersByVariant[variant]
+  const Renderer = variantIconRenderers[name]
+
+  if (!Renderer) return null
+
+  return <Renderer className={className} />
 }
 
 export default Icon

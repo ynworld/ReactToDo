@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 
+import { iconNames } from './constants'
 import AppStore from './stores/AppStore'
 
 import { Button, TodoList, Loading, Icon } from './components'
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
 
 import './App.css'
 
@@ -31,7 +31,7 @@ const App = () => {
             className="add-button"
             onClick={todoList.addItem}
           >
-            <Icon name="PlusCircleIcon" className="add-icon" />
+            <Icon name={iconNames.plusCircle} className="add-icon" />
           </Button>
         </>
       )}

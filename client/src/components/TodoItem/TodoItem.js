@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import './TodoItem.css'
 import { CheckboxField, Button } from '../'
 import { Icon } from '../../components'
+import { iconNames } from '../../constants'
 
 const TodoItem = ({ todo }) => {
   const { id, text, isChecked, toggle } = todo
@@ -12,7 +13,7 @@ const TodoItem = ({ todo }) => {
       <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
       <div className="todo__list-icons">
         <Button className="todo__list-button" onClick={todo.delete}>
-          <Icon name="TrashIcon" className="todo__list-icon" />
+          <Icon name={iconNames.trash} className="todo__list-icon" />
         </Button>
       </div>
     </article>
