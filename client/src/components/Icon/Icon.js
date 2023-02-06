@@ -4,7 +4,7 @@ import { iconNames, iconVariants } from '../../constants'
 const outlineIconRenderers = {
   [iconNames.plusCircle]: PlusCircleIcon,
   [iconNames.trash]: TrashIcon,
-  [iconNames.edit]: PencilIcon,
+  [iconNames.pencil]: PencilIcon,
 }
 
 const solidIconRenderers = {}

@@ -1,7 +1,7 @@
 export const iconNames = {
   plusCircle: 'plusCircle',
   trash: 'trash',
-  edit: 'edit',
+  pencil: 'pencil',
 }
 
 export const iconVariants = {
