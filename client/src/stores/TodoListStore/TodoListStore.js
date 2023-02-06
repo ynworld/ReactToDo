@@ -16,7 +16,7 @@ class TodoListStore {
   }
 
   addItem() {
-    post('/api/todos', { text: 'New Todo' }).then(({ todoItem }) => {
+    post('/todos', { text: 'New Todo' }).then((todoItem) => {
       runInAction(() => {
         this.items.unshift(new TodoListItem(todoItem, this))
       })
