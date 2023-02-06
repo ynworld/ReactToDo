@@ -1,5 +1,5 @@
 import { makeObservable, observable, action, runInAction } from 'mobx'
-import { post } from '../../api'
+import { post, del } from '../../api'
 
 import TodoListItem from './TodoListItem'
 
@@ -24,7 +24,11 @@ class TodoListStore {
   }
 
   deleteItem(todoItem) {
-    this.items.remove(todoItem)
+    del(`/todos/${todoItem.id}`).then(() => {
+      runInAction(() => {
+        this.items.remove(todoItem)
+      })
+    })
   }
 
   setItems(items) {
