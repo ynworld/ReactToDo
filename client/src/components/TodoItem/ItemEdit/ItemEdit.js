@@ -19,7 +19,7 @@ const ItemEdit = ({ todo }) => {
         <Button className="todo__list-button">
           <Icon name={iconNames.check} className="todo__list-icon" />
         </Button>
-        <Button className="todo__list-button" onClick={todo.delete}>
+        <Button className="todo__list-button" onClick={todo.setIsEditing.bind(null, false)}>
           <Icon name={iconNames.xmark} className="todo__list-icon todo__list-icon--red" />
         </Button>
       </div>

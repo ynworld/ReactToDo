@@ -16,8 +16,9 @@ class TodoListStore {
   }
 
   addItem() {
-    post('/todos', { text: 'New Todo' }).then((todoItem) => {
+    post('/todos', { text: 'New To Do' }).then((todoItem) => {
       runInAction(() => {
+        todoItem.isEditing = true
         this.items.unshift(new TodoListItem(todoItem, this))
       })
     })
