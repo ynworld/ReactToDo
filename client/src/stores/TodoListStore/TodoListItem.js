@@ -1,6 +1,6 @@
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 
-import { del, put } from '../../api'
+import { del, put, post } from '../../api'
 
 class TodoListItem {
   id = null
@@ -55,6 +55,10 @@ class TodoListItem {
   }
 
   finishEdit() {
+    if (this.text === '') {
+      this.todoListStore.deleteItem(this)
+    }
+
     this.isEditing = false
   }
 
@@ -63,7 +67,14 @@ class TodoListItem {
   }
 
   save = () => {
-    put(`/todos/${this.id}`, this.snapshot).then(this.updateSnapshot)
+    if (this.id) {
+      console.log(this.id)
+      put(`/todos/${this.id}`, this.snapshot).then(this.updateSnapshot)
+    } else {
+      console.log(this.id)
+      post('todos/', this.snapshot).then(this.updateSnapshot)
+      console.log(this.snapshot)
+    }
   }
 
   updateSnapshot(updatedItem) {
