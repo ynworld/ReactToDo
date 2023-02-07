@@ -8,7 +8,7 @@ const TodoItem = ({ todo }) => {
   const { id, text, isChecked, toggle, isEditing, canEdit } = todo
 
   const handleEditStart = () => {
-    todo.setIsEditing(true)
+    todo.startEdit()
   }
 
   return (

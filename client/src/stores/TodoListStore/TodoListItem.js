@@ -6,6 +6,7 @@ class TodoListItem {
   id = null
   text = ''
   isChecked = false
+
   isEditing = false
 
   constructor({ id, text, isChecked, isEditing }, todoListStore) {
@@ -17,9 +18,8 @@ class TodoListItem {
       snapshot: computed,
       toggle: action.bound,
       delete: action.bound,
-      setIsEditing: action,
-      setText: action,
-      setCheck: action,
+      finishEdit: action,
+      updateSnapshot: action.bound,
     })
 
     this.id = id
@@ -43,23 +43,22 @@ class TodoListItem {
     this.update()
   }
 
-  setCheck(checked) {
-    this.isChecked = checked
+  startEdit() {
+    this.isEditing = true
   }
 
-  setIsEditing(isEditing) {
-    this.isEditing = isEditing
+  finishEdit() {
+    this.isEditing = false
   }
 
-  setText(text) {
+  save(data) {
+    put(`/todos/${this.id}`, { ...this.snapshot, ...data }).then(this.updateSnapshot)
+  }
+
+  updateSnapshot({ id, text, isChecked }) {
+    this.id = id
     this.text = text
-  }
-
-  update() {
-    put(`/todos/${this.id}`, this.snapshot).then((todoItem) => {
-      this.setText(todoItem.text)
-      this.setCheck(todoItem.isChecked)
-    })
+    this.isChecked = isChecked
   }
 
   delete() {

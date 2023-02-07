@@ -14,18 +14,17 @@ const ItemEdit = ({ todo }) => {
 
   const handleEditSubmit = (event) => {
     event.preventDefault()
-    if (inputText.trim().length !== 0) {
-      todo.setText(inputText)
-    } else {
-      todo.setText('New To Do')
-    }
 
-    todo.update()
-    todo.setIsEditing(false)
+    const text = inputText.trim()
+
+    if (text.length === 0) return
+
+    todo.save({ text })
+    todo.finishEdit()
   }
 
   const handleEditCancel = () => {
-    todo.setIsEditing(false)
+    todo.finishEdit()
   }
 
   return (
