@@ -10,9 +10,7 @@ const TodoItem = ({ todo }) => {
   return (
     <article className="todo__list-item">
       {isEditing ? (
-        <>
-          <ItemEdit todo={todo} />
-        </>
+        <ItemEdit todo={todo} />
       ) : (
         <>
           <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
