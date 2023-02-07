@@ -1,6 +1,6 @@
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 
-import { del, put } from '../../api'
+import { del, put, post } from '../../api'
 
 class TodoListItem {
   id = null
@@ -14,6 +14,8 @@ class TodoListItem {
       text: observable,
       isChecked: observable,
       isEditing: observable,
+      id: observable,
+      key: computed,
       canEdit: computed,
       snapshot: computed,
       toggle: action.bound,
@@ -25,13 +27,17 @@ class TodoListItem {
     })
 
     this.id = id
-    this.isChecked = isChecked
-    this.text = text
-    this.isEditing = isEditing
+    this.isChecked = isChecked || false
+    this.text = text || ''
+    this.isEditing = isEditing || false
 
     this.todoListStore = todoListStore
 
     reaction(() => this.snapshot, this.save)
+  }
+
+  get key() {
+    return this.id || 'new-item'
   }
 
   get snapshot() {
@@ -58,23 +64,32 @@ class TodoListItem {
     this.text = value
   }
 
-  save = () => {
-    put(`/todos/${this.id}`, this.snapshot).then(this.updateSnapshot)
+  save = (snapshot) => {
+    if (this.id) {
+      put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
+    } else {
+      post('/todos', { text: snapshot.text }).then(this.updateSnapshot)
+    }
   }
 
   updateSnapshot(updatedItem) {
     if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
 
-    const { text, isChecked} = updatedItem
+    const { id, text, isChecked } = updatedItem
 
+    this.id = id
     this.text = text
     this.isChecked = isChecked
   }
 
   delete() {
-    del(`/todos/${this.id}`).then(() => {
+    if (this.id) {
+      del(`/todos/${this.id}`).then(() => {
+        this.todoListStore.deleteItem(this)
+      })
+    } else {
       this.todoListStore.deleteItem(this)
-    })
+    }
   }
 }
 

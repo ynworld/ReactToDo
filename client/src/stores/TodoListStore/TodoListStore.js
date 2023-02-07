@@ -1,5 +1,4 @@
 import { makeObservable, observable, action, computed, runInAction } from 'mobx'
-import { post } from '../../api'
 
 import TodoListItem from './TodoListItem'
 
@@ -21,11 +20,7 @@ class TodoListStore {
   }
 
   addItem() {
-    post('/todos', { text: 'New To Do' }).then((todoItem) => {
-      runInAction(() => {
-        this.items.unshift(new TodoListItem({ ...todoItem, isEditing: true, text: '' }, this))
-      })
-    })
+    this.items.unshift(new TodoListItem({ isEditing: true }, this))
   }
 
   deleteItem(todoItem) {

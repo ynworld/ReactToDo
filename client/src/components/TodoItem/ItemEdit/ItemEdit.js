@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { observer } from 'mobx-react'
 
 import { iconNames } from '../../../constants'
 import { Button, Icon } from '../../../components'
@@ -24,7 +25,11 @@ const ItemEdit = ({ todo }) => {
   }
 
   const handleEditCancel = () => {
-    todo.finishEdit()
+    if (!todo.id) {
+      todo.delete()
+    } else {
+      todo.finishEdit()
+    }
   }
 
   return (
@@ -49,4 +54,4 @@ const ItemEdit = ({ todo }) => {
   )
 }
 
-export default ItemEdit
+export default observer(ItemEdit)
