@@ -18,7 +18,7 @@ const ItemEdit = ({ todo }) => {
     } else {
       todo.setText('New To Do')
     }
-    
+
     todo.setIsEditing(false)
   }
 
@@ -27,12 +27,11 @@ const ItemEdit = ({ todo }) => {
   }
 
   return (
-    <>
+    <form className="todo__list-edit-form" onSubmit={handleEditSubmit}>
       <input
         type="text"
         className="todo__list-input"
         placeholder="I need to..."
-        id="input"
         autoFocus
         value={inputText}
         onChange={handleTextInput}
@@ -45,7 +44,7 @@ const ItemEdit = ({ todo }) => {
           <Icon name={iconNames.xmark} className="todo__list-icon todo__list-icon--red" />
         </Button>
       </div>
-    </>
+    </form>
   )
 }
 
