@@ -56,10 +56,6 @@ class TodoListItem {
   }
 
   finishEdit() {
-    if (this.text === '') {
-      this.todoListStore.deleteItem(this)
-    }
-
     this.isEditing = false
   }
 
