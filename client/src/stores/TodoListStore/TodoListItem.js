@@ -20,7 +20,7 @@ class TodoListItem {
       setText: action.bound,
     })
 
-    this.id = id || Math.random()
+    this.id = id
     this.isChecked = isChecked
     this.text = text || ''
     this.isEditing = isEditing
