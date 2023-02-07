@@ -3,8 +3,6 @@ import { useState } from 'react'
 import { iconNames } from '../../../constants'
 import { Button, Icon, Input, Form } from '../../../components'
 
-import './ItemEdit.css'
-
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
 
