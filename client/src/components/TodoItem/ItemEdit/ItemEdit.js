@@ -24,7 +24,11 @@ const ItemEdit = ({ todo }) => {
   }
 
   const handleEditCancel = () => {
-    todo.finishEdit()
+    if (!todo.id) {
+      todo.delete()
+    } else {
+      todo.finishEdit()
+    }
   }
 
   return (

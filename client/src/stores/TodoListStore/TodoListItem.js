@@ -36,8 +36,9 @@ class TodoListItem {
   }
 
   get key() {
-    return this.id || Math.random()
+    return this.id || 'new-item'
   }
+
   get snapshot() {
     return { id: this.id, text: this.text, isChecked: this.isChecked }
   }
@@ -66,30 +67,32 @@ class TodoListItem {
     this.text = value
   }
 
-  save = () => {
+  save = (snapshot) => {
     if (this.id) {
-      console.log(this.id)
-      put(`/todos/${this.id}`, this.snapshot).then(this.updateSnapshot)
+      put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
     } else {
-      console.log(this.id)
-      post('todos/', this.snapshot).then(this.updateSnapshot)
-      console.log(this.snapshot)
+      post('/todos', { text: snapshot.text }).then(this.updateSnapshot)
     }
   }
 
   updateSnapshot(updatedItem) {
     if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
 
-    const { text, isChecked } = updatedItem
+    const { id, text, isChecked } = updatedItem
 
+    this.id = id
     this.text = text
     this.isChecked = isChecked
   }
 
   delete() {
-    del(`/todos/${this.id}`).then(() => {
+    if (this.id) {
+      del(`/todos/${this.id}`).then(() => {
+        this.todoListStore.deleteItem(this)
+      })
+    } else {
       this.todoListStore.deleteItem(this)
-    })
+    }
   }
 }
 

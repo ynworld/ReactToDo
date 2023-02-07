@@ -29,6 +29,7 @@ const App = () => {
             shape="round"
             position="top-right"
             className="add-button"
+            disabled={todoList.hasItemInEditingMode}
             onClick={todoList.addItem}
           >
             <Icon name={iconNames.plusCircle} className="add-icon" />
