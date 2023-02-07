@@ -19,7 +19,7 @@ const ItemEdit = ({ todo }) => {
 
     if (text.length === 0) return
 
-    todo.save({ text })
+    todo.setText(text)
     todo.finishEdit()
   }
 
