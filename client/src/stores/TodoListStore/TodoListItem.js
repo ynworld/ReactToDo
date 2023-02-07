@@ -1,6 +1,6 @@
 import { makeObservable, observable, action } from 'mobx'
 
-import { post, del } from '../../api'
+import { post, del, put } from '../../api'
 
 class TodoListItem {
   id = null
@@ -36,7 +36,9 @@ class TodoListItem {
   }
 
   setText(text) {
-    this.text = text
+    put(`/todos/${this.id}`, { text: text, id: this.id }).then((todoItem) => {
+      this.text = todoItem.text
+    })
   }
 
   delete() {

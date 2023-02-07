@@ -121,7 +121,7 @@ router.post('/', (req, res) => {
  */
 router.put('/:id', (req, res) => {
   const todoId = Number(req.params.id)
-  const itemIndex = todoListItems.findIndex((item) => item.id !== todoId)
+  const itemIndex = todoListItems.findIndex((item) => item.id === todoId)
 
   if (itemIndex === -1) {
     res.status(404).send({ error: 'Todo item not found' })
