@@ -1,8 +1,3 @@
-.todo__list-edit-form {
-  display: flex;
-  flex: 1 1 auto;
-  gap: 5px;
-}
 .todo__list-input {
   min-height: 3.2rem;
   flex: 1 1 auto;

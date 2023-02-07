@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { iconNames } from '../../../constants'
-import { Button, Icon, Input } from '../../../components'
+import { Button, Icon, Input, Form } from '../../../components'
 
 import './ItemEdit.css'
 
@@ -28,7 +28,7 @@ const ItemEdit = ({ todo }) => {
   }
 
   return (
-    <form className="todo__list-edit-form" onSubmit={handleEditSubmit}>
+    <Form onSubmit={handleEditSubmit}>
       <Input value={inputText} onChange={handleTextInput} />
       <div className="todo__list-icons">
         <Button type="submit" className="todo__list-button" onClick={handleEditSubmit}>
@@ -38,7 +38,7 @@ const ItemEdit = ({ todo }) => {
           <Icon name={iconNames.xmark} className="todo__list-icon todo__list-icon--red" />
         </Button>
       </div>
-    </form>
+    </Form>
   )
 }
 
