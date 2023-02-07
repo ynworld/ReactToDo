@@ -1,0 +1,9 @@
+.todo__list-input {
+  min-height: 3rem;
+  flex: 1 1 auto;
+  padding: 0px 5px;
+  font: inherit;
+  font-size: 1.4rem;
+  border: 1px solid #4fc41d;
+  resize: none;
+}

@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react'
 
 import './TodoItem.css'
-import { CheckboxField, Button } from '../'
-import { Icon } from '../../components'
+import { CheckboxField, Button, ItemEdit, Icon } from '../../components'
 import { iconNames } from '../../constants'
 
 const TodoItem = ({ todo }) => {
