@@ -1,4 +1,5 @@
 .label {
+  min-height: 3.2rem;
   display: flex;
   align-items: center;
   gap: 1rem;

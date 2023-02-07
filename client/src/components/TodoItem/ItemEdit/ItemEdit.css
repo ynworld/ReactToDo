@@ -1,9 +1,15 @@
 .todo__list-input {
-  min-height: 3rem;
+  min-height: 3.2rem;
   flex: 1 1 auto;
   padding: 0px 5px;
   font: inherit;
   font-size: 1.4rem;
   border: 1px solid #4fc41d;
+  border-radius: 5px;
   resize: none;
+}
+
+.todo__list-input:focus {
+  outline: none;
+  box-shadow: 2px 2px 7px rgba(79, 196, 29, 0.4);
 }
