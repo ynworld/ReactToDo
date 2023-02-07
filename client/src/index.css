@@ -42,3 +42,7 @@ button {
   outline: none;
   background-color: transparent;
 }
+
+button:disabled {
+  cursor: default;
+}

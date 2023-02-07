@@ -21,3 +21,10 @@ export const del = (url) =>
   fetch(url, {
     method: 'DELETE',
   }).then(handleResponse)
+
+export const put = (url, data) =>
+  fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }).then(handleResponse)

@@ -1,10 +1,18 @@
-import { PlusCircleIcon, TrashIcon, PencilIcon } from '@heroicons/react/24/outline'
+import {
+  PlusCircleIcon,
+  TrashIcon,
+  PencilIcon,
+  XMarkIcon,
+  CheckIcon,
+} from '@heroicons/react/24/outline'
 import { iconNames, iconVariants } from '../../constants'
 
 const outlineIconRenderers = {
   [iconNames.plusCircle]: PlusCircleIcon,
   [iconNames.trash]: TrashIcon,
   [iconNames.pencil]: PencilIcon,
+  [iconNames.xmark]: XMarkIcon,
+  [iconNames.check]: CheckIcon,
 }
 
 const solidIconRenderers = {}
