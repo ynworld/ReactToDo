@@ -14,6 +14,7 @@ class TodoListItem {
       text: observable,
       isChecked: observable,
       isEditing: observable,
+      id: observable,
       key: computed,
       canEdit: computed,
       snapshot: computed,
@@ -26,9 +27,9 @@ class TodoListItem {
     })
 
     this.id = id
-    this.isChecked = isChecked
-    this.text = text
-    this.isEditing = isEditing
+    this.isChecked = isChecked || false
+    this.text = text || ''
+    this.isEditing = isEditing || false
 
     this.todoListStore = todoListStore
 
