@@ -65,9 +65,8 @@ class TodoListItem {
   updateSnapshot(updatedItem) {
     if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
 
-    const { id, text, isChecked} = updatedItem
+    const { text, isChecked} = updatedItem
 
-    this.id = id
     this.text = text
     this.isChecked = isChecked
   }
