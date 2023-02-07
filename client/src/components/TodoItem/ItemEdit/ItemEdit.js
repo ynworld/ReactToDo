@@ -42,7 +42,7 @@ const ItemEdit = ({ todo }) => {
         <Button type="submit" className="todo__list-button" onClick={handleEditSubmit}>
           <Icon name={iconNames.check} className="todo__list-icon" />
         </Button>
-        <Button type="cancel" className="todo__list-button" onClick={handleEditCancel}>
+        <Button className="todo__list-button" onClick={handleEditCancel}>
           <Icon name={iconNames.xmark} className="todo__list-icon todo__list-icon--red" />
         </Button>
       </div>
