@@ -1,6 +1,6 @@
 import { makeObservable, observable, action, computed } from 'mobx'
 
-import { post, del, put } from '../../api'
+import { del, put } from '../../api'
 
 class TodoListItem {
   id = null
@@ -22,7 +22,7 @@ class TodoListItem {
 
     this.id = id
     this.isChecked = isChecked
-    this.text = text || ''
+    this.text = text
     this.isEditing = isEditing
 
     this.todoListStore = todoListStore
@@ -43,9 +43,15 @@ class TodoListItem {
   }
 
   setText(text) {
-    put(`/todos/${this.id}`, { text: text }).then((todoItem) => {
-      this.text = todoItem.text
-    })
+    this.text = text
+  }
+
+  update() {
+    put(`/todos/${this.id}`, { id: this.id, text: this.text, isChecked: this.isChecked }).then(
+      (todoItem) => {
+        this.setText(todoItem.text)
+      },
+    )
   }
 
   delete() {
