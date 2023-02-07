@@ -13,8 +13,12 @@ const ItemEdit = ({ todo }) => {
   }
 
   const handleEditSubmit = () => {
-    if (inputText.trim().length !== 0) todo.setText(inputText)
-    else todo.setText('New To Do')
+    if (inputText.trim().length !== 0) {
+      todo.setText(inputText)
+    } else {
+      todo.setText('New To Do')
+    }
+    
     todo.setIsEditing(false)
   }
 
