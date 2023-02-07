@@ -16,11 +16,12 @@ class TodoListItem {
       toggle: action.bound,
       delete: action.bound,
       setIsEditing: action.bound,
+      setText: action.bound,
     })
 
     this.id = id || Math.random()
     this.isChecked = isChecked
-    this.text = text || 'New Todo'
+    this.text = text || ''
     this.isEditing = isEditing
 
     this.todoListStore = todoListStore
@@ -32,6 +33,10 @@ class TodoListItem {
 
   setIsEditing(isEditing) {
     this.isEditing = isEditing
+  }
+
+  setText(text) {
+    this.text = text
   }
 
   delete() {
