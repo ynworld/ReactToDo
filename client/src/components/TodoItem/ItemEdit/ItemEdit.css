@@ -1,7 +1,7 @@
 .todo__list-edit-form {
   display: flex;
   flex: 1 1 auto;
-  gap: 5px;
+  gap: 12px;
 }
 .todo__list-input {
   min-height: 3.2rem;
@@ -12,6 +12,7 @@
   border: 1px solid #4fc41d;
   border-radius: 5px;
   resize: none;
+  transition: 0.3s all ease-in-out;
 }
 
 .todo__list-input:focus {

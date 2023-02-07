@@ -18,11 +18,12 @@
   height: 4.8rem;
   background-color: #4fc41d;
   box-shadow: 2px 2px 10px #aaa;
+  transition: 0.3s all ease;
 }
 
 .add-button:hover,
 .add-button:focus {
-  background-color: #268000;
+  background-color: #4cb51d;
 }
 
 .add-button:active {

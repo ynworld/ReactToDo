@@ -12,7 +12,7 @@
 .todo__list-icons {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .todo__list-button {
