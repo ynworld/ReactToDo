@@ -14,6 +14,7 @@ class TodoListItem {
       isChecked: observable,
       isEditing: observable,
       canEdit: computed,
+      snapshot: computed,
       toggle: action.bound,
       delete: action.bound,
       setIsEditing: action.bound,
@@ -27,6 +28,10 @@ class TodoListItem {
     this.isEditing = isEditing
 
     this.todoListStore = todoListStore
+  }
+
+  get snapshot() {
+    return { id: this.id, text: this.text, isChecked: this.isChecked }
   }
 
   get canEdit() {
@@ -51,12 +56,10 @@ class TodoListItem {
   }
 
   update() {
-    put(`/todos/${this.id}`, { id: this.id, text: this.text, isChecked: this.isChecked }).then(
-      (todoItem) => {
-        this.setText(todoItem.text)
-        this.setCheck(todoItem.isChecked)
-      },
-    )
+    put(`/todos/${this.id}`, this.snapshot).then((todoItem) => {
+      this.setText(todoItem.text)
+      this.setCheck(todoItem.isChecked)
+    })
   }
 
   delete() {
