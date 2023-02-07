@@ -35,3 +35,9 @@
   color: #333;
   transition: all 0.3s;
 }
+
+.todo__list-button:disabled .todo__list-icon,
+.todo__list-button:disabled:hover .todo__list-icon {
+  color: #ccc;
+  stroke-width: 1.2;
+}

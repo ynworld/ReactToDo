@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from 'mobx'
+import { makeObservable, observable, action, computed } from 'mobx'
 
 import { post, del, put } from '../../api'
 
@@ -13,6 +13,7 @@ class TodoListItem {
       text: observable,
       isChecked: observable,
       isEditing: observable,
+      canEdit: computed,
       toggle: action.bound,
       delete: action.bound,
       setIsEditing: action.bound,
@@ -25,6 +26,10 @@ class TodoListItem {
     this.isEditing = isEditing
 
     this.todoListStore = todoListStore
+  }
+
+  get canEdit() {
+    return !this.todoListStore.hasItemInEditingMode
   }
 
   toggle() {

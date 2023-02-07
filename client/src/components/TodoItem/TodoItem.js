@@ -5,7 +5,7 @@ import { CheckboxField, Button, ItemEdit, Icon } from '../../components'
 import { iconNames } from '../../constants'
 
 const TodoItem = ({ todo }) => {
-  const { id, text, isChecked, toggle, isEditing } = todo
+  const { id, text, isChecked, toggle, isEditing, canEdit } = todo
 
   return (
     <article className="todo__list-item">
@@ -17,7 +17,11 @@ const TodoItem = ({ todo }) => {
         <>
           <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
           <div className="todo__list-icons">
-            <Button className="todo__list-button" onClick={todo.setIsEditing.bind(null, true)}>
+            <Button
+              className="todo__list-button"
+              onClick={todo.setIsEditing.bind(null, true)}
+              disabled={!canEdit}
+            >
               <Icon name={iconNames.pencil} className="todo__list-icon" />
             </Button>
             <Button className="todo__list-button" onClick={todo.delete}>
