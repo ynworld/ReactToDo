@@ -28,7 +28,9 @@ class TodoListItem {
   }
 
   toggle() {
-    this.isChecked = !this.isChecked
+    put(`/todos/${this.id}`, { isChecked: !this.isChecked }).then((todoItem) => {
+      this.isChecked = todoItem.isChecked
+    })
   }
 
   setIsEditing(isEditing) {
@@ -36,7 +38,7 @@ class TodoListItem {
   }
 
   setText(text) {
-    put(`/todos/${this.id}`, { text: text, id: this.id }).then((todoItem) => {
+    put(`/todos/${this.id}`, { text: text }).then((todoItem) => {
       this.text = todoItem.text
     })
   }
