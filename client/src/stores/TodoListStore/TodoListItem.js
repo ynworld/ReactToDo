@@ -17,9 +17,9 @@ class TodoListItem {
       snapshot: computed,
       toggle: action.bound,
       delete: action.bound,
-      setIsEditing: action.bound,
-      setText: action.bound,
-      setCheck: action.bound,
+      setIsEditing: action,
+      setText: action,
+      setCheck: action,
     })
 
     this.id = id
