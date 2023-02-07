@@ -18,6 +18,7 @@ class TodoListItem {
       delete: action.bound,
       setIsEditing: action.bound,
       setText: action.bound,
+      setCheck: action.bound,
     })
 
     this.id = id
@@ -33,9 +34,12 @@ class TodoListItem {
   }
 
   toggle() {
-    put(`/todos/${this.id}`, { isChecked: !this.isChecked }).then((todoItem) => {
-      this.isChecked = todoItem.isChecked
-    })
+    this.isChecked = !this.isChecked
+    this.update()
+  }
+
+  setCheck(checked) {
+    this.isChecked = checked
   }
 
   setIsEditing(isEditing) {
@@ -50,6 +54,7 @@ class TodoListItem {
     put(`/todos/${this.id}`, { id: this.id, text: this.text, isChecked: this.isChecked }).then(
       (todoItem) => {
         this.setText(todoItem.text)
+        this.setCheck(todoItem.isChecked)
       },
     )
   }
