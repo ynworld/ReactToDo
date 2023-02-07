@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { iconNames } from '../../../constants'
-import { Button, Icon } from '../../../components'
+import { Button, Icon, Input } from '../../../components'
 
 import './ItemEdit.css'
 
@@ -29,14 +29,7 @@ const ItemEdit = ({ todo }) => {
 
   return (
     <form className="todo__list-edit-form" onSubmit={handleEditSubmit}>
-      <input
-        type="text"
-        className="todo__list-input"
-        placeholder="I need to..."
-        autoFocus
-        value={inputText}
-        onChange={handleTextInput}
-      />
+      <Input value={inputText} onChange={handleTextInput} />
       <div className="todo__list-icons">
         <Button type="submit" className="todo__list-button" onClick={handleEditSubmit}>
           <Icon name={iconNames.check} className="todo__list-icon" />
