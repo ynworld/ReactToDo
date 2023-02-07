@@ -14,6 +14,7 @@ class TodoListItem {
       text: observable,
       isChecked: observable,
       isEditing: observable,
+      key: computed,
       canEdit: computed,
       snapshot: computed,
       toggle: action.bound,
@@ -34,6 +35,9 @@ class TodoListItem {
     reaction(() => this.snapshot, this.save)
   }
 
+  get key() {
+    return this.id || Math.random()
+  }
   get snapshot() {
     return { id: this.id, text: this.text, isChecked: this.isChecked }
   }
@@ -65,7 +69,7 @@ class TodoListItem {
   updateSnapshot(updatedItem) {
     if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
 
-    const { text, isChecked} = updatedItem
+    const { text, isChecked } = updatedItem
 
     this.text = text
     this.isChecked = isChecked
