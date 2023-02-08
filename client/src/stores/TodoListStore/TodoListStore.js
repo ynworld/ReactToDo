@@ -9,6 +9,7 @@ class TodoListStore {
     makeObservable(this, {
       items: observable,
       hasItemInEditingMode: computed,
+      checkedItemsCount: computed,
       percentComplete: computed,
       addItem: action.bound,
       setItems: action.bound,
@@ -20,10 +21,14 @@ class TodoListStore {
     return this.items.some((item) => item.isEditing)
   }
 
+  get checkedItemsCount() {
+    return this.items.filter((item) => item.isChecked).length
+  }
+
   get percentComplete() {
-    return Math.round(
-      (this.items.filter((item) => item.isChecked).length / this.items.length) * 100,
-    )
+    if (this.items.length === 0) return 0
+    
+    return (this.numberComplete / this.items.length) * 100
   }
 
   addItem() {

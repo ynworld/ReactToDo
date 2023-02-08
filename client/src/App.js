@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { iconNames } from './constants'
 import AppStore from './stores/AppStore'
 
-import { Button, TodoList, Loading, Icon } from './components'
+import { Button, CompletionBar, TodoList, Loading, Icon } from './components'
 
 import './App.css'
 
@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <main className="wrapper">
-      <div className="completion-bar" style={{ width: `${todoList.percentComplete}%` }} />
+      <CompletionBar percentComplete={todoList.percentComplete} />
 
       {isLoading ? (
         <Loading text="Tasks are Loading" />
