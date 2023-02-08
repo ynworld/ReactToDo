@@ -1,5 +1,6 @@
 export * from './Button'
 export * from './CheckboxField'
+export * from './CompletionBar'
 export * from './TodoItem'
 export * from './TodoList'
 export * from './Loading'
