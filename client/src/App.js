@@ -19,18 +19,8 @@ const App = () => {
 
   return (
     <main className="wrapper">
-      {/* TODO: mr. Yuriy, make it pretty please */}
-      <div
-        style={{
-          width: `${(todoList.items.filter((item) => item.isChecked).length / todoList.items.length) * 100}%`,
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          height: 4,
-          backgroundColor: '#4fc41d',
-          transition: '0.5s width ease-in-out',
-        }}
-      />
+      <div className="completion-bar" style={{ width: `${todoList.percentComplete}%` }} />
+
       {isLoading ? (
         <Loading text="Tasks are Loading" />
       ) : (
