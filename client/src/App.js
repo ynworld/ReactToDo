@@ -26,6 +26,7 @@ const App = () => {
       ) : (
         <>
           <h1 className="title">Tasks</h1>
+          <h2 class="text-5xl font-bold text-slate-500">Tailwind Installed</h2>
           <TodoList todos={todoList.items} />
           <Button
             shape="round"
