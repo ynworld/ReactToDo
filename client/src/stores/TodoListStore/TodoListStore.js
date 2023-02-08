@@ -27,6 +27,7 @@ class TodoListStore {
 
   get percentComplete() {
     if (this.items.length === 0) return 0
+    
     return (this.numberComplete / this.items.length) * 100
   }
 
