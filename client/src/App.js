@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { iconNames } from './constants'
 import AppStore from './stores/AppStore'
 
-import { classnames } from 'tailwindcss-classnames'
+import classnames from 'classnames'
 
 import { Button, CompletionBar, TodoList, Loading, Icon } from './components'
 

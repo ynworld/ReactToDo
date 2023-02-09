@@ -4,6 +4,8 @@ import { observer } from 'mobx-react'
 import { iconNames } from '../../../constants'
 import { Icon } from '../../../components'
 
+import classnames from 'classnames'
+
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
 
@@ -34,7 +36,13 @@ const ItemEdit = ({ todo }) => {
     <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
       <input
         type="text"
-        className="min-h-[3.2rem] flex-auto px-2 border-2 border-primary rounded-md text-xl outline-none focus:shadow-lg focus:shadow-primary-tint transition-all ease-in-out"
+        className={classnames(
+          'min-h-[3.2rem] flex-auto px-2',
+          'border-2 border-primary rounded-md',
+          'text-xl outline-none focus:shadow-lg',
+          'focus:shadow-primary-tint',
+          'transition-all ease-in-out',
+        )}
         placeholder="I need to..."
         autoFocus
         value={inputText}
@@ -43,13 +51,22 @@ const ItemEdit = ({ todo }) => {
       <div className="flex items-center gap-4">
         <button
           type="submit"
-          className="inline-block h-12 w-12 hover:text-primary-dark text-gray-800 transition-all duration-300 focus:text-primary-dark"
+          className={classnames(
+            'inline-block h-12 w-12 text-gray-800',
+            'hover:text-primary-dark',
+            'focus:text-primary-dark',
+            'transition-all duration-300',
+          )}
           onClick={handleEditSubmit}
         >
           <Icon name={iconNames.check} />
         </button>
         <button
-          className="inline-block h-12 w-12 hover:text-secondary focus:text-secondary text-gray-800 transition-all duration-300"
+          className={classnames(
+            'inline-block h-12 w-12 text-gray-800',
+            'hover:text-secondary focus:text-secondary',
+            'transition-all duration-300',
+          )}
           onClick={handleEditCancel}
         >
           <Icon name={iconNames.xmark} />
