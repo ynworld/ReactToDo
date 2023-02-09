@@ -1,11 +1,13 @@
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 
-import './Button.css'
-
-const Button = ({ className, children, type = 'button', shape, position, ...restProps }) => {
+const Button = ({ className, children, type = 'button', ...restProps }) => {
   return (
-    <button type={type} className={classnames('button', shape, position, className)} {...restProps}>
+    <button
+      type={type}
+      className={classnames('flex justify-center items-center', className)}
+      {...restProps}
+    >
       {children}
     </button>
   )
