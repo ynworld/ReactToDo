@@ -34,7 +34,7 @@ const ItemEdit = ({ todo }) => {
     <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
       <input
         type="text"
-        className="min-h-[3.2rem] flex-auto px-2 border-2 border-solid border-primary rounded-md text-xl outline-none focus:shadow-lg focus:shadow-primary-shadow transition-all ease-in-out"
+        className="min-h-[3.2rem] flex-auto px-2 border-2 border-primary rounded-md text-xl outline-none focus:shadow-lg focus:shadow-primary-tint transition-all ease-in-out"
         placeholder="I need to..."
         autoFocus
         value={inputText}
