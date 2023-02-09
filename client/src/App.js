@@ -27,7 +27,12 @@ const App = () => {
           <TodoList todos={todoList.items} />
           <Button
             position="top-right"
-            className="w-20 h-20 rounded-full bg-primary shadow-lg shadow-gray-400 hover:bg-primary-dark focus:bg-primary-dark active:shadow-md disabled:bg-gray-400 disabled:shadow-lg disabled:shadow-gray-400 disabled:cursor-not-allowed  transition-all duration-300"
+            className={classnames(
+              'w-20 h-20 rounded-full bg-primary shadow-lg shadow-gray-400',
+              'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md', 
+              'disabled:bg-gray-400 disabled:shadow-lg disabled:shadow-gray-400', 
+              'transition-all duration-300',
+            )}
             disabled={todoList.hasItemInEditingMode}
             onClick={todoList.addItem}
           >
