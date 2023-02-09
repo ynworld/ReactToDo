@@ -4,6 +4,8 @@ import { observer } from 'mobx-react'
 import { iconNames } from './constants'
 import AppStore from './stores/AppStore'
 
+import { classnames } from 'tailwindcss-classnames'
+
 import { Button, CompletionBar, TodoList, Loading, Icon } from './components'
 
 const App = () => {
@@ -29,8 +31,8 @@ const App = () => {
             position="top-right"
             className={classnames(
               'w-20 h-20 rounded-full bg-primary shadow-lg shadow-gray-400',
-              'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md', 
-              'disabled:bg-gray-400 disabled:shadow-lg disabled:shadow-gray-400', 
+              'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md',
+              'disabled:bg-gray-400 disabled:shadow-lg disabled:shadow-gray-400',
               'transition-all duration-300',
             )}
             disabled={todoList.hasItemInEditingMode}
