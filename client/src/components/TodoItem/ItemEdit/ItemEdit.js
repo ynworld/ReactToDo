@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { observer } from 'mobx-react'
 
 import { iconNames } from '../../../constants'
-import { Button, Icon } from '../../../components'
-
-import './ItemEdit.css'
+import { Icon } from '../../../components'
 
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
@@ -33,22 +31,29 @@ const ItemEdit = ({ todo }) => {
   }
 
   return (
-    <form className="todo__list-edit-form" onSubmit={handleEditSubmit}>
+    <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
       <input
         type="text"
-        className="todo__list-input"
+        className="min-h-[3.2rem] flex-auto px-2 border-2 border-primary rounded-md text-xl outline-none focus:shadow-lg focus:shadow-primary-tint transition-all ease-in-out"
         placeholder="I need to..."
         autoFocus
         value={inputText}
         onChange={handleTextInput}
       />
-      <div className="todo__list-icons">
-        <Button type="submit" className="todo__list-button" onClick={handleEditSubmit}>
-          <Icon name={iconNames.check} className="todo__list-icon" />
-        </Button>
-        <Button className="todo__list-button" onClick={handleEditCancel}>
-          <Icon name={iconNames.xmark} className="todo__list-icon todo__list-icon--red" />
-        </Button>
+      <div className="flex items-center gap-4">
+        <button
+          type="submit"
+          className="inline-block h-12 w-12 hover:text-primary-dark text-gray-800 transition-all duration-300 focus:text-primary-dark"
+          onClick={handleEditSubmit}
+        >
+          <Icon name={iconNames.check} />
+        </button>
+        <button
+          className="inline-block h-12 w-12 hover:text-secondary focus:text-secondary text-gray-800 transition-all duration-300"
+          onClick={handleEditCancel}
+        >
+          <Icon name={iconNames.xmark} />
+        </button>
       </div>
     </form>
   )

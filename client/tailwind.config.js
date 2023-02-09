@@ -15,7 +15,11 @@ module.exports = {
       primary: {
         light: '#56de45',
         DEFAULT: '#4fc41d',
+        tint: 'rgba(79, 196, 29, 0.4)',
         dark: '#4cb51d',
+      },
+      secondary: {
+        DEFAULT: '#a30e0e',
       },
     },
     extend: {},
