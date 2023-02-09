@@ -16,6 +16,10 @@ module.exports = {
         light: '#56de45',
         DEFAULT: '#4fc41d',
         dark: '#4cb51d',
+        shadow: 'rgba(79, 196, 29, 0.4)',
+      },
+      secondary: {
+        DEFAULT: '#a30e0e',
       },
     },
     extend: {},
