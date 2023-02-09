@@ -18,28 +18,23 @@ const TodoItem = ({ todo }) => {
         <>
           <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
           <div className="flex items-center gap-4">
-            <Button
-              className="group inline-block w-12 h-12"
+            <button
+              className="group inline-block w-12 h-12 text-gray-800 transition-all duration-300
+              hover:text-primary-dark 
+              focus:text-primary-dark
+              disabled:text-gray-400"
               onClick={handleEditStart}
               disabled={!canEdit}
             >
-              <Icon
-                name={iconNames.pencil}
-                className="text-gray-800 transition-all duration-300
-                group-hover:text-primary-dark
-                group-hover:stroke-2
-                group-focus:text-primary-dark group-disabled:text-gray-400
-                group-disabled:cursor-not-allowed group-disabled:stroke-1"
-              />
-            </Button>
-            <Button className="group inline-block w-12 h-12" onClick={todo.delete}>
-              <Icon
-                name={iconNames.trash}
-                className="text-gray-800 transition-all duration-300 group-hover:text-secondary
-                group-hover:stroke-2 
-                group-focus:text-secondary"
-              />
-            </Button>
+              <Icon name={iconNames.pencil} />
+            </button>
+            <button
+              className="group inline-block w-12 h-12 text-gray-800 transition-all duration-300 hover:text-secondary 
+              focus:text-secondary"
+              onClick={todo.delete}
+            >
+              <Icon name={iconNames.trash} />
+            </button>
           </div>
         </>
       )}

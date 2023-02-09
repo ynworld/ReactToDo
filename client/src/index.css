@@ -50,3 +50,7 @@ button {
 button:disabled {
   cursor: default;
 }
+
+svg {
+  color: inherit;
+}
