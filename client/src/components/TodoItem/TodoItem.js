@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { CheckboxField, ItemEdit, Icon, IconButton } from '../../components'
-import { iconNames } from '../../constants'
+import { CheckboxField, ItemEdit, IconButton } from '../../components'
 
 import classnames from 'classnames'
 
