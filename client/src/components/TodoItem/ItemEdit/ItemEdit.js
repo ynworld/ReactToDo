@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react'
 
-import { iconNames } from '../../../constants'
-import { Icon } from '../../../components'
+import { IconButton } from '../../../components'
 
 import classnames from 'classnames'
 
@@ -45,26 +44,9 @@ const ItemEdit = ({ todo }) => {
         value={inputText}
         onChange={handleTextInput}
       />
-      <div className="flex items-center gap-3">
-        <button
-          type="submit"
-          className={classnames(
-            'inline-block h-6 w-6 text-gray-800 hover:text-primary-dark focus:text-primary-dark',
-            'transition-all duration-300',
-          )}
-          onClick={handleEditSubmit}
-        >
-          <Icon name={iconNames.check} />
-        </button>
-        <button
-          className={classnames(
-            'inline-block h-6 w-6 text-gray-800 hover:text-alert focus:text-alert',
-            'transition-all duration-300',
-          )}
-          onClick={handleEditCancel}
-        >
-          <Icon name={iconNames.xmark} />
-        </button>
+      <div className="flex items-center gap-4">
+        <IconButton type="submit" icon="check" variation="primary" onClick={handleEditSubmit} />
+        <IconButton icon="xmark" variation="secondary" onClick={handleEditCancel} />
       </div>
     </form>
   )
