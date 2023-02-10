@@ -1,0 +1,101 @@
+/* Styled Checkbox */
+
+.checkbox-custom {
+  position: relative;
+  flex-shrink: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  background-color: transparent;
+  border-radius: 4px;
+  transition: all 0.3s ease-out;
+  border: 2px solid #4fc41d;
+  cursor: pointer;
+}
+
+input:checked ~ .checkbox-custom {
+  background-color: #4fc41d;
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+  border: 2px solid #4fc41d;
+}
+
+label:hover > input:checked ~ .checkbox-custom {
+  background-color: #fff;
+}
+
+label:hover .checkbox-custom {
+  background-color: #4fc41d;
+}
+
+.checkbox-custom::after {
+  position: absolute;
+  content: '';
+  left: 1.2rem;
+  top: 1.2rem;
+  height: 0px;
+  width: 0px;
+  border-radius: 5px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(0deg) scale(0);
+  -ms-transform: rotate(0deg) scale(0);
+  transform: rotate(0deg) scale(0);
+  opacity: 1;
+  transition: all 0.3s ease-out;
+}
+
+input:checked ~ .checkbox-custom::after {
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
+  left: 8px;
+  top: 1px;
+  width: 6px;
+  height: 1rem;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+label:hover input:checked ~ .checkbox-custom::after {
+  border: solid #4fc41d;
+  border-width: 0 2px 2px 0;
+}
+
+/* For Ripple Effect */
+.checkbox-custom::before {
+  position: absolute;
+  content: '';
+  left: 1rem;
+  top: 1rem;
+  width: 0px;
+  height: 0px;
+  border-radius: 5px;
+  border: 2px solid #4fc41d;
+  transform: scale(0);
+}
+
+input:checked ~ .checkbox-custom::before {
+  z-index: 999;
+  animation: ripple 0.3s ease-out forwards;
+}
+
+@keyframes ripple {
+  99% {
+    left: -5px;
+    top: -3px;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 5px;
+    transform: scale(3);
+    opacity: 0;
+  }
+  100% {
+    left: 1rem;
+    top: 1rem;
+    width: 0px;
+    height: 0px;
+    transform: scale(0);
+    opacity: 0;
+  }
+}
