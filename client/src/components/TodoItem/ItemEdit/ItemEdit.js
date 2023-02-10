@@ -52,7 +52,7 @@ const ItemEdit = ({ todo }) => {
         <button
           type="submit"
           className={classnames(
-            'inline-block h-8 w-8 text-gray-800',
+            'inline-block h-6 w-6 text-gray-800',
             'hover:text-primary-dark',
             'focus:text-primary-dark',
             'transition-all duration-300',
@@ -63,7 +63,7 @@ const ItemEdit = ({ todo }) => {
         </button>
         <button
           className={classnames(
-            'inline-block h-8 w-8 text-gray-800',
+            'inline-block h-6 w-6 text-gray-800',
             'hover:text-secondary focus:text-secondary',
             'transition-all duration-300',
           )}

@@ -18,7 +18,7 @@ const App = () => {
   const { isLoading, todoList } = appStore
 
   return (
-    <main className="mx-auto p-4 sm:max-w-2xl">
+    <main className="mx-auto p-4 sm:max-w-md">
       <CompletionBar percentComplete={todoList.percentComplete} />
 
       {isLoading ? (
@@ -26,7 +26,7 @@ const App = () => {
       ) : (
         <>
           <header className="flex justify-between items-center">
-            <h1 className="title text-7xl text-gray-800 font-bold">Tasks</h1>
+            <h1 className="title text-4xl text-gray-800 font-bold">Tasks</h1>
             <Button
               className={classnames(
                 'p-2 rounded-full bg-primary shadow-lg shadow-gray-400',
@@ -37,7 +37,7 @@ const App = () => {
               disabled={todoList.hasItemInEditingMode}
               onClick={todoList.addItem}
             >
-              <Icon name={iconNames.plusCircle} className="w-14 h-14 text-gray-100" />
+              <Icon name={iconNames.plusCircle} className="w-10 h-10 text-gray-100" />
             </Button>
           </header>
           <TodoList todos={todoList.items} />

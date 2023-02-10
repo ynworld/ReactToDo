@@ -11,7 +11,7 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
         onChange={onChange}
       />
       <span className="checkbox-custom" />
-      <span className="text-base text-gray-800">{label}</span>
+      <span className="text-sm px-2 text-gray-800">{label}</span>
     </label>
   )
 }
