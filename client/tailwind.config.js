@@ -5,6 +5,9 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   content: ['./src/**/*.js'],
   theme: {
+    fontFamily: {
+      sans: ['Inter', 'sans-serif']
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -18,33 +21,8 @@ module.exports = {
         tint: 'rgba(79, 196, 29, 0.4)',
         dark: '#4cb51d',
       },
-      secondary: {
+      alert: {
         DEFAULT: '#a30e0e',
-      },
-    },
-    extend: {
-      animation: {
-        ripple: 'ripple 0.3s ease-out forwards',
-      },
-      keyframes: {
-        ripple: {
-          '99%': {
-            left: '0px',
-            top: '0px',
-            width: '24px',
-            height: '24px',
-            transform: 'scale(3)',
-            opacity: '0',
-          },
-          '100%': {
-            left: '10px',
-            top: '10px',
-            width: '0px',
-            height: '0px',
-            transform: 'scale(0)',
-            opacity: '0',
-          },
-        },
       },
     },
   },

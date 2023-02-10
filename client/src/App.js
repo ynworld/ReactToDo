@@ -6,7 +6,7 @@ import AppStore from './stores/AppStore'
 
 import classnames from 'classnames'
 
-import { Button, CompletionBar, TodoList, Loading, Icon } from './components'
+import { CompletionBar, TodoList, Loading, Icon } from './components'
 
 const App = () => {
   const [appStore] = useState(() => new AppStore())
@@ -27,7 +27,7 @@ const App = () => {
         <>
           <header className="flex justify-between items-center">
             <h1 className="title text-4xl text-gray-800 font-bold">Tasks</h1>
-            <Button
+            <button
               className={classnames(
                 'p-2 rounded-full bg-primary shadow-lg shadow-gray-400',
                 'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md',
@@ -37,8 +37,8 @@ const App = () => {
               disabled={todoList.hasItemInEditingMode}
               onClick={todoList.addItem}
             >
-              <Icon name={iconNames.plusCircle} className="w-10 h-10 text-gray-100" />
-            </Button>
+              <Icon name={iconNames.plusCircle} className="w-10 h-10 text-white" />
+            </button>
           </header>
           <TodoList todos={todoList.items} />
         </>

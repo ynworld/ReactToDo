@@ -37,24 +37,19 @@ const ItemEdit = ({ todo }) => {
       <input
         type="text"
         className={classnames(
-          'flex-auto px-2',
-          'border-2 border-primary rounded-md',
-          'text-md outline-none focus:shadow-lg',
-          'focus:shadow-primary-tint',
-          'transition-all ease-in-out',
+          'flex-auto px-2 border-2 border-primary rounded-md h-8 text-sm',
+          'outline-none focus:shadow-md focus:shadow-primary-tint transition-all duration-300',
         )}
         placeholder="I need to..."
         autoFocus
         value={inputText}
         onChange={handleTextInput}
       />
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <button
           type="submit"
           className={classnames(
-            'inline-block h-6 w-6 text-gray-800',
-            'hover:text-primary-dark',
-            'focus:text-primary-dark',
+            'inline-block h-6 w-6 text-gray-800 hover:text-primary-dark focus:text-primary-dark',
             'transition-all duration-300',
           )}
           onClick={handleEditSubmit}
@@ -63,8 +58,7 @@ const ItemEdit = ({ todo }) => {
         </button>
         <button
           className={classnames(
-            'inline-block h-6 w-6 text-gray-800',
-            'hover:text-secondary focus:text-secondary',
+            'inline-block h-6 w-6 text-gray-800 hover:text-alert focus:text-alert',
             'transition-all duration-300',
           )}
           onClick={handleEditCancel}

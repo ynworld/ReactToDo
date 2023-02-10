@@ -2,7 +2,7 @@ import './CheckboxField.css'
 
 const CheckboxField = ({ label, id, isChecked, onChange }) => {
   return (
-    <label htmlFor={id} className="flex items-center gap-4 cursor-pointer">
+    <label htmlFor={id} className="flex items-center gap-3 cursor-pointer">
       <input
         type="checkbox"
         id={id}
@@ -10,8 +10,8 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
         defaultChecked={isChecked}
         onChange={onChange}
       />
-      <span className="checkbox-custom" />
-      <span className="text-sm px-2 text-gray-800">{label}</span>
+      <div className="checkbox-custom" />
+      <div className="text-sm text-gray-800">{label}</div>
     </label>
   )
 }

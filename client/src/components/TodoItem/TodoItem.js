@@ -15,8 +15,7 @@ const TodoItem = ({ todo }) => {
   return (
     <article
       className={classnames(
-        'flex justify-between items-center gap-4',
-        'p-4 rounded-lg min-h-[4rem]',
+        'flex justify-between items-center gap-3 p-4 rounded-lg min-h-[4rem]',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
       )}
     >
@@ -25,13 +24,11 @@ const TodoItem = ({ todo }) => {
       ) : (
         <>
           <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               className={classnames(
-                'inline-block w-6 h-6 text-gray-800',
-                'transition-all duration-300',
-                'hover:text-primary-dark focus:text-primary-dark',
-                'disabled:text-gray-400',
+                'inline-block w-6 h-6 text-gray-800 hover:text-primary-dark focus:text-primary-dark',
+                'disabled:text-gray-400 transition-colors duration-300',
               )}
               onClick={handleEditStart}
               disabled={!canEdit}
@@ -40,9 +37,8 @@ const TodoItem = ({ todo }) => {
             </button>
             <button
               className={classnames(
-                'inline-block w-6 h-6 text-gray-800',
-                'transition-all duration-300',
-                'hover:text-secondary focus:text-secondary',
+                'inline-block w-6 h-6 text-gray-800 hover:text-alert focus:text-alert',
+                'transition-colors duration-300',
               )}
               onClick={todo.delete}
             >
