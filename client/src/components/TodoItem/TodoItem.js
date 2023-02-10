@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
+import { iconNames } from '../../constants'
+import classnames from 'classnames'
 
 import { CheckboxField, ItemEdit, IconButton } from '../../components'
-
-import classnames from 'classnames'
 
 const TodoItem = ({ todo }) => {
   const { id, text, isChecked, toggle, isEditing, canEdit } = todo
@@ -25,12 +25,12 @@ const TodoItem = ({ todo }) => {
           <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
           <div className="flex items-center gap-2">
             <IconButton
-              icon="pencil"
-              variation="primary"
+              iconName={iconNames.pencil}
+              theme="success"
               onClick={handleEditStart}
               disabled={!canEdit}
             />
-            <IconButton icon="trash" variation="secondary" onClick={todo.delete} />
+            <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete} />
           </div>
         </>
       )}

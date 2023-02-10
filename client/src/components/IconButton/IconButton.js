@@ -2,26 +2,31 @@ import { Icon } from '../../components'
 import { iconNames } from '../../constants'
 import classnames from 'classnames'
 
-const IconButton = ({ children, type = 'button', icon, onClick, disabled = false, variation }) => {
-  const variations = {
-    primary: 'hover:text-primary-dark focus:text-primary-dark',
-    secondary: 'hover:text-secondary focus:text-secondary',
-  }
+const classesByTheme = {
+  alert: 'hover:text-secondary focus:text-secondary',
+  success: 'hover:text-primary-dark focus:text-primary-dark',
+}
+
+const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme }) => {
+  const name = iconNames[iconName]
+
+  if (!name) return null
 
   return (
     <button
       type={type}
       className={classnames(
-        variations[variation],
-        'inline-block w-6 h-6 text-sm text-gray-800',
-        'transition-all duration-300',
+        classesByTheme[theme],
+        'inline-flex w-8 h-8 text-sm text-gray-800 rounded-md items-center justify-center',
+        'hover:bg-black/[0.03] disabled:pointer-events-none transition-all duration-300',
         'disabled:text-gray-400',
       )}
       onClick={onClick}
       disabled={disabled}
     >
-      {icon && <Icon name={iconNames[icon]} />}
-      {children}
+      <div className="h-6 w-6 flex-none">
+        <Icon name={name} />
+      </div>
     </button>
   )
 }
