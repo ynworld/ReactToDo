@@ -18,7 +18,7 @@ const App = () => {
   const { isLoading, todoList } = appStore
 
   return (
-    <main className="mx-auto p-6 sm:max-w-4xl">
+    <main className="mx-auto p-4 sm:max-w-2xl">
       <CompletionBar percentComplete={todoList.percentComplete} />
 
       {isLoading ? (
@@ -29,7 +29,7 @@ const App = () => {
             <h1 className="title text-7xl text-gray-800 font-bold">Tasks</h1>
             <Button
               className={classnames(
-                'w-20 h-20 rounded-full bg-primary shadow-lg shadow-gray-400',
+                'p-2 rounded-full bg-primary shadow-lg shadow-gray-400',
                 'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md',
                 'disabled:bg-gray-400 disabled:shadow-lg disabled:shadow-gray-400',
                 'transition-all duration-300',
@@ -37,7 +37,7 @@ const App = () => {
               disabled={todoList.hasItemInEditingMode}
               onClick={todoList.addItem}
             >
-              <Icon name={iconNames.plusCircle} className="w-3/4 text-gray-100" />
+              <Icon name={iconNames.plusCircle} className="w-14 h-14 text-gray-100" />
             </Button>
           </header>
           <TodoList todos={todoList.items} />

@@ -15,8 +15,8 @@ const TodoItem = ({ todo }) => {
   return (
     <article
       className={classnames(
-        'flex justify-between items-center gap-2',
-        'p-6 border-2 border-gray-50 rounded-lg',
+        'flex justify-between items-center gap-4',
+        'p-6 rounded-lg',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
       )}
     >
@@ -25,10 +25,10 @@ const TodoItem = ({ todo }) => {
       ) : (
         <>
           <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <button
               className={classnames(
-                'inline-block w-12 h-12 text-gray-800',
+                'inline-block w-8 h-8 text-gray-800',
                 'transition-all duration-300',
                 'hover:text-primary-dark focus:text-primary-dark',
                 'disabled:text-gray-400',
@@ -40,7 +40,7 @@ const TodoItem = ({ todo }) => {
             </button>
             <button
               className={classnames(
-                'inline-block w-12 h-12 text-gray-800',
+                'inline-block w-8 h-8 text-gray-800',
                 'transition-all duration-300',
                 'hover:text-secondary focus:text-secondary',
               )}

@@ -37,9 +37,9 @@ const ItemEdit = ({ todo }) => {
       <input
         type="text"
         className={classnames(
-          'min-h-[3.2rem] flex-auto px-2',
+          'flex-auto px-2',
           'border-2 border-primary rounded-md',
-          'text-xl outline-none focus:shadow-lg',
+          'text-md outline-none focus:shadow-lg',
           'focus:shadow-primary-tint',
           'transition-all ease-in-out',
         )}
@@ -52,7 +52,7 @@ const ItemEdit = ({ todo }) => {
         <button
           type="submit"
           className={classnames(
-            'inline-block h-12 w-12 text-gray-800',
+            'inline-block h-8 w-8 text-gray-800',
             'hover:text-primary-dark',
             'focus:text-primary-dark',
             'transition-all duration-300',
@@ -63,7 +63,7 @@ const ItemEdit = ({ todo }) => {
         </button>
         <button
           className={classnames(
-            'inline-block h-12 w-12 text-gray-800',
+            'inline-block h-8 w-8 text-gray-800',
             'hover:text-secondary focus:text-secondary',
             'transition-all duration-300',
           )}
