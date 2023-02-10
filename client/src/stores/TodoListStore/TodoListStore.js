@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, computed, runInAction } from 'mobx'
+import { makeObservable, observable, action, computed } from 'mobx'
 
 import TodoListItem from './TodoListItem'
 
