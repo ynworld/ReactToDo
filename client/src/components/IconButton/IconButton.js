@@ -3,7 +3,7 @@ import { iconNames } from '../../constants'
 import classnames from 'classnames'
 
 const classesByTheme = {
-  alert: 'hover:text-secondary focus:text-secondary',
+  alert: 'hover:text-alert focus:text-alert',
   success: 'hover:text-primary-dark focus:text-primary-dark',
 }
 

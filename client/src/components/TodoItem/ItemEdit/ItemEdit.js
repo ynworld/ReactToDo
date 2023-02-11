@@ -37,7 +37,7 @@ const ItemEdit = ({ todo }) => {
         type="text"
         className={classnames(
           'flex-auto px-2 border-2 border-primary rounded-md h-8 text-sm',
-          'outline-none focus:shadow-md focus:shadow-primary-tint transition-all duration-300',
+          'outline-none focus:shadow-md focus:shadow-primary/25 transition-all duration-300',
         )}
         placeholder="I need to..."
         autoFocus

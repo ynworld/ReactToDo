@@ -6,7 +6,7 @@ module.exports = {
   content: ['./src/**/*.js'],
   theme: {
     fontFamily: {
-      sans: ['Inter', 'sans-serif']
+      sans: ['Inter', 'sans-serif'],
     },
     colors: {
       transparent: 'transparent',
@@ -18,7 +18,6 @@ module.exports = {
       primary: {
         light: '#56de45',
         DEFAULT: '#4fc41d',
-        tint: 'rgba(79, 196, 29, 0.4)',
         dark: '#4cb51d',
       },
       alert: {
