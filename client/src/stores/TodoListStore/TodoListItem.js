@@ -16,6 +16,7 @@ class TodoListItem {
       isEditing: observable,
       id: observable,
       key: computed,
+      index: computed,
       canEdit: computed,
       snapshot: computed,
       toggle: action.bound,
@@ -38,6 +39,10 @@ class TodoListItem {
 
   get key() {
     return this.id || 'new-item'
+  }
+
+  get index() {
+    return this.todoListStore.items.findIndex((item) => item === this)
   }
 
   get snapshot() {
