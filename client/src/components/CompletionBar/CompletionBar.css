@@ -1,8 +1,0 @@
-.completion-bar {
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  height: 4px;
-  background-color: #4fc41d;
-  transition: 0.5s width ease-in-out;
-}

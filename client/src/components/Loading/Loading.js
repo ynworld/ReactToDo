@@ -1,7 +1,5 @@
-import './Loading.css'
-
 const Loading = ({ text }) => {
-  return <div className="loading">{text}</div>
+  return <div className="text-4xl font-bold text-center text-gray-500">{text}</div>
 }
 
 export default Loading

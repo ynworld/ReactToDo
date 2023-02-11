@@ -1,34 +1,12 @@
-.label {
-  min-height: 3.2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  cursor: pointer;
-}
-
-.checkbox {
-  position: absolute;
-  visibility: hidden;
-}
-
-.checkbox__label {
-  padding: 0.5rem;
-  font-size: 1.4rem;
-  color: #333;
-  line-height: 22px;
-}
-
 /* Styled Checkbox */
 
 .checkbox-custom {
   position: relative;
   flex-shrink: 0;
-  top: 0px;
-  left: 0px;
-  height: 2.4rem;
-  width: 2.4rem;
+  height: 1.4rem;
+  width: 1.4rem;
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 4px;
   transition: all 0.3s ease-out;
   border: 2px solid #4fc41d;
   cursor: pointer;
@@ -36,27 +14,24 @@
 
 input:checked ~ .checkbox-custom {
   background-color: #4fc41d;
-  border-radius: 5px;
   transform: rotate(0deg) scale(1);
   opacity: 1;
   border: 2px solid #4fc41d;
 }
 
-input:checked ~ .checkbox-custom:hover,
-.label:hover input:checked ~ .checkbox-custom {
+label:hover > input:checked ~ .checkbox-custom {
   background-color: #fff;
 }
 
-.checkbox-custom:hover,
-.label:hover .checkbox-custom {
+label:hover .checkbox-custom {
   background-color: #4fc41d;
 }
 
 .checkbox-custom::after {
   position: absolute;
   content: '';
-  left: 1.2rem;
-  top: 1.2rem;
+  left: 1.4rem;
+  top: 1.4rem;
   height: 0px;
   width: 0px;
   border-radius: 5px;
@@ -72,18 +47,17 @@ input:checked ~ .checkbox-custom:hover,
 input:checked ~ .checkbox-custom::after {
   transform: rotate(45deg) scale(1);
   opacity: 1;
-  left: 8px;
-  top: 3px;
+  left: 7px;
+  top: 1px;
   width: 6px;
-  height: 1.2rem;
+  height: 12px;
   border: solid #fff;
   border-width: 0 2px 2px 0;
   background-color: transparent;
   border-radius: 0;
 }
 
-input:checked .checkbox-custom:hover ~ .checkbox-custom::after,
-.label:hover input:checked ~ .checkbox-custom::after {
+label:hover input:checked ~ .checkbox-custom::after {
   border: solid #4fc41d;
   border-width: 0 2px 2px 0;
 }
