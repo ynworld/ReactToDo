@@ -10,6 +10,7 @@ const TodoItem = ({ todo }) => {
   const { id, index } = todo
 
   const ref = useRef(null)
+
   const [{ handlerId }, drop] = useDrop({
     accept: 'TODO',
     collect(monitor) {
@@ -60,7 +61,7 @@ const TodoItem = ({ todo }) => {
     }),
   }))
 
-  const opacity = isDragging ? 0 : 100
+  const opacity = isDragging ? 'opacity-0' : 'opacity-100'
 
   drag(drop(ref))
 
@@ -71,7 +72,7 @@ const TodoItem = ({ todo }) => {
       className={classnames(
         'flex justify-between items-center gap-3 p-4 rounded-lg min-h-[4rem]',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
-        `opacity-${opacity}`,
+        opacity,
       )}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
