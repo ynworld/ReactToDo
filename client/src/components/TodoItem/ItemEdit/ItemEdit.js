@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react'
-
 import { iconNames } from '../../../constants'
-import { Icon } from '../../../components'
-
 import classnames from 'classnames'
+
+import { IconButton } from '../../../components'
 
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
@@ -38,33 +37,21 @@ const ItemEdit = ({ todo }) => {
         type="text"
         className={classnames(
           'flex-auto px-2 border-2 border-primary rounded-md h-8 text-sm',
-          'outline-none focus:shadow-md focus:shadow-primary-tint transition-all duration-300',
+          'outline-none focus:shadow-md focus:shadow-primary/25 transition-all duration-300',
         )}
         placeholder="I need to..."
         autoFocus
         value={inputText}
         onChange={handleTextInput}
       />
-      <div className="flex items-center gap-3">
-        <button
+      <div className="flex items-center gap-2">
+        <IconButton
           type="submit"
-          className={classnames(
-            'inline-block h-6 w-6 text-gray-800 hover:text-primary-dark focus:text-primary-dark',
-            'transition-all duration-300',
-          )}
+          iconName={iconNames.check}
+          theme="success"
           onClick={handleEditSubmit}
-        >
-          <Icon name={iconNames.check} />
-        </button>
-        <button
-          className={classnames(
-            'inline-block h-6 w-6 text-gray-800 hover:text-alert focus:text-alert',
-            'transition-all duration-300',
-          )}
-          onClick={handleEditCancel}
-        >
-          <Icon name={iconNames.xmark} />
-        </button>
+        />
+        <IconButton iconName={iconNames.xmark} theme="alert" onClick={handleEditCancel} />
       </div>
     </form>
   )
