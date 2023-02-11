@@ -8,15 +8,6 @@ import { ItemEdit, ItemView } from '../../components'
 
 const TodoItem = ({ todo }) => {
   const { id, index } = todo
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'TODO',
-    item: () => {
-      return { id, index }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }))
 
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
@@ -31,7 +22,7 @@ const TodoItem = ({ todo }) => {
         return
       }
       const dragIndex = item.index
-      const hoverIndex = todo.index
+      const hoverIndex = index
 
       if (dragIndex === hoverIndex) {
         return
@@ -53,13 +44,21 @@ const TodoItem = ({ todo }) => {
         return
       }
 
-      /* TODO: 
-      Implement list re-order method 
-      */
+      todo.todoListStore.moveItem(dragIndex, hoverIndex)
 
       item.index = hoverIndex
     },
   })
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'TODO',
+    item: () => {
+      return { id, index }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }))
 
   const opacity = isDragging ? 0 : 100
 

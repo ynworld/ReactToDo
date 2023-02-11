@@ -12,8 +12,9 @@ class TodoListStore {
       checkedItemsCount: computed,
       percentComplete: computed,
       addItem: action.bound,
-      setItems: action.bound,
+      moveItem: action.bound,
       deleteItem: action.bound,
+      setItems: action.bound,
     })
   }
 
@@ -37,6 +38,11 @@ class TodoListStore {
 
   deleteItem(todoItem) {
     this.items.remove(todoItem)
+  }
+
+  moveItem(from, to) {
+    const movedItem = this.items.splice(from, 1)[0]
+    this.items.splice(to, 0, movedItem)
   }
 
   setItems(items) {
