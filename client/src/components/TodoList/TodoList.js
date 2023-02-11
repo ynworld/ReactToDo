@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-
 import { TodoItem } from '../TodoItem'
 
 const TodoList = ({ todos }) => {
