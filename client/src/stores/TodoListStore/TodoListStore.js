@@ -35,6 +35,7 @@ class TodoListStore {
 
   addItem() {
     this.items.unshift(new TodoListItem({ isEditing: true }, 0, this))
+    this.update()
   }
 
   deleteItem(todoItem) {

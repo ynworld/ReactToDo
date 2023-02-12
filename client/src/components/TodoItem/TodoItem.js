@@ -63,9 +63,10 @@ const TodoItem = ({ todo }) => {
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
+      canDrag: !todo.todoListStore.hasItemInEditingMode,
       end: () => todo.todoListStore.update(),
     }),
-    [index],
+    [index, todo.todoListStore.hasItemInEditingMode],
   )
 
   const opacity = isDragging ? 'opacity-0' : 'opacity-100'
