@@ -4,19 +4,20 @@ import { del, put, post } from '../../api'
 
 class TodoListItem {
   id = null
+  index = null
   text = ''
   isChecked = false
 
   isEditing = false
 
-  constructor({ id, text, isChecked, isEditing }, todoListStore) {
+  constructor({ id, text, isChecked, isEditing }, index, todoListStore) {
     makeObservable(this, {
       text: observable,
       isChecked: observable,
       isEditing: observable,
       id: observable,
+      index: observable,
       key: computed,
-      index: computed,
       canEdit: computed,
       snapshot: computed,
       toggle: action.bound,
@@ -31,6 +32,7 @@ class TodoListItem {
     this.isChecked = isChecked || false
     this.text = text || ''
     this.isEditing = isEditing || false
+    this.index = index ?? null
 
     this.todoListStore = todoListStore
 
@@ -39,10 +41,6 @@ class TodoListItem {
 
   get key() {
     return this.id || 'new-item'
-  }
-
-  get index() {
-    return this.todoListStore.items.findIndex((item) => item === this)
   }
 
   get snapshot() {

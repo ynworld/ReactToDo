@@ -15,6 +15,7 @@ class TodoListStore {
       moveItem: action.bound,
       deleteItem: action.bound,
       setItems: action.bound,
+      update: action.bound,
     })
   }
 
@@ -40,13 +41,20 @@ class TodoListStore {
     this.items.remove(todoItem)
   }
 
-  moveItem(from, to) {
-    const movedItem = this.items.splice(from, 1)[0]
-    this.items.splice(to, 0, movedItem)
+  moveItem(fromIndex, toIndex) {
+    this.items.splice(toIndex, 0, this.items.splice(fromIndex, 1)[0])
+  }
+
+  update() {
+    const updatedItems = this.items.map((item, index) => {
+      item.index = index
+      return item
+    })
+    this.items.replace(updatedItems)
   }
 
   setItems(items) {
-    const itemModels = items.map((item) => new TodoListItem(item, this))
+    const itemModels = items.map((item, index) => new TodoListItem(item, index, this))
 
     this.items.replace(itemModels)
   }
