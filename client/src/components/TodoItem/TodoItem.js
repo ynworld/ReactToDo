@@ -64,7 +64,6 @@ const TodoItem = ({ todo }) => {
         isDragging: monitor.isDragging(),
       }),
       canDrag: !todo.todoListStore.hasItemInEditingMode,
-      end: () => todo.todoListStore.update(),
     }),
     [index, todo.todoListStore.hasItemInEditingMode],
   )

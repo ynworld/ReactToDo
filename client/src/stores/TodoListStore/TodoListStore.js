@@ -15,7 +15,6 @@ class TodoListStore {
       moveItem: action.bound,
       deleteItem: action.bound,
       setItems: action.bound,
-      update: action.bound,
     })
   }
 
@@ -34,7 +33,7 @@ class TodoListStore {
   }
 
   addItem() {
-    this.items.unshift(new TodoListItem({ isEditing: true }, 0, this))
+    this.items.unshift(new TodoListItem({ isEditing: true }, this))
     this.update()
   }
 
@@ -46,16 +45,8 @@ class TodoListStore {
     this.items.splice(toIndex, 0, this.items.splice(fromIndex, 1)[0])
   }
 
-  update() {
-    const updatedItems = this.items.map((item, index) => {
-      item.index = index
-      return item
-    })
-    this.items.replace(updatedItems)
-  }
-
   setItems(items) {
-    const itemModels = items.map((item, index) => new TodoListItem(item, index, this))
+    const itemModels = items.map((item) => new TodoListItem(item, this))
 
     this.items.replace(itemModels)
   }
