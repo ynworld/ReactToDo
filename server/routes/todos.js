@@ -30,12 +30,14 @@
 
 const _omit = require('lodash/omit')
 
+const _isArray = require('lodash/isArray')
+
 const express = require('express')
 const router = express.Router()
 
 const todoList = require('../mocks/todo-list')
 
-const todoListItems = [...todoList]
+let todoListItems = [...todoList]
 
 /**
  * @openapi
@@ -93,6 +95,52 @@ router.post('/', (req, res) => {
   todoListItems.unshift(newItem)
 
   res.send(newItem)
+})
+
+/**
+ * @openapi
+ * /reorder:
+ *   put:
+ *     summary: Re-order Todos
+ *     tags: [Todos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *                id:
+ *                  type: number
+ *                  description: Todo Id
+ *
+ *     responses:
+ *       200:
+ *         description: The list of re-ordered todos.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Todo'
+ *       500:
+ *         description: Some server error
+ */
+router.put('/reorder', (req, res) => {
+  const { itemIds } = req.body
+
+  if (!_isArray(itemIds)) return
+  if (itemIds.length === 0) return
+
+  if (itemIds.length !== todoListItems.length) {
+    return res.status(400).send({ error: 'Item count mismatch' })
+  }
+
+  const reorderedTodoList = itemIds.map((id) => todoListItems.find((item) => item.id === id))
+
+  todoListItems = reorderedTodoList
+
+  res.send(todoListItems)
 })
 
 /**

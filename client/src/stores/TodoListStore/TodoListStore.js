@@ -1,5 +1,7 @@
 import { makeObservable, observable, action, computed } from 'mobx'
 
+import { put } from '../../api'
+
 import TodoListItem from './TodoListItem'
 
 class TodoListStore {
@@ -12,8 +14,11 @@ class TodoListStore {
       checkedItemsCount: computed,
       percentComplete: computed,
       addItem: action.bound,
-      setItems: action.bound,
+      moveItem: action.bound,
       deleteItem: action.bound,
+      setItems: action.bound,
+      resetItems: action.bound,
+      reorderItems: action.bound,
     })
   }
 
@@ -32,15 +37,31 @@ class TodoListStore {
   }
 
   addItem() {
-    this.items.unshift(new TodoListItem({ isEditing: true }, this))
+    this.items.unshift(new TodoListItem({ isEditing: true }, 0, this))
   }
 
   deleteItem(todoItem) {
     this.items.remove(todoItem)
   }
 
+  moveItem(fromIndex, toIndex) {
+    const [itemToMove] = this.items.splice(fromIndex, 1)
+    this.items.splice(toIndex, 0, itemToMove)
+  }
+
+  reorderItems() {
+    const itemIds = this.items.map((item) => item.id)
+    put(`/todos/reorder`, { itemIds }).then((items) => {
+      this.setItems(items)
+    })
+  }
+
+  resetItems() {
+    this.setItems(this.items)
+  }
+
   setItems(items) {
-    const itemModels = items.map((item) => new TodoListItem(item, this))
+    const itemModels = items.map((item, index) => new TodoListItem(item, index, this))
 
     this.items.replace(itemModels)
   }

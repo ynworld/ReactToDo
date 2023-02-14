@@ -27,7 +27,9 @@ test('should fail to creat todo without text', async () => {
 })
 
 test('should delete todo item', async () => {
-  const { body: { id } } = await request.post('/todos').send({ text: 'Test todo' })
+  const {
+    body: { id },
+  } = await request.post('/todos').send({ text: 'Test todo' })
 
   const { body, statusCode } = await request.delete(`/todos/${id}`)
 
@@ -36,7 +38,9 @@ test('should delete todo item', async () => {
 })
 
 test('should update todo item', async () => {
-  const { body: { id } } = await request.post('/todos').send({ text: 'Test todo' })
+  const {
+    body: { id },
+  } = await request.post('/todos').send({ text: 'Test todo' })
   await request.get('/todos')
 
   const editedTodoText = 'Edited todo'
@@ -45,4 +49,22 @@ test('should update todo item', async () => {
 
   expect(statusCode).toBe(200)
   expect(body.text).toBe(editedTodoText)
+})
+
+test('should reorder todo list', async () => {
+  const res = await request.get('/todos')
+
+  const existingIds = res.body.items.map((item) => item.id)
+
+  const itemIds = existingIds
+  itemIds.reverse()
+
+  const { body, statusCode } = await request.put('/todos/reorder').send({ itemIds })
+
+  const newIds = body.map((item) => item.id)
+
+  const compareIds = newIds.join() === itemIds.join()
+
+  expect(statusCode).toBe(200)
+  expect(compareIds).toBe(true)
 })
