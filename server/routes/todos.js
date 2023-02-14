@@ -97,6 +97,51 @@ router.post('/', (req, res) => {
 
 /**
  * @openapi
+ * /todos:
+ *   put:
+ *     summary: Re-order Todos
+ *     tags: [Todos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             indexTo:
+ *             type: number
+ *             description: New index to move to
+ *             $ref: '#/components/schemas/Todo'
+ *
+ *     responses:
+ *       200:
+ *         description: The list of re-ordered todos.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Todo'
+ *       500:
+ *         description: Some server error
+ */
+router.put('/', (req, res) => {
+  const todoItem = req.body
+
+  if (!todoItem) return
+
+  const { id, toIndex } = todoItem
+
+  const itemIndex = todoListItems.findIndex((item) => item.id === id)
+
+  if (itemIndex === -1) return res.status(404).send({ error: 'Todo item not found' })
+
+  const [itemToMove] = todoListItems.splice(itemIndex, 1)
+  todoListItems.splice(toIndex, 0, itemToMove)
+
+  res.send(todoListItems)
+})
+
+/**
+ * @openapi
  * /todos/{id}:
  *   put:
  *     summary: Update existing todo

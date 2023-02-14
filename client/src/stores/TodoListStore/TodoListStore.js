@@ -1,5 +1,7 @@
 import { makeObservable, observable, action, computed } from 'mobx'
 
+import { put } from '../../api'
+
 import TodoListItem from './TodoListItem'
 
 class TodoListStore {
@@ -15,6 +17,7 @@ class TodoListStore {
       moveItem: action.bound,
       deleteItem: action.bound,
       setItems: action.bound,
+      updateMoveOnServer: action.bound,
     })
   }
 
@@ -43,6 +46,10 @@ class TodoListStore {
   moveItem(fromIndex, toIndex) {
     const [itemToMove] = this.items.splice(fromIndex, 1)
     this.items.splice(toIndex, 0, itemToMove)
+  }
+
+  updateMoveOnServer(todoItem, toIndex) {
+    put(`/todos`, { ...todoItem.snapshot, toIndex: toIndex }).then(this.setItems)
   }
 
   setItems(items) {
