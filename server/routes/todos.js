@@ -30,6 +30,8 @@
 
 const _omit = require('lodash/omit')
 
+const _isArray = require('lodash/isArray')
+
 const express = require('express')
 const router = express.Router()
 
