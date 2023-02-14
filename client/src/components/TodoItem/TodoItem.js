@@ -10,7 +10,7 @@ import { ItemEdit, ItemView } from '..'
 import { TodoListItem } from '../../stores/TodoListStore'
 
 const TodoItem = ({ todo, index }) => {
-  const { id } = todo
+  const { id, text, isChecked, toggle, canEdit, startEdit } = todo
 
   const ref = useRef(null)
 
@@ -66,6 +66,10 @@ const TodoItem = ({ todo, index }) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       canDrag: !todo.todoListStore.hasItemInEditingMode,
+      type: 'TODO',
+      item: () => {
+        return { id, text, isChecked, index, toggle, canEdit, startEdit }
+      },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -73,8 +77,6 @@ const TodoItem = ({ todo, index }) => {
         if (index === todo.index) return
         todo.todoListStore.reorderItems()
       },
-      item: () => ({ id, index }),
-      type: 'TODO',
     }),
     [index, todo.index, todo.todoListStore.hasItemInEditingMode],
   )
