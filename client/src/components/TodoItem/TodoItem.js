@@ -6,8 +6,8 @@ import { useDrag, useDrop } from 'react-dnd'
 
 import { ItemEdit, ItemView } from '../../components'
 
-const TodoItem = ({ todo }) => {
-  const { id, index } = todo
+const TodoItem = ({ todo, index }) => {
+  const { id } = todo
 
   const ref = useRef(null)
 
@@ -51,7 +51,7 @@ const TodoItem = ({ todo }) => {
         item.index = hoverIndex
       },
     },
-    [index],
+    [index, todo.index],
   )
 
   const [{ isDragging }, drag] = useDrag(
@@ -65,10 +65,11 @@ const TodoItem = ({ todo }) => {
       }),
       canDrag: !todo.todoListStore.hasItemInEditingMode,
       end: () => {
-        todo.todoListStore.updateMoveOnServer(todo, todo.index)
+        if (index === todo.index) return
+        todo.todoListStore.reorderItems()
       },
     }),
-    [index, todo.todoListStore.hasItemInEditingMode],
+    [index, todo.index, todo.todoListStore.hasItemInEditingMode],
   )
 
   const opacity = isDragging ? 'opacity-0' : 'opacity-100'

@@ -26,6 +26,7 @@ const ItemEdit = ({ todo }) => {
   const handleEditCancel = () => {
     if (!todo.id) {
       todo.delete()
+      todo.todoListStore.resetItems()
     } else {
       todo.finishEdit()
     }

@@ -35,7 +35,7 @@ const router = express.Router()
 
 const todoList = require('../mocks/todo-list')
 
-const todoListItems = [...todoList]
+let todoListItems = [...todoList]
 
 /**
  * @openapi
@@ -97,7 +97,7 @@ router.post('/', (req, res) => {
 
 /**
  * @openapi
- * /todos:
+ * /reorder:
  *   put:
  *     summary: Re-order Todos
  *     tags: [Todos]
@@ -106,10 +106,11 @@ router.post('/', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             indexTo:
- *             type: number
- *             description: New index to move to
- *             $ref: '#/components/schemas/Todo'
+ *             type: array
+ *             items:
+ *                id:
+ *                  type: number
+ *                  description: Todo Id
  *
  *     responses:
  *       200:
@@ -123,19 +124,23 @@ router.post('/', (req, res) => {
  *       500:
  *         description: Some server error
  */
-router.put('/', (req, res) => {
-  const todoItem = req.body
+router.put('/reorder', (req, res) => {
+  const { itemIds } = req.body
 
-  if (!todoItem) return
+  if (!itemIds) return
 
-  const { id, toIndex } = todoItem
+  if (itemIds.length !== todoListItems.length) {
+    return res.status(400).send({ error: 'Item count mismatch' })
+  }
 
-  const itemIndex = todoListItems.findIndex((item) => item.id === id)
+  let newList = []
 
-  if (itemIndex === -1) return res.status(404).send({ error: 'Todo item not found' })
+  for (let i = 0; i < itemIds.length; i++) {
+    const todoItem = todoListItems.find((item) => item.id === itemIds[i])
+    newList.push(todoItem)
+  }
 
-  const [itemToMove] = todoListItems.splice(itemIndex, 1)
-  todoListItems.splice(toIndex, 0, itemToMove)
+  todoListItems = newList
 
   res.send(todoListItems)
 })

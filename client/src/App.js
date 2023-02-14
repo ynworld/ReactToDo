@@ -17,6 +17,11 @@ const App = () => {
 
   const { isLoading, todoList } = appStore
 
+  const handleAddItem = () => {
+    todoList.addItem()
+    todoList.resetItems()
+  }
+
   return (
     <main className="mx-auto p-4 sm:max-w-md">
       <CompletionBar percentComplete={todoList.percentComplete} />
@@ -35,7 +40,7 @@ const App = () => {
                 'transition-all duration-300',
               )}
               disabled={todoList.hasItemInEditingMode}
-              onClick={todoList.addItem}
+              onClick={handleAddItem}
             >
               <Icon name={iconNames.plusCircle} className="w-10 h-10 text-white" />
             </button>

@@ -17,7 +17,8 @@ class TodoListStore {
       moveItem: action.bound,
       deleteItem: action.bound,
       setItems: action.bound,
-      updateMoveOnServer: action.bound,
+      resetItems: action.bound,
+      reorderItems: action.bound,
     })
   }
 
@@ -36,7 +37,7 @@ class TodoListStore {
   }
 
   addItem() {
-    this.items.unshift(new TodoListItem({ isEditing: true }, this))
+    this.items.unshift(new TodoListItem({ isEditing: true }, 0, this))
   }
 
   deleteItem(todoItem) {
@@ -48,12 +49,19 @@ class TodoListStore {
     this.items.splice(toIndex, 0, itemToMove)
   }
 
-  updateMoveOnServer(todoItem, toIndex) {
-    put(`/todos`, { ...todoItem.snapshot, toIndex: toIndex }).then(this.setItems)
+  reorderItems() {
+    const itemIds = this.items.map((item) => item.id)
+    put(`/todos/reorder`, { itemIds }).then((items) => {
+      this.setItems(items)
+    })
+  }
+
+  resetItems() {
+    this.setItems(this.items)
   }
 
   setItems(items) {
-    const itemModels = items.map((item) => new TodoListItem(item, this))
+    const itemModels = items.map((item, index) => new TodoListItem(item, index, this))
 
     this.items.replace(itemModels)
   }
