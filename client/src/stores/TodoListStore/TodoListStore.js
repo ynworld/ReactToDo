@@ -41,7 +41,8 @@ class TodoListStore {
   }
 
   moveItem(fromIndex, toIndex) {
-    this.items.splice(toIndex, 0, this.items.splice(fromIndex, 1)[0])
+    const [itemToMove] = this.items.splice(fromIndex, 1)
+    this.items.splice(toIndex, 0, itemToMove)
   }
 
   setItems(items) {
