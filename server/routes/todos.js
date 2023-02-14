@@ -127,20 +127,16 @@ router.post('/', (req, res) => {
 router.put('/reorder', (req, res) => {
   const { itemIds } = req.body
 
-  if (!itemIds) return
+  if (!_isArray(itemIds)) return
+  if (itemIds.length === 0) return
 
   if (itemIds.length !== todoListItems.length) {
     return res.status(400).send({ error: 'Item count mismatch' })
   }
 
-  let newList = []
+  const reorderedTodoList = itemIds.map((id) => todoListItems.find((item) => item.id === id))
 
-  for (let i = 0; i < itemIds.length; i++) {
-    const todoItem = todoListItems.find((item) => item.id === itemIds[i])
-    newList.push(todoItem)
-  }
-
-  todoListItems = newList
+  todoListItems = reorderedTodoList
 
   res.send(todoListItems)
 })
