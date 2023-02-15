@@ -15,6 +15,9 @@ const TodoItem = ({ todo, index }) => {
   const ref = useRef(null)
   const dragRef = useRef(null)
 
+  const xOffSet = ref.current?.offsetLeft
+  const width = ref.current?.clientWidth
+
   const [{ handlerId }, drop] = useDrop(
     {
       accept: 'TODO',
@@ -61,7 +64,7 @@ const TodoItem = ({ todo, index }) => {
         item.index = hoverIndex
       },
     },
-    [index, todo.index],
+    [index, xOffSet, width, todo.index],
   )
 
   const [{ isDragging }, drag, preview] = useDrag(
@@ -69,7 +72,7 @@ const TodoItem = ({ todo, index }) => {
       canDrag: !todo.todoListStore.hasItemInEditingMode,
       type: 'TODO',
       item: () => {
-        return { id, text, isChecked, index, toggle, canEdit, startEdit }
+        return { id, xOffSet, width, text, isChecked, index, toggle, canEdit, startEdit }
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
@@ -79,7 +82,7 @@ const TodoItem = ({ todo, index }) => {
         todo.todoListStore.reorderItems()
       },
     }),
-    [index, todo.index, todo.todoListStore.hasItemInEditingMode],
+    [index, xOffSet, width, todo.index, todo.todoListStore.hasItemInEditingMode],
   )
 
   const opacity = isDragging ? 'opacity-0' : 'opacity-100'
