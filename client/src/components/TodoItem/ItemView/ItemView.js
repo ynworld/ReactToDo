@@ -26,7 +26,7 @@ const ItemView = forwardRef(({ todo }, ref) => {
         />
         <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete} />
         <div ref={ref}>
-          <IconButton iconName={iconNames.bars3} theme="success" />
+          <IconButton iconName={iconNames.bars3} theme="success" disabled />
         </div>
       </div>
     </>

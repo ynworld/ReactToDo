@@ -13,15 +13,25 @@ const MyPreview = () => {
   if (!preview.display) {
     return null
   }
-  const { itemType, item, style, ref } = preview
+  const { item, style, ref, monitor } = preview
+
+  let y = monitor.getClientOffset()?.y ?? 0
+
+  const transform = `translateY(${y}px)`
+
+  const finalStyle = {
+    ...style,
+    transform,
+    WebkitTransform: transform,
+  }
 
   return (
     <div
       ref={ref}
-      style={style}
+      style={finalStyle}
       className={classnames(
         'flex justify-between items-center gap-3 p-4',
-        'rounded-lg min-h-[4rem]',
+        'rounded-lg min-h-[4rem] ml-4',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
         'opacity-50',
       )}
