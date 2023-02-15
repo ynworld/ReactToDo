@@ -1,11 +1,13 @@
 import { PropTypes } from 'prop-types'
-import { observer } from 'mobx-react'
-import { CheckboxField, IconButton } from '../..'
+import { forwardRef } from 'react'
+
+import { CheckboxField, IconButton } from '../../../components'
 import { iconNames } from '../../../constants'
+import { observer } from 'mobx-react'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const ItemView = ({ todo }) => {
+const ItemView = forwardRef(({ todo }, ref) => {
   const { id, text, isChecked, toggle, canEdit } = todo
 
   const handleEditStart = () => {
@@ -22,11 +24,14 @@ const ItemView = ({ todo }) => {
           onClick={handleEditStart}
           theme="success"
         />
-        <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
+        <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete} />
+        <div ref={ref}>
+          <IconButton iconName={iconNames.bars3} theme="success" />
+        </div>
       </div>
     </>
   )
-}
+})
 
 ItemView.propTypes = {
   todo: PropTypes.instanceOf(TodoListItem).isRequired,

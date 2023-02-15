@@ -13,6 +13,7 @@ const TodoItem = ({ todo, index }) => {
   const { id, text, isChecked, toggle, canEdit, startEdit } = todo
 
   const ref = useRef(null)
+  const dragRef = useRef(null)
 
   const [{ handlerId }, drop] = useDrop(
     {
@@ -63,7 +64,7 @@ const TodoItem = ({ todo, index }) => {
     [index, todo.index],
   )
 
-  const [{ isDragging }, drag] = useDrag(
+  const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       canDrag: !todo.todoListStore.hasItemInEditingMode,
       type: 'TODO',
@@ -83,7 +84,8 @@ const TodoItem = ({ todo, index }) => {
 
   const opacity = isDragging ? 'opacity-0' : 'opacity-100'
 
-  drag(drop(ref))
+  drop(preview(ref))
+  drag(dragRef)
 
   return (
     <article
@@ -95,7 +97,7 @@ const TodoItem = ({ todo, index }) => {
       )}
       data-handler-id={handlerId}
     >
-      {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
+      {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} ref={dragRef} />}
     </article>
   )
 }
