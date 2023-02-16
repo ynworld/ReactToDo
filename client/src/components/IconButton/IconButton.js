@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
 
-import { Icon } from '..'
+import { Icon } from '../Icon'
 import { iconNames } from '../../constants'
 
 const classesByTheme = {

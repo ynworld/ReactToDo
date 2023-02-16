@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 import { useDrag, useDrop } from 'react-dnd'
 
-import { ItemEdit, ItemView } from '../../components'
+import { ItemEdit, ItemView } from ".."
 
 const TodoItem = ({ todo, index }) => {
   const { id } = todo

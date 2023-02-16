@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react'
-import { iconNames } from '../../../constants'
 import classnames from 'classnames'
+import { iconNames } from '../../../constants'
 
-import { IconButton } from '../../../components'
+import { IconButton } from "../.."
 
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)

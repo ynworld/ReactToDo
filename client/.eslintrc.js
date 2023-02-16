@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     semi: ['error', 'never'],
     'arrow-body-style': 'off',
+    'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',

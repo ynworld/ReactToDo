@@ -1,9 +1,10 @@
-import { TodoListStore } from './TodoListStore'
 import { makeObservable, observable, action } from 'mobx'
+import { TodoListStore } from './TodoListStore'
 import { get } from '../api'
 
 class AppStore {
   todoList = new TodoListStore()
+
   isLoading = true
 
   constructor() {
