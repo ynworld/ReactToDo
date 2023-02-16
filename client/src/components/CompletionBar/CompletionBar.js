@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types'
+
 const CompletionBar = ({ percentComplete }) => {
   return (
     <div
@@ -5,6 +7,10 @@ const CompletionBar = ({ percentComplete }) => {
       style={{ width: `${percentComplete}%` }}
     />
   )
+}
+
+CompletionBar.propTypes = {
+  percentComplete: PropTypes.number.isRequired,
 }
 
 export default CompletionBar

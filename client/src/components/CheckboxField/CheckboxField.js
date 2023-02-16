@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types'
 import './CheckboxField.css'
 
 const CheckboxField = ({ label, id, isChecked, onChange }) => {
@@ -14,6 +15,13 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
       <div className="text-sm text-gray-800">{label}</div>
     </label>
   )
+}
+
+CheckboxField.propTypes = {
+  label: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  isChecked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default CheckboxField
