@@ -1,4 +1,3 @@
-export * from './Button'
 export * from './IconButton'
 export * from './CheckboxField'
 export * from './CompletionBar'
