@@ -1,5 +1,8 @@
+import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
 import { TodoItem } from '../TodoItem'
+
+import { TodoListItem } from '../../stores/TodoListStore'
 
 const TodoList = ({ todos }) => {
   return (
@@ -11,6 +14,10 @@ const TodoList = ({ todos }) => {
       ))}
     </ul>
   )
+}
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.instanceOf(TodoListItem)).isRequired,
 }
 
 export default observer(TodoList)

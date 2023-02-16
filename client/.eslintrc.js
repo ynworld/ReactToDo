@@ -15,6 +15,7 @@ module.exports = {
     'arrow-body-style': 'off',
     'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',
+    'react/forbid-prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],

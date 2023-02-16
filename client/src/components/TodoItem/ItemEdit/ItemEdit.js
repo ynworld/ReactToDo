@@ -1,9 +1,12 @@
+import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 import { iconNames } from '../../../constants'
 
-import { IconButton } from "../.."
+import { TodoListItem } from '../../../stores/TodoListStore'
+
+import { IconButton } from '../..'
 
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
@@ -41,7 +44,7 @@ const ItemEdit = ({ todo }) => {
           'outline-none focus:shadow-md focus:shadow-primary/25 transition-all duration-300',
         )}
         placeholder="I need to..."
-        autoFocus
+        // autoFocus
         value={inputText}
         onChange={handleTextInput}
       />
@@ -56,6 +59,10 @@ const ItemEdit = ({ todo }) => {
       </div>
     </form>
   )
+}
+
+ItemEdit.propTypes = {
+  todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 
 export default observer(ItemEdit)

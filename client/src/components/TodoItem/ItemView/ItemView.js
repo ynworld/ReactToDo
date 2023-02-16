@@ -1,6 +1,9 @@
+import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { CheckboxField, IconButton } from "../.."
+import { CheckboxField, IconButton } from '../..'
 import { iconNames } from '../../../constants'
+
+import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ todo }) => {
   const { id, text, isChecked, toggle, canEdit } = todo
@@ -23,6 +26,10 @@ const ItemView = ({ todo }) => {
       </div>
     </>
   )
+}
+
+ItemView.propTypes = {
+  todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 
 export default observer(ItemView)
