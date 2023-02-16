@@ -1,9 +1,9 @@
 import { usePreview } from 'react-dnd-multi-backend'
 import classnames from 'classnames'
 
-import { ItemView } from '../../components'
+import { ItemView } from '..'
 
-const Preview = () => {
+const DragPreview = () => {
   const preview = usePreview()
   if (!preview.display) {
     return null
@@ -12,12 +12,13 @@ const Preview = () => {
 
   const y = monitor.getClientOffset()?.y ?? 0
   const x = monitor.getItem()?.xOffSet
-  const width = `w-[${monitor.getItem()?.width}px]`
+  const width = `${monitor.getItem()?.width}px`
 
   const transform = `translate(${x}px, ${y}px)`
 
   const finalStyle = {
     ...style,
+    width: width,
     transform,
     WebkitTransform: transform,
   }
@@ -27,11 +28,11 @@ const Preview = () => {
       ref={ref}
       style={finalStyle}
       className={classnames(
+        `w-[${width}px]`,
         'flex justify-between items-center gap-3 p-4',
         'rounded-lg min-h-[4rem]',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
         'opacity-50',
-        `${width}`,
       )}
     >
       <ItemView todo={{ ...item }} />
@@ -39,4 +40,4 @@ const Preview = () => {
   )
 }
 
-export default Preview
+export default DragPreview

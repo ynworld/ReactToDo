@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types'
 import { forwardRef } from 'react'
 
-import { CheckboxField, IconButton } from '../../../components'
+import { CheckboxField, IconButton, Icon } from '../../../components'
 import { iconNames } from '../../../constants'
 import { observer } from 'mobx-react'
 
@@ -25,8 +25,8 @@ const ItemView = forwardRef(({ todo }, ref) => {
           theme="success"
         />
         <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete} />
-        <div ref={ref}>
-          <IconButton iconName={iconNames.bars3} theme="success" disabled />
+        <div ref={ref} className="w-8 h-8 text-gray-300">
+          <Icon name={iconNames.chevronUpDown} />
         </div>
       </div>
     </>

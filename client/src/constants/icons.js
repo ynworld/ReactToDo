@@ -4,7 +4,7 @@ export const iconNames = {
   plusCircle: 'plusCircle',
   trash: 'trash',
   xmark: 'xmark',
-  bars3: 'bars3',
+  chevronUpDown: 'chevronUpDown',
 }
 
 export const iconVariants = {

@@ -7,6 +7,7 @@ import {
   XMarkIcon,
   CheckIcon,
   Bars3Icon,
+  ChevronUpDownIcon,
 } from '@heroicons/react/24/outline'
 
 import { iconNames, iconVariants } from '../../constants'
@@ -17,7 +18,7 @@ const outlineIconRenderers = {
   [iconNames.pencil]: PencilIcon,
   [iconNames.xmark]: XMarkIcon,
   [iconNames.check]: CheckIcon,
-  [iconNames.bars3]: Bars3Icon,
+  [iconNames.chevronUpDown]: ChevronUpDownIcon,
 }
 
 const solidIconRenderers = {}
