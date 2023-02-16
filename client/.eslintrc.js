@@ -15,6 +15,8 @@ module.exports = {
     'arrow-body-style': 'off',
     'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',
+    'react/jsx-props-no-spreading': [2, { html: 'ignore' }],
+    'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
