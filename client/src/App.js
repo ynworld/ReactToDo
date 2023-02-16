@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 
+import classnames from 'classnames'
 import { iconNames } from './constants'
 import AppStore from './stores/AppStore'
-
-import classnames from 'classnames'
 
 import { CompletionBar, TodoList, Loading, Icon } from './components'
 
@@ -13,7 +12,7 @@ const App = () => {
 
   useEffect(() => {
     appStore.loadTodoList()
-  }, [])
+  }, [appStore])
 
   const { isLoading, todoList } = appStore
 
@@ -33,6 +32,7 @@ const App = () => {
           <header className="flex justify-between items-center">
             <h1 className="title text-4xl text-gray-800 font-bold">Tasks</h1>
             <button
+              type="button"
               className={classnames(
                 'p-2 rounded-full bg-primary shadow-lg shadow-gray-400',
                 'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md',
