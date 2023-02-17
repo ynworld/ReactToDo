@@ -66,9 +66,7 @@ const TodoItem = ({ todo, index }) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'TODO',
-      item: () => {
-        return { id, index }
-      },
+      item: () => ({ id, index }),
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),

@@ -1,8 +1,7 @@
 import { PropTypes } from 'prop-types'
 import './CheckboxField.css'
 
-const CheckboxField = ({ label, id, isChecked, onChange }) => {
-  return (
+const CheckboxField = ({ label, id, isChecked, onChange }) => (
     <label htmlFor={id} className="flex items-center gap-3 cursor-pointer">
       <input
         type="checkbox"
@@ -15,7 +14,6 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
       <div className="text-sm text-gray-800">{label}</div>
     </label>
   )
-}
 
 CheckboxField.propTypes = {
   label: PropTypes.string.isRequired,

@@ -19,7 +19,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/function-component-definition': [
       2,
       {
