@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import { CheckboxField, EditButtons } from '../../../components'
+import { CheckboxField, EditPopover } from '../../../components'
 import { observer } from 'mobx-react'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
@@ -10,7 +10,7 @@ const ItemView = ({ todo }) => {
   return (
     <>
       <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
-      <EditButtons todo={todo} />
+      <EditPopover todo={todo} />
     </>
   )
 }
