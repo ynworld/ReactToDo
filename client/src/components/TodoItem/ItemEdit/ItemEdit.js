@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 import { iconNames } from '../../../constants'
@@ -12,7 +12,10 @@ const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
 
   const ref = useRef(null)
-  ref.current?.focus()
+
+  useEffect(() => {
+    ref.current?.focus()
+  }, [])
 
   const handleTextInput = (event) => {
     setInputText(event.target.value)
