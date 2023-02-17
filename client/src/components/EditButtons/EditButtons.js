@@ -22,4 +22,4 @@ const EditButtons = ({ todo }) => {
   )
 }
 
-export default EditButtons
+export default observer(EditButtons)
