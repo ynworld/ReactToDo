@@ -12,7 +12,6 @@ module.exports = {
   plugins: ['react'],
   rules: {
     semi: ['error', 'never'],
-    'arrow-body-style': 'off',
     'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': [2, { html: 'ignore' }],
