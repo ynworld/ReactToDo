@@ -46,7 +46,7 @@ const ItemEdit = ({ todo }) => {
   }
 
   return (
-    <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
+    <form className="flex flex-auto gap-2" onSubmit={handleEditSubmit}>
       <input
         ref={ref}
         className={classnames(
@@ -59,7 +59,7 @@ const ItemEdit = ({ todo }) => {
         type="text"
         value={inputText}
       />
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <IconButton
           iconName={iconNames.check}
           onClick={handleEditSubmit}
