@@ -5,12 +5,16 @@ import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
-  alert: 'hover:text-alert focus:text-alert',
-  success: 'hover:text-primary-dark focus:text-primary-dark',
+  alert: 'group-hover:text-alert group-focus:text-alert',
+  success: 'group-hover:text-primary-dark group-focus:text-primary-dark',
 }
 
-const IconButton = ({ type, iconName, iconVariant, onClick, disabled = false, theme }) => {
-  if (!iconName) return null
+const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme, children }) => {
+  const name = iconNames[iconName]
+
+  const textClasses = classnames(children ? 'px-3 py-1' : 'justify-center')
+
+  if (!name) return null
 
   return (
     <button
@@ -24,9 +28,15 @@ const IconButton = ({ type, iconName, iconVariant, onClick, disabled = false, th
       onClick={onClick}
       type={type === 'submit' ? 'submit' : 'button'}
     >
-      <div className="h-6 w-6 flex-none">
-        <Icon name={iconName} variant={iconVariant} />
+      <div
+        className={classnames(
+          classesByTheme[theme],
+          'h-6 w-6 flex-none transition-all duration-300',
+        )}
+      >
+        <Icon name={name} />
       </div>
+      {children}
     </button>
   )
 }
