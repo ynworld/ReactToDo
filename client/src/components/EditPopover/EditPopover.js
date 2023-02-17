@@ -23,7 +23,7 @@ const EditPopover = ({ todo }) => {
   const { x, y, strategy, refs, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
-    placement: 'left',
+    placement: 'left-start',
     middleware: [flip(), shift()],
     whileElementsMounted: autoUpdate,
   })
@@ -47,7 +47,7 @@ const EditPopover = ({ todo }) => {
       </div>
 
       {isMounted && (
-        <FloatingFocusManager context={context}>
+        <FloatingFocusManager context={context} initialFocus={-1}>
           <div
             ref={refs.setFloating}
             style={{
@@ -58,7 +58,6 @@ const EditPopover = ({ todo }) => {
               ...styles,
             }}
             {...getFloatingProps}
-            className="p-2 bg-gray-100 rounded-md shadow-md"
           >
             <EditButtons todo={todo} />
           </div>
