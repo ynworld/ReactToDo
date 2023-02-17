@@ -42,7 +42,11 @@ const EditPopover = ({ todo }) => {
 
   return (
     <>
-      <div ref={refs.setReference} {...getReferenceProps()} className="h-8 w-8">
+      <div
+        ref={refs.setReference}
+        {...getReferenceProps()}
+        className="flex flex-shrink-0 justify-center items-center h-8 w-8"
+      >
         <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
       </div>
 
