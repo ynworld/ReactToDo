@@ -1,4 +1,5 @@
 export * from './IconButton'
+export * from './EditPopover'
 export * from './CheckboxField'
 export * from './CompletionBar'
 export * from './TodoItem'
