@@ -2,7 +2,6 @@ import { useState } from 'react'
 import {
   useFloating,
   autoUpdate,
-  offset,
   flip,
   shift,
   useClick,

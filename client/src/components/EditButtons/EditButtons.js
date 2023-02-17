@@ -1,5 +1,6 @@
-import { iconNames } from '../../constants'
+import { observer } from 'mobx-react'
 
+import { iconNames } from '../../constants'
 import { IconButton } from '..'
 
 const EditButtons = ({ todo }) => {
