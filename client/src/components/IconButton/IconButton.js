@@ -38,14 +38,7 @@ IconButton.propTypes = {
   iconName: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   theme: PropTypes.string,
-  type: PropTypes.string,
-}
-
-IconButton.defaultProps = {
-  disabled: false,
-  onClick: null,
-  theme: 'success',
-  type: 'button',
+  children: PropTypes.node,
 }
 
 export default IconButton

@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types'
+
 import { useState } from 'react'
 import {
   useFloating,
@@ -16,6 +18,7 @@ import {
 
 import { IconButton, EditButtons } from '..'
 import { iconNames } from '../../constants'
+import { TodoListItem } from '../../stores/TodoListStore'
 
 const EditPopover = ({ todo }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -65,6 +68,10 @@ const EditPopover = ({ todo }) => {
       )}
     </>
   )
+}
+
+EditPopover.propTypes = {
+  todo: PropTypes.instanceOf(TodoListItem),
 }
 
 export default EditPopover

@@ -1,5 +1,4 @@
 import { PropTypes } from 'prop-types'
-import { CheckboxField, EditPopover } from '../../../components'
 import { observer } from 'mobx-react'
 import { CheckboxField, IconButton } from '../..'
 import { iconNames } from '../../../constants'
