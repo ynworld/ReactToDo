@@ -5,8 +5,8 @@ import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
-  alert: 'group-hover:text-alert group-focus:text-alert',
-  success: 'group-hover:text-primary-dark group-focus:text-primary-dark',
+  alert: 'group-hover/button:text-alert group-focus:text-alert',
+  success: 'group-hover/button:text-primary-dark group-focus:text-primary-dark',
 }
 
 const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme, children }) => {
@@ -19,10 +19,10 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
   return (
     <button
       className={classnames(
-        classesByTheme[theme],
-        'group inline-flex min-h-[2rem] min-w-[2rem] items-center justify-center gap-2 rounded-md text-sm text-gray-800',
+        'group/button group inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
         'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
+        textClasses,
       )}
       disabled={disabled}
       onClick={onClick}
@@ -42,12 +42,13 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
 }
 
 IconButton.propTypes = {
+  children: PropTypes.node,
   disabled: PropTypes.bool,
   iconName: PropTypes.oneOf([...Object.values(iconNames)]).isRequired,
   iconVariant: PropTypes.oneOf([...Object.values(iconVariants)]),
   onClick: PropTypes.func,
   theme: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['button', 'submit']),
 }
 
 export default IconButton
