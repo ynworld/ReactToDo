@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
-import { CheckboxField, EditPopover } from '../../../components'
 import { observer } from 'mobx-react'
+import { CheckboxField, EditPopover } from '../..'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
