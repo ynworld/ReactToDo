@@ -14,6 +14,8 @@ import { iconNames } from '../../constants'
 const TodoItem = ({ todo, index }) => {
   const { id, text, isChecked, toggle, canEdit, startEdit } = todo
 
+  const draggingIsAllowed = !todo.todoListStore.hasItemInEditingMode
+
   const ref = useRef(null)
   const dragRef = useRef(null)
 
@@ -79,12 +81,13 @@ const TodoItem = ({ todo, index }) => {
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
+      canDrag: draggingIsAllowed,
       end: () => {
         if (index === todo.index) return
         todo.todoListStore.reorderItems()
       },
     }),
-    [index, xOffSet, width, todo.index, todo.todoListStore.hasItemInEditingMode],
+    [index, xOffSet, width, todo.index, draggingIsAllowed],
   )
 
   const opacity = isDragging ? '0' : '1'
@@ -106,8 +109,11 @@ const TodoItem = ({ todo, index }) => {
 
       <div
         ref={dragRef}
-        style={{ opacity: !opacity }}
-        className="opacity-0 absolute top-0 right-0 flex-none w-5 h-5 text-black hover:bg-black/[0.03] hover:rounded-md hover:text-primary group-hover:opacity-100 transition-all duration-300"
+        className={classnames(
+          'opacity-0 absolute top-0 right-0 flex-none w-5 h-5 text-black hover:bg-black/[0.03]',
+          'hover:rounded-md hover:text-primary transition-all duration-300',
+          `group-hover:opacity-${draggingIsAllowed ? '100' : '0'}`,
+        )}
       >
         <Icon name={iconNames.chevronUpDown} />
       </div>

@@ -1,6 +1,10 @@
-import { CheckboxField, IconButton, Icon } from '../../../components'
+import { PropTypes } from 'prop-types'
+
+import { CheckboxField, IconButton } from '../../../components'
 import { iconNames } from '../../../constants'
 import { observer } from 'mobx-react'
+
+import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ todo }, ref) => {
   const { id, text, isChecked, toggle, canEdit } = todo
