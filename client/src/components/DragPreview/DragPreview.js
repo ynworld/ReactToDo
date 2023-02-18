@@ -18,7 +18,7 @@ const DragPreview = () => {
 
   const finalStyle = {
     ...style,
-    width: width,
+    width,
     transform,
     WebkitTransform: transform,
   }

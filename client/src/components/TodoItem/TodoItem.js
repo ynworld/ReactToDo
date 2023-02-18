@@ -75,9 +75,7 @@ const TodoItem = ({ todo, index }) => {
     () => ({
       canDrag: !todo.todoListStore.hasItemInEditingMode,
       type: 'TODO',
-      item: () => {
-        return { id, xOffSet, width, text, isChecked, index, toggle, canEdit, startEdit }
-      },
+      item: () => ({ id, xOffSet, width, text, isChecked, index, toggle, canEdit, startEdit }),
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -98,12 +96,12 @@ const TodoItem = ({ todo, index }) => {
   return (
     <article
       ref={ref}
-      style={{ opacity: opacity }}
+      data-handler-id={handlerId}
+      style={{ opacity }}
       className={classnames(
         'group relative flex flex-auto justify-between items-center gap-3 p-4 rounded-lg min-h-[4rem]',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
       )}
-      data-handler-id={handlerId}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
 
