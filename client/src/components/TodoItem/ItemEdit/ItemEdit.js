@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import { PropTypes } from 'prop-types'
+import { useState, useRef, useEffect } from 'react'
 import { observer } from 'mobx-react'
-import { iconNames } from '../../../constants'
 import classnames from 'classnames'
+import { iconNames } from '../../../constants'
 
-import { IconButton } from '../../../components'
+import { TodoListItem } from '../../../stores/TodoListStore'
+
+import { IconButton } from '../..'
 
 const ItemEdit = ({ todo }) => {
   const [inputText, setInputText] = useState(todo.text)
+
+  const ref = useRef(null)
+
+  useEffect(() => {
+    ref.current?.focus()
+  }, [])
 
   const handleTextInput = (event) => {
     setInputText(event.target.value)
@@ -36,12 +45,12 @@ const ItemEdit = ({ todo }) => {
     <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
       <input
         type="text"
+        ref={ref}
         className={classnames(
           'flex-auto px-2 border-2 border-primary rounded-md h-8 text-sm',
           'outline-none focus:shadow-md focus:shadow-primary/25 transition-all duration-300',
         )}
         placeholder="I need to..."
-        autoFocus
         value={inputText}
         onChange={handleTextInput}
       />
@@ -56,6 +65,10 @@ const ItemEdit = ({ todo }) => {
       </div>
     </form>
   )
+}
+
+ItemEdit.propTypes = {
+  todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 
 export default observer(ItemEdit)

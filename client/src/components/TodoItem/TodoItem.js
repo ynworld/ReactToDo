@@ -1,10 +1,13 @@
+import { PropTypes } from 'prop-types'
 import { useRef } from 'react'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 
 import { useDrag, useDrop } from 'react-dnd'
 
-import { ItemEdit, ItemView } from '../../components'
+import { ItemEdit, ItemView } from '..'
+
+import { TodoListItem } from '../../stores/TodoListStore'
 
 const TodoItem = ({ todo, index }) => {
   const { id } = todo
@@ -48,6 +51,12 @@ const TodoItem = ({ todo, index }) => {
 
         todo.todoListStore.moveItem(dragIndex, hoverIndex)
 
+        /** Note: we're mutating the monitor item here!
+          Generally it's better to avoid mutations,
+          but it's good here for the sake of performance
+          to avoid expensive index searches. */
+
+        /* eslint no-param-reassign: "off" */
         item.index = hoverIndex
       },
     },
@@ -57,9 +66,7 @@ const TodoItem = ({ todo, index }) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'TODO',
-      item: () => {
-        return { id, index }
-      },
+      item: () => ({ id, index }),
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -89,6 +96,11 @@ const TodoItem = ({ todo, index }) => {
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
     </article>
   )
+}
+
+TodoItem.propTypes = {
+  todo: PropTypes.instanceOf(TodoListItem).isRequired,
+  index: PropTypes.number.isRequired,
 }
 
 export default observer(TodoItem)

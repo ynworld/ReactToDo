@@ -4,8 +4,11 @@ import { del, put, post } from '../../api'
 
 class TodoListItem {
   id = null
+
   index = null
+
   text = ''
+
   isChecked = false
 
   isEditing = false

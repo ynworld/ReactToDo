@@ -1,20 +1,22 @@
-import { Icon } from '../../components'
-import { iconNames } from '../../constants'
+import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
+
+import { Icon } from '../Icon'
+import { iconNames } from '../../constants'
 
 const classesByTheme = {
   alert: 'hover:text-alert focus:text-alert',
   success: 'hover:text-primary-dark focus:text-primary-dark',
 }
 
-const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme }) => {
+const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
   const name = iconNames[iconName]
 
   if (!name) return null
 
   return (
     <button
-      type={type}
+      type={type === 'submit' ? 'submit' : 'button'}
       className={classnames(
         classesByTheme[theme],
         'inline-flex w-8 h-8 text-sm text-gray-800 rounded-md items-center justify-center',
@@ -29,6 +31,21 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
       </div>
     </button>
   )
+}
+
+IconButton.propTypes = {
+  iconName: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  theme: PropTypes.string,
+}
+
+IconButton.defaultProps = {
+  type: 'button',
+  onClick: null,
+  disabled: false,
+  theme: 'success',
 }
 
 export default IconButton
