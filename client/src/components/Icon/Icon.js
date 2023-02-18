@@ -6,7 +6,6 @@ import {
   PencilIcon,
   XMarkIcon,
   CheckIcon,
-  Bars3Icon,
   ChevronUpDownIcon,
 } from '@heroicons/react/24/outline'
 

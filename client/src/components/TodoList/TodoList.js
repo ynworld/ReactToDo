@@ -5,10 +5,10 @@ import { TodoItem } from '../TodoItem'
 import { TodoListItem } from '../../stores/TodoListStore'
 
 const TodoList = ({ todos }) => (
-  <ul className="mx-0 my-8 flex flex-col gap-4">
+  <ul className="flex flex-col gap-4 mx-0 my-8">
     {todos.map((todo, index) => (
       <li key={todo.key}>
-        <TodoItem index={index} todo={todo} />
+        <TodoItem todo={todo} index={index} />
       </li>
     ))}
   </ul>
