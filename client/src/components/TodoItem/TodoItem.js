@@ -5,12 +5,13 @@ import classnames from 'classnames'
 
 import { useDrag, useDrop } from 'react-dnd'
 
-import { ItemEdit, ItemView } from '..'
+import { Icon, ItemEdit, ItemView } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
+import { iconNames, iconVariants } from '../../constants'
 
 const TodoItem = ({ todo, index }) => {
-  const { id } = todo
+  const { id, isImportant } = todo
 
   const ref = useRef(null)
 
@@ -87,12 +88,17 @@ const TodoItem = ({ todo, index }) => {
     <article
       ref={ref}
       className={classnames(
-        'flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4',
-        'bg-gradient-to-br from-white to-gray-50 shadow-md',
+        'relative flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4 shadow-md',
+        'bg-gradient-to-br from-white to-gray-50',
         opacity,
       )}
       data-handler-id={handlerId}
     >
+      {isImportant ? (
+        <div className="absolute top-1 left-1 h-4 w-4 text-alert">
+          <Icon name={iconNames.fire} variant={iconVariants.solid} />
+        </div>
+      ) : null}
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
     </article>
   )

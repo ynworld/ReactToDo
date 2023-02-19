@@ -13,7 +13,9 @@ class TodoListItem {
 
   isEditing = false
 
-  constructor({ id, text, isChecked, isEditing }, index, todoListStore) {
+  isImportant = false
+
+  constructor({ id, text, isChecked, isEditing, isImportant }, index, todoListStore) {
     makeObservable(this, {
       canEdit: computed,
       delete: action.bound,
@@ -22,7 +24,9 @@ class TodoListItem {
       index: observable,
       isChecked: observable,
       isEditing: observable,
+      isImportant: observable,
       key: computed,
+      setImportant: action.bound,
       setText: action,
       snapshot: computed,
       startEdit: action,
@@ -36,6 +40,7 @@ class TodoListItem {
     this.text = text || ''
     this.isEditing = isEditing || false
     this.index = index ?? null
+    this.isImportant = isImportant || false
 
     this.todoListStore = todoListStore
 
@@ -47,7 +52,12 @@ class TodoListItem {
   }
 
   get snapshot() {
-    return { id: this.id, isChecked: this.isChecked, text: this.text }
+    return {
+      id: this.id,
+      isChecked: this.isChecked,
+      isImportant: this.isImportant,
+      text: this.text,
+    }
   }
 
   get canEdit() {
@@ -70,6 +80,10 @@ class TodoListItem {
     this.text = value
   }
 
+  setImportant() {
+    this.isImportant = !this.isImportant
+  }
+
   save = (snapshot) => {
     if (this.id) {
       put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
@@ -81,11 +95,12 @@ class TodoListItem {
   updateSnapshot(updatedItem) {
     if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
 
-    const { id, text, isChecked } = updatedItem
+    const { id, text, isChecked, isImportant } = updatedItem
 
     this.id = id
     this.text = text
     this.isChecked = isChecked
+    this.isImportant = isImportant
   }
 
   delete() {

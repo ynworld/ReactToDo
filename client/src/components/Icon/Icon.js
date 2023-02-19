@@ -7,7 +7,10 @@ import {
   XMarkIcon,
   CheckIcon,
   EllipsisHorizontalIcon,
+  FireIcon,
 } from '@heroicons/react/24/outline'
+
+import { FireIcon as FireIconSolid } from '@heroicons/react/24/solid'
 
 import { iconNames, iconVariants } from '../../constants'
 
@@ -18,9 +21,12 @@ const outlineIconRenderers = {
   [iconNames.xmark]: XMarkIcon,
   [iconNames.check]: CheckIcon,
   [iconNames.ellipsisHorizontal]: EllipsisHorizontalIcon,
+  [iconNames.fire]: FireIcon,
 }
 
-const solidIconRenderers = {}
+const solidIconRenderers = {
+  [iconNames.fire]: FireIconSolid,
+}
 
 const iconRenderersByVariant = {
   [iconVariants.outline]: outlineIconRenderers,

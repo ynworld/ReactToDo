@@ -2,15 +2,24 @@ import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
 
 import { Icon } from '../Icon'
-import { iconNames } from '../../constants'
+import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
   alert: 'group-hover:text-alert group-focus:text-alert',
   success: 'group-hover:text-primary-dark group-focus:text-primary-dark',
 }
 
-const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme, children }) => {
+const IconButton = ({
+  type = 'button',
+  iconName,
+  iconVariant,
+  onClick,
+  disabled = false,
+  theme,
+  children,
+}) => {
   const name = iconNames[iconName]
+  const variant = iconVariants[iconVariant]
 
   const classesWithChild = classnames(children ? 'px-3 py-1' : 'justify-center')
 
@@ -35,7 +44,7 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
           'h-6 w-6 flex-none transition-all duration-300',
         )}
       >
-        <Icon name={name} />
+        <Icon name={name} variant={variant} />
       </div>
       {children}
     </button>
@@ -46,6 +55,7 @@ IconButton.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   iconName: PropTypes.string.isRequired,
+  iconVariant: PropTypes.string,
   onClick: PropTypes.func,
   theme: PropTypes.string,
   type: PropTypes.string,
