@@ -15,16 +15,16 @@ const EditButtons = ({ todo }) => {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-2 bg-white rounded-md shadow-md">
+    <div className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-md">
       <IconButton
-        iconName={iconNames.pencil}
-        theme="success"
-        onClick={handleEditStart}
         disabled={!canEdit}
+        iconName={iconNames.pencil}
+        onClick={handleEditStart}
+        theme="success"
       >
         <div>Edit</div>
       </IconButton>
-      <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete}>
+      <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert">
         <div>Delete</div>
       </IconButton>
     </div>

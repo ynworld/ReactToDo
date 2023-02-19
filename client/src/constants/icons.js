@@ -1,10 +1,10 @@
 export const iconNames = {
   check: 'check',
+  ellipsisHorizontal: 'ellipsisHorizontal',
   pencil: 'pencil',
   plusCircle: 'plusCircle',
   trash: 'trash',
   xmark: 'xmark',
-  ellipsisHorizontal: 'ellipsisHorizontal',
 }
 
 export const iconVariants = {

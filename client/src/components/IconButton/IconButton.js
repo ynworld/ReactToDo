@@ -20,7 +20,7 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
     <button
       className={classnames(
         classesByTheme[theme],
-        'group inline-flex gap-2 min-h-[2rem] min-w-[2rem] items-center rounded-md text-sm text-gray-800',
+        'group inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
         'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
         classesWithChild,
@@ -43,12 +43,12 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
 }
 
 IconButton.propTypes = {
+  children: PropTypes.node,
   disabled: PropTypes.bool,
   iconName: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   theme: PropTypes.string,
   type: PropTypes.string,
-  children: PropTypes.node,
 }
 
 export default IconButton
