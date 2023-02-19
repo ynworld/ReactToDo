@@ -32,14 +32,17 @@ const ItemEdit = ({ todo }) => {
     todo.finishEdit()
   }
 
-  const handleEditCancel = (event) => {
-    if (!event.key || event.key === 'Escape')
-      if (!todo.id) {
-        todo.delete()
-        todo.todoListStore.resetItems()
-      } else {
-        todo.finishEdit()
-      }
+  const handleEditCancel = () => {
+    if (!todo.id) {
+      todo.delete()
+      todo.todoListStore.resetItems()
+    } else {
+      todo.finishEdit()
+    }
+  }
+
+  const handleKeyUp = (event) => {
+    if (event.key === 'Escape') handleEditCancel()
   }
 
   return (
@@ -50,11 +53,11 @@ const ItemEdit = ({ todo }) => {
           'h-8 flex-auto rounded-md border-2 border-primary px-2 text-sm',
           'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
         )}
+        onChange={handleTextInput}
+        onKeyUp={handleKeyUp}
         placeholder="I need to..."
         type="text"
         value={inputText}
-        onChange={handleTextInput}
-        onKeyUp={handleEditCancel}
       />
       <div className="flex items-center gap-2">
         <IconButton

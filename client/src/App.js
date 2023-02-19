@@ -30,7 +30,7 @@ const App = () => {
       ) : (
         <>
           <header className="flex items-center justify-between">
-            <h1 className="title text-4xl font-bold text-gray-800">Tasks</h1>
+            <h1 className="text-4xl font-bold text-gray-800">Tasks</h1>
             <button
               className={classnames(
                 'rounded-full bg-primary p-2 shadow-lg shadow-gray-400',
