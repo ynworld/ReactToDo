@@ -18,7 +18,7 @@ const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
     <button
       className={classnames(
         classesByTheme[theme],
-        'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm text-gray-800',
+        'group inline-flex gap-2 min-h-[2rem] min-w-[2rem] justify items-center rounded-md text-sm text-gray-800',
         'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
       )}
@@ -38,6 +38,7 @@ IconButton.propTypes = {
   iconName: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   theme: PropTypes.string,
+  type: PropTypes.string,
   children: PropTypes.node,
 }
 
