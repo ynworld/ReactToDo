@@ -5,6 +5,8 @@ import classnames from 'classnames'
 
 import { useDrag, useDrop } from 'react-dnd'
 
+import { isMobile } from 'react-device-detect'
+
 import { ItemEdit, ItemView, Icon } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
@@ -90,6 +92,7 @@ const TodoItem = ({ todo, index }) => {
 
   const opacity = isDragging ? '0' : '1'
   const hover = draggingIsAllowed ? 'group-hover:opacity-100' : ''
+  const mobile = isMobile ? 'opacity-100' : 'opacity-0'
 
   drop(preview(ref))
   drag(dragRef)
@@ -109,9 +112,10 @@ const TodoItem = ({ todo, index }) => {
       <div
         ref={dragRef}
         className={classnames(
-          'opacity-0 absolute top-0 right-0 flex-none w-8 h-8 p-2 text-black hover:bg-black/[0.03]',
-          'rounded-md hover:text-primary transition-all duration-300',
+          'absolute top-0 right-0 flex-none w-8 h-8 p-2 text-gray-500 hover:bg-black/[0.03]',
+          'rounded-md hover:text-black transition-all duration-300',
           hover,
+          mobile,
         )}
       >
         <Icon name={iconNames.chevronUpDown} />

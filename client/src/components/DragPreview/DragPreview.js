@@ -1,7 +1,8 @@
 import { usePreview } from 'react-dnd-multi-backend'
 import classnames from 'classnames'
 
-import { ItemView } from '..'
+import { ItemView, Icon } from '..'
+import { iconNames } from '../../constants'
 
 const DragPreview = () => {
   const preview = usePreview()
@@ -36,6 +37,14 @@ const DragPreview = () => {
       )}
     >
       <ItemView todo={{ ...item }} />
+      <div
+        className={classnames(
+          'absolute top-0 right-0 flex-none w-8 h-8 p-2 text-gray-500 hover:bg-black/[0.03]',
+          'rounded-md hover:text-black transition-all duration-300',
+        )}
+      >
+        <Icon name={iconNames.chevronUpDown} />
+      </div>
     </div>
   )
 }
