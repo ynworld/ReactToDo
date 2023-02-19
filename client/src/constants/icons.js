@@ -1,10 +1,10 @@
 export const iconNames = {
   check: 'check',
+  chevronUpDown: 'chevronUpDown',
   pencil: 'pencil',
   plusCircle: 'plusCircle',
   trash: 'trash',
   xmark: 'xmark',
-  chevronUpDown: 'chevronUpDown',
 }
 
 export const iconVariants = {

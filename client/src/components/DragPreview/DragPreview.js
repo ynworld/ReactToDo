@@ -19,28 +19,27 @@ const DragPreview = () => {
 
   const finalStyle = {
     ...style,
-    width,
-    transform,
     WebkitTransform: transform,
+    transform,
+    width,
   }
 
   return (
     <div
       ref={ref}
-      style={finalStyle}
       className={classnames(
-        `w-[${width}px]`,
-        'flex justify-between items-center gap-3 p-4',
-        'rounded-lg min-h-[4rem]',
-        'shadow-md bg-gradient-to-br from-white to-gray-50',
+        'flex items-center justify-between gap-3 p-4',
+        'min-h-[4rem] rounded-lg',
+        'bg-gradient-to-br from-white to-gray-50 shadow-md',
         'opacity-50',
       )}
+      style={finalStyle}
     >
       <ItemView todo={{ ...item }} />
       <div
         className={classnames(
-          'absolute top-0 right-0 flex-none w-8 h-8 p-2 text-gray-500 hover:bg-black/[0.03]',
-          'rounded-md hover:text-black transition-all duration-300',
+          'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',
+          'rounded-md transition-all duration-300 hover:text-black',
         )}
       >
         <Icon name={iconNames.chevronUpDown} />

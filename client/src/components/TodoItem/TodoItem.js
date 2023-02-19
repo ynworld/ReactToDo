@@ -75,17 +75,16 @@ const TodoItem = ({ todo, index }) => {
 
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
-      canDrag: !todo.todoListStore.hasItemInEditingMode,
-      type: 'TODO',
-      item: () => ({ id, xOffSet, width, text, isChecked, index, toggle, canEdit, startEdit }),
+      canDrag: draggingIsAllowed,
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
-      canDrag: draggingIsAllowed,
       end: () => {
         if (index === todo.index) return
         todo.todoListStore.reorderItems()
       },
+      item: () => ({ canEdit, id, index, isChecked, startEdit, text, toggle, width, xOffSet }),
+      type: 'TODO',
     }),
     [index, xOffSet, width, todo.index, draggingIsAllowed],
   )
@@ -100,20 +99,20 @@ const TodoItem = ({ todo, index }) => {
   return (
     <article
       ref={ref}
+      className={classnames(
+        'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
+        'bg-gradient-to-br from-white to-gray-50 shadow-md',
+      )}
       data-handler-id={handlerId}
       style={{ opacity }}
-      className={classnames(
-        'group relative flex flex-auto justify-between items-center gap-3 p-4 rounded-lg min-h-[4rem]',
-        'shadow-md bg-gradient-to-br from-white to-gray-50',
-      )}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
 
       <div
         ref={dragRef}
         className={classnames(
-          'absolute top-0 right-0 flex-none w-8 h-8 p-2 text-gray-500 hover:bg-black/[0.03]',
-          'rounded-md hover:text-black transition-all duration-300',
+          'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',
+          'rounded-md transition-all duration-300 hover:text-black',
           hover,
           mobile,
         )}

@@ -23,7 +23,7 @@ const ItemView = ({ todo }) => {
           onClick={handleEditStart}
           theme="success"
         />
-        <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete} />
+        <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
       </div>
     </>
   )
