@@ -41,6 +41,10 @@ const ItemEdit = ({ todo }) => {
     }
   }
 
+  const handleKeyUp = (event) => {
+    if (event.key === 'Escape') handleEditCancel()
+  }
+
   return (
     <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
       <input
@@ -50,6 +54,7 @@ const ItemEdit = ({ todo }) => {
           'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
         )}
         onChange={handleTextInput}
+        onKeyUp={handleKeyUp}
         placeholder="I need to..."
         type="text"
         value={inputText}
