@@ -32,7 +32,6 @@ const App = () => {
           <header className="flex justify-between items-center">
             <h1 className="title text-4xl text-gray-800 font-bold">Tasks</h1>
             <button
-              type="button"
               className={classnames(
                 'p-2 rounded-full bg-primary shadow-lg shadow-gray-400',
                 'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md',
@@ -41,8 +40,9 @@ const App = () => {
               )}
               disabled={todoList.hasItemInEditingMode}
               onClick={handleAddItem}
+              type="button"
             >
-              <Icon name={iconNames.plusCircle} className="w-10 h-10 text-white" />
+              <Icon className="w-10 h-10 text-white" name={iconNames.plusCircle} />
             </button>
           </header>
           <TodoList todos={todoList.items} />

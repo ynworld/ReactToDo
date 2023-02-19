@@ -16,15 +16,15 @@ const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
 
   return (
     <button
-      type={type === 'submit' ? 'submit' : 'button'}
       className={classnames(
         classesByTheme[theme],
         'inline-flex w-8 h-8 text-sm text-gray-800 rounded-md items-center justify-center',
         'hover:bg-black/[0.03] disabled:pointer-events-none transition-all duration-300',
         'disabled:text-gray-400',
       )}
-      onClick={onClick}
       disabled={disabled}
+      onClick={onClick}
+      type={type === 'submit' ? 'submit' : 'button'}
     >
       <div className="h-6 w-6 flex-none">
         <Icon name={name} />
@@ -34,18 +34,18 @@ const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
 }
 
 IconButton.propTypes = {
-  iconName: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  onClick: PropTypes.func,
   disabled: PropTypes.bool,
+  iconName: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   theme: PropTypes.string,
+  type: PropTypes.string,
 }
 
 IconButton.defaultProps = {
-  type: 'button',
-  onClick: null,
   disabled: false,
+  onClick: null,
   theme: 'success',
+  type: 'button',
 }
 
 export default IconButton

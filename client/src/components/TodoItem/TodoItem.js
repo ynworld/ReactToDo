@@ -65,16 +65,16 @@ const TodoItem = ({ todo, index }) => {
 
   const [{ isDragging }, drag] = useDrag(
     () => ({
-      type: 'TODO',
-      item: () => ({ id, index }),
+      canDrag: !todo.todoListStore.hasItemInEditingMode,
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
-      canDrag: !todo.todoListStore.hasItemInEditingMode,
       end: () => {
         if (index === todo.index) return
         todo.todoListStore.reorderItems()
       },
+      item: () => ({ id, index }),
+      type: 'TODO',
     }),
     [index, todo.index, todo.todoListStore.hasItemInEditingMode],
   )
@@ -86,12 +86,12 @@ const TodoItem = ({ todo, index }) => {
   return (
     <article
       ref={ref}
-      data-handler-id={handlerId}
       className={classnames(
         'flex justify-between items-center gap-3 p-4 rounded-lg min-h-[4rem]',
         'shadow-md bg-gradient-to-br from-white to-gray-50',
         opacity,
       )}
+      data-handler-id={handlerId}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
     </article>
@@ -99,8 +99,8 @@ const TodoItem = ({ todo, index }) => {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.instanceOf(TodoListItem).isRequired,
   index: PropTypes.number.isRequired,
+  todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 
 export default observer(TodoItem)

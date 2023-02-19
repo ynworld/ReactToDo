@@ -12,9 +12,9 @@ export const get = (url) => fetch(url).then(handleResponse)
 
 export const post = (url, data) =>
   fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
   }).then(handleResponse)
 
 export const del = (url) =>
@@ -24,7 +24,7 @@ export const del = (url) =>
 
 export const put = (url, data) =>
   fetch(url, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
   }).then(handleResponse)

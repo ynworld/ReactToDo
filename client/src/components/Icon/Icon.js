@@ -35,8 +35,8 @@ const Icon = ({ name, className, variant }) => {
 }
 
 Icon.propTypes = {
-  name: PropTypes.string.isRequired,
   className: PropTypes.string,
+  name: PropTypes.string.isRequired,
   variant: PropTypes.string,
 }
 

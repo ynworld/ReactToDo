@@ -9,16 +9,16 @@ class TodoListStore {
 
   constructor() {
     makeObservable(this, {
-      items: observable,
-      hasItemInEditingMode: computed,
-      checkedItemsCount: computed,
-      percentComplete: computed,
       addItem: action.bound,
-      moveItem: action.bound,
+      checkedItemsCount: computed,
       deleteItem: action.bound,
-      setItems: action.bound,
-      resetItems: action.bound,
+      hasItemInEditingMode: computed,
+      items: observable,
+      moveItem: action.bound,
+      percentComplete: computed,
       reorderItems: action.bound,
+      resetItems: action.bound,
+      setItems: action.bound,
     })
   }
 

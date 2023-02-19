@@ -15,20 +15,20 @@ class TodoListItem {
 
   constructor({ id, text, isChecked, isEditing }, index, todoListStore) {
     makeObservable(this, {
-      text: observable,
-      isChecked: observable,
-      isEditing: observable,
-      id: observable,
-      index: observable,
-      key: computed,
       canEdit: computed,
-      snapshot: computed,
-      toggle: action.bound,
       delete: action.bound,
       finishEdit: action,
-      startEdit: action,
-      updateSnapshot: action.bound,
+      id: observable,
+      index: observable,
+      isChecked: observable,
+      isEditing: observable,
+      key: computed,
       setText: action,
+      snapshot: computed,
+      startEdit: action,
+      text: observable,
+      toggle: action.bound,
+      updateSnapshot: action.bound,
     })
 
     this.id = id
@@ -47,7 +47,7 @@ class TodoListItem {
   }
 
   get snapshot() {
-    return { id: this.id, text: this.text, isChecked: this.isChecked }
+    return { id: this.id, isChecked: this.isChecked, text: this.text }
   }
 
   get canEdit() {

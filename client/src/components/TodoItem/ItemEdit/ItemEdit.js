@@ -44,24 +44,24 @@ const ItemEdit = ({ todo }) => {
   return (
     <form className="flex flex-auto gap-4" onSubmit={handleEditSubmit}>
       <input
-        type="text"
         ref={ref}
         className={classnames(
           'flex-auto px-2 border-2 border-primary rounded-md h-8 text-sm',
           'outline-none focus:shadow-md focus:shadow-primary/25 transition-all duration-300',
         )}
-        placeholder="I need to..."
-        value={inputText}
         onChange={handleTextInput}
+        placeholder="I need to..."
+        type="text"
+        value={inputText}
       />
       <div className="flex items-center gap-2">
         <IconButton
-          type="submit"
           iconName={iconNames.check}
-          theme="success"
           onClick={handleEditSubmit}
+          theme="success"
+          type="submit"
         />
-        <IconButton iconName={iconNames.xmark} theme="alert" onClick={handleEditCancel} />
+        <IconButton iconName={iconNames.xmark} onClick={handleEditCancel} theme="alert" />
       </div>
     </form>
   )

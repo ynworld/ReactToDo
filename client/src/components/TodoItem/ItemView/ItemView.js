@@ -14,15 +14,15 @@ const ItemView = ({ todo }) => {
 
   return (
     <>
-      <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
+      <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
       <div className="flex items-center gap-2">
         <IconButton
-          iconName={iconNames.pencil}
-          theme="success"
-          onClick={handleEditStart}
           disabled={!canEdit}
+          iconName={iconNames.pencil}
+          onClick={handleEditStart}
+          theme="success"
         />
-        <IconButton iconName={iconNames.trash} theme="alert" onClick={todo.delete} />
+        <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
       </div>
     </>
   )

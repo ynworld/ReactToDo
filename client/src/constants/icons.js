@@ -1,9 +1,9 @@
 export const iconNames = {
+  check: 'check',
+  pencil: 'pencil',
   plusCircle: 'plusCircle',
   trash: 'trash',
-  pencil: 'pencil',
   xmark: 'xmark',
-  check: 'check',
 }
 
 export const iconVariants = {

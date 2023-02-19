@@ -8,7 +8,7 @@ import App from './App'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <DndProvider debugMode backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend} debugMode>
       <App />
     </DndProvider>
   </React.StrictMode>,
