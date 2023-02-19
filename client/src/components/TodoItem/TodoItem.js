@@ -89,6 +89,7 @@ const TodoItem = ({ todo, index }) => {
   )
 
   const opacity = isDragging ? '0' : '1'
+  const hover = draggingIsAllowed ? 'group-hover:opacity-100' : ''
 
   drop(preview(ref))
   drag(dragRef)
@@ -108,9 +109,9 @@ const TodoItem = ({ todo, index }) => {
       <div
         ref={dragRef}
         className={classnames(
-          'opacity-0 absolute top-0 right-0 flex-none w-5 h-5 text-black hover:bg-black/[0.03]',
-          'hover:rounded-md hover:text-primary transition-all duration-300',
-          `group-hover:opacity-${draggingIsAllowed ? '100' : '0'}`,
+          'opacity-0 absolute top-0 right-0 flex-none w-8 h-8 p-2 text-black hover:bg-black/[0.03]',
+          'rounded-md hover:text-primary transition-all duration-300',
+          hover,
         )}
       >
         <Icon name={iconNames.chevronUpDown} />
