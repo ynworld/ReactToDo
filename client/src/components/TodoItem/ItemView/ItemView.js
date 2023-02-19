@@ -15,7 +15,7 @@ const ItemView = ({ todo }) => {
 
   return (
     <>
-      <CheckboxField id={id} label={text} isChecked={isChecked} onChange={toggle} />
+      <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
       <Popover placement="left-start">
         <PopoverTrigger>
           <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
