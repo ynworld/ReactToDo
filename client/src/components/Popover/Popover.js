@@ -24,6 +24,7 @@ import {
   useMergeRefs,
   safePolygon,
   FloatingFocusManager,
+  useTransitionStyles,
 } from '@floating-ui/react'
 
 export function usePopover({
@@ -56,6 +57,10 @@ export function usePopover({
 
   const { context } = data
 
+  const { isMounted, styles } = useTransitionStyles(context, {
+    duration: 500,
+  })
+
   const click = useClick(context, {
     enabled: controlledOpen == null,
   })
@@ -71,6 +76,7 @@ export function usePopover({
     () => ({
       open,
       setOpen,
+      isMounted,
       ...interactions,
       ...data,
       modal,
@@ -78,8 +84,9 @@ export function usePopover({
       descriptionId,
       setLabelId,
       setDescriptionId,
+      styles,
     }),
-    [open, setOpen, interactions, data, modal, labelId, descriptionId],
+    [open, setOpen, isMounted, interactions, data, modal, labelId, descriptionId, styles],
   )
 }
 
@@ -133,6 +140,8 @@ export const PopoverContent = forwardRef((props, propRef) => {
   const { context: floatingContext, ...context } = usePopoverContext()
   const ref = useMergeRefs([context.refs.setFloating, propRef])
 
+  const { styles } = context
+
   return (
     context.open && (
       <FloatingFocusManager context={floatingContext} modal={context.modal} initialFocus={-1}>
@@ -144,6 +153,7 @@ export const PopoverContent = forwardRef((props, propRef) => {
             left: context.x ?? 0,
             width: 'max-content',
             ...props.style,
+            ...styles,
           }}
           {...context.getFloatingProps(props)}
         >
