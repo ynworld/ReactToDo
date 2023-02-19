@@ -18,8 +18,8 @@ const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
     <button
       className={classnames(
         classesByTheme[theme],
-        'inline-flex w-8 h-8 text-sm text-gray-800 rounded-md items-center justify-center',
-        'hover:bg-black/[0.03] disabled:pointer-events-none transition-all duration-300',
+        'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm text-gray-800',
+        'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
       )}
       disabled={disabled}

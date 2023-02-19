@@ -5,7 +5,7 @@ import { TodoItem } from '../TodoItem'
 import { TodoListItem } from '../../stores/TodoListStore'
 
 const TodoList = ({ todos }) => (
-  <ul className="flex flex-col gap-4 mx-0 my-8">
+  <ul className="mx-0 my-8 flex flex-col gap-4">
     {todos.map((todo, index) => (
       <li key={todo.key}>
         <TodoItem index={index} todo={todo} />

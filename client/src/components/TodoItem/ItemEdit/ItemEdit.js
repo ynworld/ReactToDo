@@ -46,8 +46,8 @@ const ItemEdit = ({ todo }) => {
       <input
         ref={ref}
         className={classnames(
-          'flex-auto px-2 border-2 border-primary rounded-md h-8 text-sm',
-          'outline-none focus:shadow-md focus:shadow-primary/25 transition-all duration-300',
+          'h-8 flex-auto rounded-md border-2 border-primary px-2 text-sm',
+          'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
         )}
         onChange={handleTextInput}
         placeholder="I need to..."

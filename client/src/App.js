@@ -29,11 +29,11 @@ const App = () => {
         <Loading text="Tasks are Loading" />
       ) : (
         <>
-          <header className="flex justify-between items-center">
-            <h1 className="title text-4xl text-gray-800 font-bold">Tasks</h1>
+          <header className="flex items-center justify-between">
+            <h1 className="title text-4xl font-bold text-gray-800">Tasks</h1>
             <button
               className={classnames(
-                'p-2 rounded-full bg-primary shadow-lg shadow-gray-400',
+                'rounded-full bg-primary p-2 shadow-lg shadow-gray-400',
                 'hover:bg-primary-dark focus:bg-primary-dark active:shadow-md',
                 'disabled:bg-gray-400 disabled:shadow-lg disabled:shadow-gray-400',
                 'transition-all duration-300',
@@ -42,7 +42,7 @@ const App = () => {
               onClick={handleAddItem}
               type="button"
             >
-              <Icon className="w-10 h-10 text-white" name={iconNames.plusCircle} />
+              <Icon className="h-10 w-10 text-white" name={iconNames.plusCircle} />
             </button>
           </header>
           <TodoList todos={todoList.items} />

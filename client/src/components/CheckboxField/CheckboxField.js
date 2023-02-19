@@ -2,9 +2,9 @@ import { PropTypes } from 'prop-types'
 import './CheckboxField.css'
 
 const CheckboxField = ({ label, id, isChecked, onChange }) => (
-  <label className="flex items-center gap-3 cursor-pointer" htmlFor={id}>
+  <label className="flex cursor-pointer items-center gap-3" htmlFor={id}>
     <input
-      className="absolute invisible"
+      className="invisible absolute"
       defaultChecked={isChecked}
       id={id}
       onChange={onChange}

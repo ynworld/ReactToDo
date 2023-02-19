@@ -87,8 +87,8 @@ const TodoItem = ({ todo, index }) => {
     <article
       ref={ref}
       className={classnames(
-        'flex justify-between items-center gap-3 p-4 rounded-lg min-h-[4rem]',
-        'shadow-md bg-gradient-to-br from-white to-gray-50',
+        'flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4',
+        'bg-gradient-to-br from-white to-gray-50 shadow-md',
         opacity,
       )}
       data-handler-id={handlerId}
