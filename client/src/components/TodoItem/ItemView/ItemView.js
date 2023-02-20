@@ -14,10 +14,6 @@ const ItemView = ({ todo }) => {
     todo.startEdit()
   }
 
-  const makeItemImportant = () => {
-    todo.toggleIsImportant()
-  }
-
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -39,7 +35,7 @@ const ItemView = ({ todo }) => {
             <IconButton
               iconName={iconNames.fire}
               iconVariant={isImportant ? iconVariants.solid : undefined}
-              onClick={makeItemImportant}
+              onClick={todo.toggleIsImportant}
               theme="alert"
             />
             <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
