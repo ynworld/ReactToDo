@@ -36,6 +36,7 @@ const TodoItem = ({ todo, index }) => {
         if (!ref.current) {
           return
         }
+
         const dragIndex = item.index
         const hoverIndex = index
 

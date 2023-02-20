@@ -8,6 +8,7 @@ import { DragPreview } from './components'
 import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
   <React.StrictMode>
     <DndProvider options={HTML5toTouch}>

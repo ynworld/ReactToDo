@@ -46,11 +46,13 @@ class TodoListStore {
 
   moveItem(fromIndex, toIndex) {
     const [itemToMove] = this.items.splice(fromIndex, 1)
+
     this.items.splice(toIndex, 0, itemToMove)
   }
 
   reorderItems() {
     const itemIds = this.items.map((item) => item.id)
+
     put(`/todos/reorder`, { itemIds }).then((items) => {
       this.setItems(items)
     })

@@ -20,6 +20,16 @@ module.exports = {
     'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',
     'max-lines': ['error', { max: 100, skipBlankLines: true, skipComments: true }],
+    'padding-line-between-statements': [
+      'error',
+      {
+        blankLine: 'always',
+        next: '*',
+        prev: ['block-like', 'const', 'let'],
+      },
+      { blankLine: 'any', next: ['const', 'let'], prev: ['const', 'let'] },
+      { blankLine: 'always', next: ['block-like', 'return'], prev: '*' },
+    ],
     'prettier/prettier': 'error',
     'react/forbid-prop-types': 'off',
     'react/function-component-definition': [
