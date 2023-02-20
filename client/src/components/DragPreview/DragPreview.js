@@ -6,9 +6,9 @@ import { iconNames } from '../../constants'
 
 const DragPreview = () => {
   const preview = usePreview()
-  if (!preview.display) {
-    return null
-  }
+
+  if (!preview.display) return null
+
   const { item, style, ref, monitor } = preview
 
   const y = monitor.getClientOffset()?.y ?? 0
@@ -28,10 +28,8 @@ const DragPreview = () => {
     <div
       ref={ref}
       className={classnames(
-        'flex items-center justify-between gap-3 p-4',
-        'min-h-[4rem] rounded-lg',
-        'bg-gradient-to-br from-white to-gray-50 shadow-md',
-        'opacity-50',
+        'flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4',
+        'bg-gradient-to-br from-white to-gray-50 opacity-50 shadow-md',
       )}
       style={finalStyle}
     >

@@ -89,10 +89,6 @@ const TodoItem = ({ todo, index }) => {
     [index, xOffSet, width, todo.index, draggingIsAllowed],
   )
 
-  const opacity = isDragging ? '0' : '1'
-  const hover = draggingIsAllowed ? 'group-hover:opacity-100' : ''
-  const mobile = isMobile ? 'opacity-100' : 'opacity-0'
-
   drop(preview(ref))
   drag(dragRef)
 
@@ -102,9 +98,9 @@ const TodoItem = ({ todo, index }) => {
       className={classnames(
         'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
         'bg-gradient-to-br from-white to-gray-50 shadow-md',
+        isDragging ? 'opacity-0' : 'opacity-100',
       )}
       data-handler-id={handlerId}
-      style={{ opacity }}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
 
@@ -113,8 +109,8 @@ const TodoItem = ({ todo, index }) => {
         className={classnames(
           'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',
           'rounded-md transition-all duration-300 hover:text-black',
-          hover,
-          mobile,
+          draggingIsAllowed ? 'group-hover:opacity-100' : '',
+          isMobile ? 'opacity-100' : 'opacity-0',
         )}
       >
         <Icon name={iconNames.chevronUpDown} />
