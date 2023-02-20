@@ -35,7 +35,7 @@ const iconRenderersByVariant = {
   [iconVariants.solid]: solidIconRenderers,
 }
 
-const Icon = ({ name, className, variant = 'outline' }) => {
+const Icon = ({ name, className, variant = iconVariants.outline }) => {
   const variantIconRenderers = iconRenderersByVariant[variant]
   const Renderer = variantIconRenderers[name]
 
@@ -46,8 +46,8 @@ const Icon = ({ name, className, variant = 'outline' }) => {
 
 Icon.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  variant: PropTypes.string,
+  name: PropTypes.oneOf([...Object.values(iconNames)]).isRequired,
+  variant: PropTypes.oneOf([...Object.values(iconVariants)]),
 }
 
 export default Icon

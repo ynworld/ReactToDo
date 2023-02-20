@@ -14,8 +14,8 @@ const ItemView = ({ todo }) => {
     todo.startEdit()
   }
 
-  const handleImportant = () => {
-    todo.setIsImportant()
+  const makeItemImportant = () => {
+    todo.toggleIsImportant()
   }
 
   return (
@@ -36,7 +36,7 @@ const ItemView = ({ todo }) => {
             <IconButton
               iconName={iconNames.fire}
               iconVariant={isImportant ? iconVariants.solid : undefined}
-              onClick={handleImportant}
+              onClick={makeItemImportant}
               theme="alert"
             />
             <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />

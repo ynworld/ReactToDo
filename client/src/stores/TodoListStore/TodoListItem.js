@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 
 import { parseISO, format } from 'date-fns'
@@ -32,12 +34,12 @@ class TodoListItem {
       isEditing: observable,
       isImportant: observable,
       key: computed,
-      setIsImportant: action.bound,
       setText: action,
       snapshot: computed,
       startEdit: action,
       text: observable,
       toggle: action.bound,
+      toggleIsImportant: action.bound,
       updateSnapshot: action.bound,
     })
 
@@ -93,16 +95,16 @@ class TodoListItem {
     this.text = value
   }
 
-  setIsImportant() {
-    this.isImportant = !this.isImportant
-  }
-
   save = (snapshot) => {
     if (this.id) {
       put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
     } else {
       post('/todos', { text: snapshot.text }).then(this.updateSnapshot)
     }
+  }
+
+  toggleIsImportant() {
+    this.isImportant = !this.isImportant
   }
 
   updateSnapshot(updatedItem) {

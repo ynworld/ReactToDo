@@ -10,10 +10,7 @@ const classesByTheme = {
 }
 
 const IconButton = ({ type, iconName, iconVariant, onClick, disabled = false, theme }) => {
-  const name = iconNames[iconName]
-  const variant = iconVariants[iconVariant]
-
-  if (!name) return null
+  if (!iconName) return null
 
   return (
     <button
@@ -28,7 +25,7 @@ const IconButton = ({ type, iconName, iconVariant, onClick, disabled = false, th
       type={type === 'submit' ? 'submit' : 'button'}
     >
       <div className="h-6 w-6 flex-none">
-        <Icon name={name} variant={variant} />
+        <Icon name={iconName} variant={iconVariant} />
       </div>
     </button>
   )
@@ -36,8 +33,8 @@ const IconButton = ({ type, iconName, iconVariant, onClick, disabled = false, th
 
 IconButton.propTypes = {
   disabled: PropTypes.bool,
-  iconName: PropTypes.string.isRequired,
-  iconVariant: PropTypes.string,
+  iconName: PropTypes.oneOf([...Object.values(iconNames)]).isRequired,
+  iconVariant: PropTypes.oneOf([...Object.values(iconVariants)]),
   onClick: PropTypes.func,
   theme: PropTypes.string,
   type: PropTypes.string,

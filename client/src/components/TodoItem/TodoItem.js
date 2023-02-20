@@ -1,3 +1,6 @@
+/* eslint-disable max-lines */
+// TODO: will be fixed with the next PR
+
 import { PropTypes } from 'prop-types'
 import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
@@ -19,8 +22,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
       ref={itemToMoveRef}
       className={classnames(
         'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
-        'bg-gradient-to-br from-white to-gray-50 shadow-md',
-        'transition-all duration-500',
+        'bg-gradient-to-br from-white to-gray-50 shadow-md transition-all duration-500',
         isDragging ? 'opacity-0' : 'opacity-100',
         isImportant ? 'border-l-4 border-alert' : 'border-l-4 border-transparent',
       )}

@@ -1,24 +1,11 @@
-/* eslint max-lines: 'off' */
+/* eslint-disable max-lines */
 
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 import { move } from '../../helpers/array'
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 import { put } from '../../api'
-
+import { sortByDate } from '../../helpers'
 import TodoListItem from './TodoListItem'
-
-const sortByDate = (a, b) => {
-  const dateA = new Date(a.createdAt)
-  const dateB = new Date(b.createdAt)
-
-  if (dateA < dateB) {
-    return 1
-  }
-  if (dateA > dateB) {
-    return -1
-  }
-  return 0
-}
 
 class TodoListStore {
   items = []
@@ -30,17 +17,17 @@ class TodoListStore {
       deleteItem: action.bound,
       hasItemInEditingMode: computed,
       importantItems: computed,
-      importantItemsCount: computed,
       items: observable,
       moveItem: action.bound,
       percentComplete: computed,
+      regularItems: computed,
       reorderItems: action.bound,
       resetItems: action.bound,
       setItems: action.bound,
       sort: action.bound,
     })
 
-    reaction(() => this.importantItemsCount, this.sort)
+    reaction(() => this.importantItems.length, this.sort)
   }
 
   get hasItemInEditingMode() {
@@ -51,12 +38,12 @@ class TodoListStore {
     return this.items.filter((item) => item.isChecked).length
   }
 
-  get importantItemsCount() {
-    return this.items.filter((item) => item.isImportant).length
-  }
-
   get importantItems() {
     return this.items.filter((item) => item.isImportant).sort(sortByDate)
+  }
+
+  get regularItems() {
+    return this.items.filter((item) => !item.isImportant).sort((a, b) => a.index - b.index)
   }
 
   get percentComplete() {
@@ -65,9 +52,8 @@ class TodoListStore {
     return (this.checkedItemsCount / this.items.length) * 100
   }
 
-  sort() {
-    const notImportantItems = this.items.filter((item) => !item.isImportant)
-    this.items.replace([...this.importantItems, ...notImportantItems])
+  sort = () => {
+    this.items.replace([...this.importantItems, ...this.regularItems])
   }
 
   addItem() {
