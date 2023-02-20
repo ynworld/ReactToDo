@@ -1,5 +1,7 @@
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 
+import { parseISO, format } from 'date-fns'
+
 import { del, put, post } from '../../api'
 
 class TodoListItem {
@@ -22,6 +24,7 @@ class TodoListItem {
       canEdit: computed,
       createdAt: observable,
       delete: action.bound,
+      displayDate: computed,
       finishEdit: action,
       id: observable,
       index: observable,
@@ -53,6 +56,11 @@ class TodoListItem {
 
   get key() {
     return this.id || 'new-item'
+  }
+
+  get displayDate() {
+    if (!this.createdAt) return null
+    return format(parseISO(this.createdAt), 'PPPpp')
   }
 
   get snapshot() {
