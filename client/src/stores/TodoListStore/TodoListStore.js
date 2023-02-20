@@ -19,6 +19,7 @@ class TodoListStore {
       importantItems: computed,
       items: observable,
       moveItem: action.bound,
+      newItem: computed,
       percentComplete: computed,
       regularItems: computed,
       reorderItems: action.bound,
@@ -27,7 +28,7 @@ class TodoListStore {
       sort: action.bound,
     })
 
-    reaction(() => this.importantItems.length, this.sort)
+    reaction(() => this.regularItems.length, this.sort)
   }
 
   get hasItemInEditingMode() {
@@ -43,7 +44,13 @@ class TodoListStore {
   }
 
   get regularItems() {
-    return this.items.filter((item) => !item.isImportant).sort((a, b) => a.index - b.index)
+    return this.items
+      .filter((item) => !item.isImportant && item.id)
+      .sort((a, b) => a.index - b.index)
+  }
+
+  get newItem() {
+    return this.items.filter((item) => !item.id)
   }
 
   get percentComplete() {
@@ -53,7 +60,7 @@ class TodoListStore {
   }
 
   sort = () => {
-    this.items.replace([...this.importantItems, ...this.regularItems])
+    this.items.replace([...this.newItem, ...this.importantItems, ...this.regularItems])
   }
 
   addItem() {

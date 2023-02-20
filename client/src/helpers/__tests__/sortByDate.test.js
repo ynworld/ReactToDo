@@ -18,7 +18,7 @@ test('expect to get -1, first date is larger', () => {
   ).toBe(-1)
 })
 
-test('expected to get 0, dates are the same', () => {
+test('expect to get 0, dates are the same', () => {
   expect(
     sortByDate(
       { createdAt: '2022-12-11T00:00:00.000Z' },
