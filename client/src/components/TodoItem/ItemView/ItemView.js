@@ -20,7 +20,10 @@ const ItemView = ({ todo }) => {
 
   return (
     <>
-      <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
+      <div className="flex flex-col gap-2">
+        <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
+        <div className="text-xs text-gray-400">{`Created on: ${todo.displayDate}`}</div>
+      </div>
       <Popover>
         <PopoverTrigger>
           <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />

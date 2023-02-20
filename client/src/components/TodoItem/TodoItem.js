@@ -40,7 +40,6 @@ const TodoItem = ({ todo, dndProps = {} }) => {
       >
         <Icon name={iconNames.chevronUpDown} />
       </div>
-      <div className="absolute bottom-0 left-0 pl-1 text-xs text-gray-400">{todo.displayDate}</div>
     </article>
   )
 }
