@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { CheckboxField, IconButton } from '../..'
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
-import { iconNames } from '../../../constants'
+import { iconNames, iconVariants } from '../../../constants'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
@@ -17,8 +17,6 @@ const ItemView = ({ todo }) => {
   const handleImportant = () => {
     todo.setIsImportant()
   }
-
-  const variant = isImportant ? 'solid' : ''
 
   return (
     <>
@@ -37,7 +35,7 @@ const ItemView = ({ todo }) => {
             />
             <IconButton
               iconName={iconNames.fire}
-              iconVariant={variant}
+              iconVariant={isImportant ? iconVariants.solid : undefined}
               onClick={handleImportant}
               theme="alert"
             />

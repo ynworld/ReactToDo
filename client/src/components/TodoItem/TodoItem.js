@@ -20,6 +20,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
       className={classnames(
         'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
         'bg-gradient-to-br from-white to-gray-50 shadow-md',
+        'transition-all duration-500',
         isDragging ? 'opacity-0' : 'opacity-100',
         isImportant ? 'border-l-4 border-alert' : 'border-l-4 border-transparent',
       )}

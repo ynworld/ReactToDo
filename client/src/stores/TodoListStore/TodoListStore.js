@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-import { makeObservable, observable, action, computed } from 'mobx'
-import { move } from '../../helpers/array'
-=======
-import { makeObservable, observable, action, computed, reaction } from 'mobx'
+/* eslint max-lines: 'off' */
 
->>>>>>> 730efa6 (feat: auto sort important items)
+import { makeObservable, observable, action, computed, reaction } from 'mobx'
+import { move } from '../../helpers/array'
+import { makeObservable, observable, action, computed, reaction } from 'mobx'
 import { put } from '../../api'
 
 import TodoListItem from './TodoListItem'
@@ -31,6 +29,7 @@ class TodoListStore {
       checkedItemsCount: computed,
       deleteItem: action.bound,
       hasItemInEditingMode: computed,
+      importantItems: computed,
       importantItemsCount: computed,
       items: observable,
       moveItem: action.bound,
@@ -56,6 +55,10 @@ class TodoListStore {
     return this.items.filter((item) => item.isImportant).length
   }
 
+  get importantItems() {
+    return this.items.filter((item) => item.isImportant).sort(sortByDate)
+  }
+
   get percentComplete() {
     if (this.items.length === 0) return 0
 
@@ -63,9 +66,8 @@ class TodoListStore {
   }
 
   sort() {
-    const importantItems = this.items.filter((item) => item.isImportant).sort(sortByDate)
-    const unimportantItems = this.items.filter((item) => !item.isImportant)
-    this.items.replace([...importantItems, ...unimportantItems])
+    const notImportantItems = this.items.filter((item) => !item.isImportant)
+    this.items.replace([...this.importantItems, ...notImportantItems])
   }
 
   addItem() {
