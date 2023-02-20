@@ -5,14 +5,24 @@ import classnames from 'classnames'
 
 import { useDrag, useDrop } from 'react-dnd'
 
-import { ItemEdit, ItemView } from '..'
+import { isMobile } from 'react-device-detect'
+
+import { ItemEdit, ItemView, Icon } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
+import { iconNames } from '../../constants'
+
 const TodoItem = ({ todo, index }) => {
-  const { id } = todo
+  const { id, text, isChecked, toggle, canEdit, startEdit } = todo
+
+  const draggingIsAllowed = !todo.todoListStore.hasItemInEditingMode
 
   const ref = useRef(null)
+  const dragRef = useRef(null)
+
+  const xOffSet = ref.current?.offsetLeft
+  const width = ref.current?.clientWidth
 
   const [{ handlerId }, drop] = useDrop(
     {
@@ -60,12 +70,12 @@ const TodoItem = ({ todo, index }) => {
         item.index = hoverIndex
       },
     },
-    [index, todo.index],
+    [index, xOffSet, width, todo.index],
   )
 
-  const [{ isDragging }, drag] = useDrag(
+  const [{ isDragging }, drag, preview] = useDrag(
     () => ({
-      canDrag: !todo.todoListStore.hasItemInEditingMode,
+      canDrag: draggingIsAllowed,
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -73,27 +83,38 @@ const TodoItem = ({ todo, index }) => {
         if (index === todo.index) return
         todo.todoListStore.reorderItems()
       },
-      item: () => ({ id, index }),
+      item: () => ({ canEdit, id, index, isChecked, startEdit, text, toggle, width, xOffSet }),
       type: 'TODO',
     }),
-    [index, todo.index, todo.todoListStore.hasItemInEditingMode],
+    [index, xOffSet, width, todo.index, draggingIsAllowed],
   )
 
-  const opacity = isDragging ? 'opacity-0' : 'opacity-100'
-
-  drag(drop(ref))
+  drop(preview(ref))
+  drag(dragRef)
 
   return (
     <article
       ref={ref}
       className={classnames(
-        'flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4',
+        'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
         'bg-gradient-to-br from-white to-gray-50 shadow-md',
-        opacity,
+        isDragging ? 'opacity-0' : 'opacity-100',
       )}
       data-handler-id={handlerId}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
+
+      <div
+        ref={dragRef}
+        className={classnames(
+          'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',
+          'rounded-md transition-all duration-300 hover:text-black',
+          draggingIsAllowed ? 'group-hover:opacity-100' : '',
+          isMobile ? 'opacity-100' : 'opacity-0',
+        )}
+      >
+        <Icon name={iconNames.chevronUpDown} />
+      </div>
     </article>
   )
 }
