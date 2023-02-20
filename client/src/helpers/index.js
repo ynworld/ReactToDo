@@ -1,1 +1,1 @@
-export * from './sortByDate'
+export { default as sortByDate } from './sortByDate'

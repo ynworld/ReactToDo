@@ -1,14 +1,15 @@
 import { PropTypes } from 'prop-types'
 
 import {
-  PlusCircleIcon,
-  TrashIcon,
-  PencilIcon,
-  XMarkIcon,
+  CalendarDaysIcon,
   CheckIcon,
   ChevronUpDownIcon,
   EllipsisHorizontalIcon,
   FireIcon,
+  PencilIcon,
+  PlusCircleIcon,
+  TrashIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline'
 
 import { FireIcon as FireIconSolid } from '@heroicons/react/24/solid'
@@ -16,14 +17,15 @@ import { FireIcon as FireIconSolid } from '@heroicons/react/24/solid'
 import { iconNames, iconVariants } from '../../constants'
 
 const outlineIconRenderers = {
-  [iconNames.plusCircle]: PlusCircleIcon,
-  [iconNames.trash]: TrashIcon,
-  [iconNames.pencil]: PencilIcon,
-  [iconNames.xmark]: XMarkIcon,
+  [iconNames.calendarDays]: CalendarDaysIcon,
   [iconNames.check]: CheckIcon,
   [iconNames.chevronUpDown]: ChevronUpDownIcon,
   [iconNames.ellipsisHorizontal]: EllipsisHorizontalIcon,
   [iconNames.fire]: FireIcon,
+  [iconNames.pencil]: PencilIcon,
+  [iconNames.plusCircle]: PlusCircleIcon,
+  [iconNames.trash]: TrashIcon,
+  [iconNames.xmark]: XMarkIcon,
 }
 
 const solidIconRenderers = {

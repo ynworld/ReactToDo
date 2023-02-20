@@ -1,4 +1,4 @@
-const { sortByDate } = require('../sortByDate')
+import sortByDate from '../sortByDate'
 
 test('expect to get 1, first date is smaller', () => {
   expect(

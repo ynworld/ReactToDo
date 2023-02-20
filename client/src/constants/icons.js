@@ -1,4 +1,5 @@
 export const iconNames = {
+  calendarDays: 'calendarDays',
   check: 'check',
   chevronUpDown: 'chevronUpDown',
   ellipsisHorizontal: 'ellipsisHorizontal',

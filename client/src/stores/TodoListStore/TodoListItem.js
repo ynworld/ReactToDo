@@ -62,7 +62,8 @@ class TodoListItem {
 
   get displayDate() {
     if (!this.createdAt) return null
-    return format(parseISO(this.createdAt), 'PP')
+
+    return format(parseISO(this.createdAt), 'P')
   }
 
   get snapshot() {
