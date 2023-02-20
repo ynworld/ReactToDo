@@ -12,6 +12,8 @@ import { iconNames } from '../../constants'
 const TodoItem = ({ todo, dndProps = {} }) => {
   const { drag, canDrag, isDragging, itemToMoveRef } = dndProps
 
+  const { isImportant } = todo
+
   return (
     <article
       ref={itemToMoveRef}
@@ -19,6 +21,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
         'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
         'bg-gradient-to-br from-white to-gray-50 shadow-md',
         isDragging ? 'opacity-0' : 'opacity-100',
+        isImportant ? 'border-l-4 border-alert' : 'border-l-4 border-transparent',
       )}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}

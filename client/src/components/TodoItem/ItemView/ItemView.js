@@ -8,11 +8,17 @@ import { iconNames } from '../../../constants'
 import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ todo }) => {
-  const { id, text, isChecked, toggle, canEdit } = todo
+  const { id, text, isChecked, isImportant, toggle, canEdit } = todo
 
   const handleEditStart = () => {
     todo.startEdit()
   }
+
+  const handleImportant = () => {
+    todo.setIsImportant()
+  }
+
+  const variant = isImportant ? 'solid' : ''
 
   return (
     <>
@@ -28,6 +34,12 @@ const ItemView = ({ todo }) => {
               iconName={iconNames.pencil}
               onClick={handleEditStart}
               theme="success"
+            />
+            <IconButton
+              iconName={iconNames.fire}
+              iconVariant={variant}
+              onClick={handleImportant}
+              theme="alert"
             />
             <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
           </div>

@@ -2,15 +2,16 @@ import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
 
 import { Icon } from '../Icon'
-import { iconNames } from '../../constants'
+import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
   alert: 'hover:text-alert focus:text-alert',
   success: 'hover:text-primary-dark focus:text-primary-dark',
 }
 
-const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
+const IconButton = ({ type, iconName, iconVariant, onClick, disabled = false, theme }) => {
   const name = iconNames[iconName]
+  const variant = iconVariants[iconVariant]
 
   if (!name) return null
 
@@ -27,7 +28,7 @@ const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
       type={type === 'submit' ? 'submit' : 'button'}
     >
       <div className="h-6 w-6 flex-none">
-        <Icon name={name} />
+        <Icon name={name} variant={variant} />
       </div>
     </button>
   )
@@ -36,6 +37,7 @@ const IconButton = ({ type, iconName, onClick, disabled, theme }) => {
 IconButton.propTypes = {
   disabled: PropTypes.bool,
   iconName: PropTypes.string.isRequired,
+  iconVariant: PropTypes.string,
   onClick: PropTypes.func,
   theme: PropTypes.string,
   type: PropTypes.string,

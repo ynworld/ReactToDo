@@ -8,7 +8,10 @@ import {
   CheckIcon,
   ChevronUpDownIcon,
   EllipsisHorizontalIcon,
+  FireIcon,
 } from '@heroicons/react/24/outline'
+
+import { FireIcon as FireIconSolid } from '@heroicons/react/24/solid'
 
 import { iconNames, iconVariants } from '../../constants'
 
@@ -20,16 +23,19 @@ const outlineIconRenderers = {
   [iconNames.check]: CheckIcon,
   [iconNames.chevronUpDown]: ChevronUpDownIcon,
   [iconNames.ellipsisHorizontal]: EllipsisHorizontalIcon,
+  [iconNames.fire]: FireIcon,
 }
 
-const solidIconRenderers = {}
+const solidIconRenderers = {
+  [iconNames.fire]: FireIconSolid,
+}
 
 const iconRenderersByVariant = {
   [iconVariants.outline]: outlineIconRenderers,
   [iconVariants.solid]: solidIconRenderers,
 }
 
-const Icon = ({ name, className, variant }) => {
+const Icon = ({ name, className, variant = 'outline' }) => {
   const variantIconRenderers = iconRenderersByVariant[variant]
   const Renderer = variantIconRenderers[name]
 
@@ -42,11 +48,6 @@ Icon.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string.isRequired,
   variant: PropTypes.string,
-}
-
-Icon.defaultProps = {
-  className: '',
-  variant: 'outline',
 }
 
 export default Icon
