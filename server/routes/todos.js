@@ -16,6 +16,9 @@
  *         isChecked:
  *           type: boolean
  *           description: Is todo marked as done
+ *         isImportant:
+ *           type: boolean
+ *           description: Is todo marked as important
  *         createdAt:
  *           type: string
  *           format: date
@@ -24,6 +27,7 @@
  *       example:
  *         id: 1675633464112
  *         isChecked: false
+ *         isImportant: true
  *         text: Go shopping
  *         createdAt: '2023-02-05T21:44:24.112Z'
  */
