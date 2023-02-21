@@ -18,6 +18,7 @@ export const usePopoverContext = () => {
 
 export const Popover = ({ children, modal = false, ...restOptions }) => {
   const popover = usePopover({ modal, ...restOptions })
+
   return <PopoverContext.Provider value={popover}>{children}</PopoverContext.Provider>
 }
 
