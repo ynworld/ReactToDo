@@ -1,6 +1,5 @@
-import { PropTypes } from 'prop-types'
-
 import { useContext, createContext } from 'react'
+import { PropTypes } from 'prop-types'
 
 import usePopover from './usePopover'
 
@@ -16,13 +15,16 @@ export const usePopoverContext = () => {
   return context
 }
 
-export const Popover = ({ children, modal = false, ...restOptions }) => {
-  const popover = usePopover({ modal, ...restOptions })
+const Popover = ({ children, content, ...restOptions }) => {
+  const popover = usePopover({ ...restOptions })
 
   return <PopoverContext.Provider value={popover}>{children}</PopoverContext.Provider>
 }
 
 Popover.propTypes = {
   children: PropTypes.node,
+  content: PropTypes.node,
   modal: PropTypes.bool,
 }
+
+export default Popover

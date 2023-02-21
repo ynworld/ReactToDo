@@ -9,25 +9,20 @@ import {
   useClick,
   useDismiss,
   useRole,
-  useHover,
   useInteractions,
-  safePolygon,
   useTransitionStyles,
 } from '@floating-ui/react'
 
 const usePopover = ({
   initialOpen = false,
   placement = 'bottom',
-  modal,
-  open: controlledOpen,
-  onOpenChange: setControlledOpen,
+  isOpen: isControlledOpen,
+  setIsOpen: setIsControlledOpen,
 }) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
-  const [labelId, setLabelId] = useState()
-  const [descriptionId, setDescriptionId] = useState()
+  const [isUncontrolledOpen, setIsUncontrolledOpen] = useState(initialOpen)
 
-  const open = controlledOpen ?? uncontrolledOpen
-  const setOpen = setControlledOpen ?? setUncontrolledOpen
+  const isOpen = isControlledOpen ?? isUncontrolledOpen
+  const setIsOpen = setIsControlledOpen ?? setIsUncontrolledOpen
 
   const data = useFloating({
     middleware: [
@@ -37,8 +32,8 @@ const usePopover = ({
       }),
       shift({ padding: 5 }),
     ],
-    onOpenChange: setOpen,
-    open,
+    onOpenChange: setIsOpen,
+    open: isOpen,
     placement,
     whileElementsMounted: autoUpdate,
   })
@@ -49,32 +44,22 @@ const usePopover = ({
     duration: 500,
   })
 
-  const click = useClick(context, {
-    enabled: controlledOpen == null,
-  })
-  const hover = useHover(context, {
-    handleClose: safePolygon(),
-  })
+  const click = useClick(context)
   const dismiss = useDismiss(context)
   const role = useRole(context)
 
-  const interactions = useInteractions([click, dismiss, role, hover])
+  const interactions = useInteractions([click, dismiss, role])
 
   return useMemo(
     () => ({
-      descriptionId,
       isMounted,
-      labelId,
-      open,
-      setOpen,
+      isOpen,
+      setIsOpen,
       ...interactions,
       ...data,
-      modal,
-      setDescriptionId,
-      setLabelId,
       styles,
     }),
-    [open, setOpen, isMounted, interactions, data, modal, labelId, descriptionId, styles],
+    [isOpen, setIsOpen, isMounted, interactions, data, styles],
   )
 }
 

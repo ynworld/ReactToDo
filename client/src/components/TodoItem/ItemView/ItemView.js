@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { CheckboxField, Popover, PopoverTrigger, PopoverContent, IconButton } from '../..'
+import { CheckboxField, IconButton } from '../..'
+import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
 import { iconNames } from '../../../constants'
 
@@ -16,7 +17,7 @@ const ItemView = ({ todo }) => {
   return (
     <>
       <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
-      <Popover placement="left">
+      <Popover>
         <PopoverTrigger>
           <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
         </PopoverTrigger>

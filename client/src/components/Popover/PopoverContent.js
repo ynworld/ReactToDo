@@ -4,16 +4,16 @@ import { forwardRef } from 'react'
 import { useMergeRefs, FloatingFocusManager, FloatingPortal } from '@floating-ui/react'
 import { usePopoverContext } from './Popover'
 
-export const PopoverContent = forwardRef((props, propRef) => {
+const PopoverContent = forwardRef((props, propRef) => {
   const { context: floatingContext, ...context } = usePopoverContext()
   const ref = useMergeRefs([context.refs.setFloating, propRef])
 
   const { styles } = context
 
   return (
-    context.open && (
+    context.isOpen && (
       <FloatingPortal id="float">
-        <FloatingFocusManager context={floatingContext} initialFocus={-1} modal={context.modal}>
+        <FloatingFocusManager context={floatingContext} initialFocus={-1} modal={false}>
           <div
             ref={ref}
             style={{
