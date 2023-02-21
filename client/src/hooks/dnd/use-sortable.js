@@ -9,8 +9,8 @@ const useSortable = ({
   dropCallback = _noop,
   index,
   itemToMoveRef,
+  label,
   moveCallback,
-  previewData,
   type,
 } = {}) => {
   // Needed for proper DragPreview positioning on mobile
@@ -28,7 +28,7 @@ const useSortable = ({
         moveCallback(item.index, item.originalIndex)
       }
     },
-    item: () => ({ index, originalIndex: index, previewData, width, xOffSet }),
+    item: () => ({ index, label, originalIndex: index, width, xOffSet }),
     type: dndItemTypes[type],
   })
 

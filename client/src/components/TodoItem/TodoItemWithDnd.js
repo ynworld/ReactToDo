@@ -16,8 +16,8 @@ const TodoItemWithDnd = ({ index, todo }) => {
     dropCallback: todoListStore.reorderItems,
     index,
     itemToMoveRef,
+    label: todo.text,
     moveCallback: todoListStore.moveItem,
-    previewData: todo,
     type: dndItemTypes.todo,
   })
 
