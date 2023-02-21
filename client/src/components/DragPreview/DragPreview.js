@@ -33,7 +33,7 @@ const DragPreview = () => {
       )}
       style={finalStyle}
     >
-      <ItemView todo={{ ...item }} />
+      <ItemView todo={{ ...item.previewData }} />
       <div
         className={classnames(
           'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',

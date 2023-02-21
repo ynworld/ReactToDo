@@ -5,7 +5,18 @@ import { dndItemTypes } from '../../constants/dnd'
 
 import moveItem from './move-item'
 
-const useSortable = ({ dropCallback = _noop, index, itemToMoveRef, moveCallback, type } = {}) => {
+const useSortable = ({
+  dropCallback = _noop,
+  index,
+  itemToMoveRef,
+  moveCallback,
+  previewData,
+  type,
+} = {}) => {
+  // Needed for proper DragPreview positioning on mobile
+  const width = itemToMoveRef?.current?.clientWidth
+  const xOffSet = itemToMoveRef?.current?.offsetLeft
+
   const [{ isDragging }, drag, preview] = useDrag({
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -17,7 +28,7 @@ const useSortable = ({ dropCallback = _noop, index, itemToMoveRef, moveCallback,
         moveCallback(item.index, item.originalIndex)
       }
     },
-    item: () => ({ index, originalIndex: index }),
+    item: () => ({ index, originalIndex: index, previewData, width, xOffSet }),
     type: dndItemTypes[type],
   })
 
