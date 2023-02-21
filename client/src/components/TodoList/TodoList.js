@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
+import { DragPreview } from '../DragPreview'
 import { TodoItemWithDnd } from '../TodoItem'
 
 const TodoList = ({ todos }) => (
@@ -12,6 +13,7 @@ const TodoList = ({ todos }) => (
         <TodoItemWithDnd index={index} todo={todo} />
       </li>
     ))}
+    <DragPreview />
   </ul>
 )
 

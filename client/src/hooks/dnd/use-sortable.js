@@ -8,14 +8,11 @@ import moveItem from './move-item'
 const useSortable = ({
   dropCallback = _noop,
   index,
-  itemToMoveRef,
-  label,
+  item: itemToMove,
   moveCallback,
   type,
 } = {}) => {
-  // Needed for proper DragPreview positioning on mobile
-  const width = itemToMoveRef?.current?.clientWidth
-  const xOffSet = itemToMoveRef?.current?.offsetLeft
+  const { ref: itemToMoveRef, ...itemData } = itemToMove
 
   const [{ isDragging }, drag, preview] = useDrag({
     collect: (monitor) => ({
@@ -28,7 +25,7 @@ const useSortable = ({
         moveCallback(item.index, item.originalIndex)
       }
     },
-    item: () => ({ index, label, originalIndex: index, width, xOffSet }),
+    item: () => ({ data: itemData, index, originalIndex: index, ref: itemToMoveRef }),
     type: dndItemTypes[type],
   })
 

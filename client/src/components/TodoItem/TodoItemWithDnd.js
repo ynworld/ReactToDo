@@ -15,8 +15,7 @@ const TodoItemWithDnd = ({ index, todo }) => {
   const { drag, isDragging } = useSortable({
     dropCallback: todoListStore.reorderItems,
     index,
-    itemToMoveRef,
-    label: todo.text,
+    item: { ref: itemToMoveRef, ...todo },
     moveCallback: todoListStore.moveItem,
     type: dndItemTypes.todo,
   })
