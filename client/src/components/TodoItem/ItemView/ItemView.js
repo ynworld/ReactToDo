@@ -16,12 +16,12 @@ const ItemView = ({ todo }) => {
   return (
     <>
       <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
-      <Popover placement="left-start">
+      <Popover placement="left">
         <PopoverTrigger>
           <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
         </PopoverTrigger>
         <PopoverContent>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 rounded-md bg-white p-2 shadow-md">
             <IconButton
               disabled={!canEdit}
               iconName={iconNames.pencil}
