@@ -1,5 +1,5 @@
 import { makeObservable, observable, action, computed } from 'mobx'
-
+import { move } from '../../helpers/array'
 import { put } from '../../api'
 
 import TodoListItem from './TodoListItem'
@@ -45,17 +45,13 @@ class TodoListStore {
   }
 
   moveItem(fromIndex, toIndex) {
-    const [itemToMove] = this.items.splice(fromIndex, 1)
-
-    this.items.splice(toIndex, 0, itemToMove)
+    this.items.replace(move(this.items, fromIndex, toIndex))
   }
 
   reorderItems() {
     const itemIds = this.items.map((item) => item.id)
 
-    put(`/todos/reorder`, { itemIds }).then((items) => {
-      this.setItems(items)
-    })
+    put(`/todos/reorder`, { itemIds })
   }
 
   resetItems() {

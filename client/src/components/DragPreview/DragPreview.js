@@ -1,7 +1,7 @@
 import { usePreview } from 'react-dnd-multi-backend'
 import classnames from 'classnames'
 
-import { ItemView, Icon } from '..'
+import { Icon } from '..'
 import { iconNames } from '../../constants'
 
 const DragPreview = () => {
@@ -11,9 +11,13 @@ const DragPreview = () => {
 
   const { item, style, ref, monitor } = preview
 
-  const y = monitor.getClientOffset()?.y ?? 0
-  const x = monitor.getItem()?.xOffSet
-  const width = `${monitor.getItem()?.width}px`
+  const itemWidth = item.ref?.current?.clientWidth ?? 0
+  const itemOffsetLeft = item.ref?.current?.offsetLeft ?? 0
+  const clientOffsetY = monitor.getClientOffset()?.y ?? 0
+
+  const y = clientOffsetY
+  const x = itemOffsetLeft
+  const width = `${itemWidth}px`
 
   const transform = `translate(${x}px, ${y}px)`
 
@@ -28,19 +32,16 @@ const DragPreview = () => {
     <div
       ref={ref}
       className={classnames(
-        'flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4',
-        'bg-gradient-to-br from-white to-gray-50 opacity-50 shadow-md',
+        'flex min-h-[4rem] items-center rounded-lg p-4',
+        'bg-gradient-to-br from-white to-gray-50 shadow-md',
       )}
       style={finalStyle}
     >
-      <ItemView todo={{ ...item }} />
-      <div
-        className={classnames(
-          'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',
-          'rounded-md transition-all duration-300 hover:text-black',
-        )}
-      >
-        <Icon name={iconNames.chevronUpDown} />
+      <div className="flex items-center gap-3">
+        <div className="h-6 w-6 flex-none text-primary">
+          <Icon name={iconNames.chevronUpDown} />
+        </div>
+        <div className="text-sm text-gray-800">{item.data.text}</div>
       </div>
     </div>
   )
