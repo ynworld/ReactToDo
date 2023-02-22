@@ -9,7 +9,7 @@ const TooltipContent = forwardRef((props, propRef) => {
   const { styles } = props
 
   return (
-    <FloatingPortal>
+    <FloatingPortal id="tooltip">
       {context.isMounted && (
         <div
           ref={ref}
