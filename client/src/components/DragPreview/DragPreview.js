@@ -13,8 +13,9 @@ const DragPreview = () => {
 
   const itemWidth = item.ref?.current?.clientWidth ?? 0
   const itemOffsetLeft = item.ref?.current?.offsetLeft ?? 0
+  const clientOffsetY = monitor.getClientOffset()?.y ?? 0
 
-  const y = monitor.getClientOffset()?.y ?? 0
+  const y = clientOffsetY
   const x = itemOffsetLeft
   const width = `${itemWidth}px`
 
@@ -31,7 +32,7 @@ const DragPreview = () => {
     <div
       ref={ref}
       className={classnames(
-        'flex min-h-[4rem] items-center justify-between gap-3 rounded-lg p-4',
+        'flex min-h-[4rem] items-center rounded-lg p-4',
         'bg-gradient-to-br from-white to-gray-50 shadow-md',
       )}
       style={finalStyle}
