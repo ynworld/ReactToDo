@@ -1,6 +1,7 @@
 export const iconNames = {
   check: 'check',
   chevronUpDown: 'chevronUpDown',
+  ellipsisHorizontal: 'ellipsisHorizontal',
   pencil: 'pencil',
   plusCircle: 'plusCircle',
   trash: 'trash',

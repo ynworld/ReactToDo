@@ -7,6 +7,7 @@ import {
   XMarkIcon,
   CheckIcon,
   ChevronUpDownIcon,
+  EllipsisHorizontalIcon,
 } from '@heroicons/react/24/outline'
 
 import { iconNames, iconVariants } from '../../constants'
@@ -18,6 +19,7 @@ const outlineIconRenderers = {
   [iconNames.xmark]: XMarkIcon,
   [iconNames.check]: CheckIcon,
   [iconNames.chevronUpDown]: ChevronUpDownIcon,
+  [iconNames.ellipsisHorizontal]: EllipsisHorizontalIcon,
 }
 
 const solidIconRenderers = {}
