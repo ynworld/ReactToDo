@@ -11,8 +11,10 @@ const TodoItemWithDnd = ({ index, todo }) => {
   const itemToMoveRef = useRef(null)
 
   const { todoListStore } = todo
+  const canDrag = !todoListStore.hasItemInEditingMode && !todo.isImportant
 
   const { drag, isDragging } = useSortable({
+    canDrag,
     dropCallback: todoListStore.reorderItems,
     index,
     item: { ref: itemToMoveRef, ...todo },
@@ -20,12 +22,7 @@ const TodoItemWithDnd = ({ index, todo }) => {
     type: dndItemTypes.todo,
   })
 
-  return (
-    <TodoItem
-      dndProps={{ canDrag: !todoListStore.hasItemInEditingMode, drag, isDragging, itemToMoveRef }}
-      todo={todo}
-    />
-  )
+  return <TodoItem dndProps={{ canDrag, drag, isDragging, itemToMoveRef }} todo={todo} />
 }
 
 export default observer(TodoItemWithDnd)

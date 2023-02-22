@@ -2,9 +2,8 @@
 
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 import { move } from '../../helpers/array'
-import { makeObservable, observable, action, computed, reaction } from 'mobx'
 import { put } from '../../api'
-import { sortByDate } from '../../helpers'
+import { sortByDate, sortAscending } from '../../helpers'
 import TodoListItem from './TodoListItem'
 
 class TodoListStore {
@@ -44,9 +43,7 @@ class TodoListStore {
   }
 
   get regularItems() {
-    return this.items
-      .filter((item) => !item.isImportant && item.id)
-      .sort((a, b) => a.index - b.index)
+    return this.items.filter((item) => !item.isImportant && item.id).sort(sortAscending)
   }
 
   get newItem() {
