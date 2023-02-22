@@ -1,6 +1,8 @@
 import { useDrag, useDrop } from 'react-dnd'
 import _noop from 'lodash/noop'
 
+import { getEmptyImage } from 'react-dnd-html5-backend'
+
 import { dndItemTypes } from '../../constants/dnd'
 
 import moveItem from './move-item'
@@ -26,6 +28,7 @@ const useSortable = ({
       }
     },
     item: () => ({ data: itemData, index, originalIndex: index, ref: itemToMoveRef }),
+    previewOptions: true,
     type: dndItemTypes[type],
   })
 
@@ -47,7 +50,9 @@ const useSortable = ({
     },
   })
 
-  drop(preview(itemToMoveRef))
+  drop(itemToMoveRef)
+
+  preview(getEmptyImage())
 
   return { drag, isDragging }
 }
