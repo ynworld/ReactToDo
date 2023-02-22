@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import './CheckboxField.css'
-import { Tooltip, TooltipContent, TooltipTrigger } from '../index'
+import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip'
 
 const CheckboxField = ({ label, id, isChecked, onChange }) => (
   <label className="flex cursor-pointer items-center gap-3" htmlFor={id}>

@@ -17,13 +17,13 @@ import { useState, useMemo } from 'react'
 const useTooltip = ({
   initialOpen = false,
   placement = 'top',
-  open: controlledOpen,
-  onOpenChange: setControlledOpen,
+  isOpen: isControlledOpen,
+  setIsOpen: setIsControlledOpen,
 }) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
+  const [isUncontrolledOpen, setIsUncontrolledOpen] = useState(initialOpen)
 
-  const open = controlledOpen ?? uncontrolledOpen
-  const setOpen = setControlledOpen ?? setUncontrolledOpen
+  const isOpen = isControlledOpen ?? isUncontrolledOpen
+  const setIsOpen = setIsControlledOpen ?? setIsUncontrolledOpen
 
   const data = useFloating({
     middleware: [
@@ -33,8 +33,8 @@ const useTooltip = ({
       }),
       shift({ padding: 5 }),
     ],
-    onOpenChange: setOpen,
-    open,
+    onOpenChange: setIsOpen,
+    open: isOpen,
     placement,
     whileElementsMounted: autoUpdate,
   })
@@ -49,11 +49,11 @@ const useTooltip = ({
   })
 
   const hover = useHover(context, {
-    enabled: controlledOpen == null,
+    enabled: isControlledOpen == null,
     move: false,
   })
   const focus = useFocus(context, {
-    enabled: controlledOpen == null,
+    enabled: isControlledOpen == null,
   })
   const dismiss = useDismiss(context)
   const role = useRole(context, { role: 'tooltip' })
@@ -63,13 +63,13 @@ const useTooltip = ({
   return useMemo(
     () => ({
       isMounted,
-      open,
-      setOpen,
+      isOpen,
+      setIsOpen,
       styles,
       ...interactions,
       ...data,
     }),
-    [open, setOpen, isMounted, interactions, data, styles],
+    [isOpen, setIsOpen, isMounted, interactions, data, styles],
   )
 }
 
