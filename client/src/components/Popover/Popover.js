@@ -15,7 +15,7 @@ export const usePopoverContext = () => {
   return context
 }
 
-const Popover = ({ children, content, ...restOptions }) => {
+const Popover = ({ children, ...restOptions }) => {
   const popover = usePopover({ ...restOptions })
 
   return <PopoverContext.Provider value={popover}>{children}</PopoverContext.Provider>
