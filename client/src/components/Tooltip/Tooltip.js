@@ -1,29 +1,20 @@
 import { PropTypes } from 'prop-types'
-import { createContext, useContext } from 'react'
-import { useTooltip } from './index'
+import { TooltipProvider, TooltipTrigger, TooltipContent } from '.'
 
-const TooltipContext = createContext(null)
-
-export const useTooltipContext = () => {
-  const context = useContext(TooltipContext)
-
-  if (context == null) {
-    throw new Error('Tooltip components must be wrapped in <Tooltip />')
-  }
-
-  return context
-}
-
-const Tooltip = ({ children, ...options }) => {
-  // This can accept any props as options, e.g. `placement`,
-  // or other positioning options.
-  const tooltip = useTooltip(options)
-
-  return <TooltipContext.Provider value={tooltip}>{children}</TooltipContext.Provider>
+const Tooltip = ({ children, content, ...options }) => {
+  return (
+    <TooltipProvider options={options}>
+      <TooltipTrigger>{children}</TooltipTrigger>
+      <TooltipContent>
+        <div className="rounded-md bg-black p-1 text-xs text-white shadow-md">{content}</div>
+      </TooltipContent>
+    </TooltipProvider>
+  )
 }
 
 Tooltip.propTypes = {
   children: PropTypes.node,
+  content: PropTypes.string,
 }
 
 export default Tooltip

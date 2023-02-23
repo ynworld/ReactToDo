@@ -27,7 +27,7 @@ const useTooltip = ({
 
   const data = useFloating({
     middleware: [
-      offset(5),
+      offset(3),
       flip({
         fallbackAxisSideDirection: 'start',
       }),
