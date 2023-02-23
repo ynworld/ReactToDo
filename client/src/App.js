@@ -18,7 +18,6 @@ const App = () => {
 
   const handleAddItem = () => {
     todoList.addItem()
-    todoList.resetItems()
   }
 
   return (
@@ -45,7 +44,7 @@ const App = () => {
               <Icon className="h-10 w-10 text-white" name={iconNames.plusCircle} />
             </button>
           </header>
-          <TodoList todos={todoList.items} />
+          <TodoList todoListStore={todoList} />
         </>
       )}
     </main>

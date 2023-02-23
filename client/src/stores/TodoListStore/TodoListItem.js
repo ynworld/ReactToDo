@@ -33,7 +33,6 @@ class TodoListItem {
       isChecked: observable,
       isEditing: observable,
       isImportant: observable,
-      key: computed,
       setText: action,
       snapshot: computed,
       startEdit: action,
@@ -54,10 +53,6 @@ class TodoListItem {
     this.todoListStore = todoListStore
 
     reaction(() => this.snapshot, this.save)
-  }
-
-  get key() {
-    return this.id || 'new-item'
   }
 
   get displayDate() {
