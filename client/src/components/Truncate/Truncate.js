@@ -2,48 +2,37 @@ import { useRef } from 'react'
 import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
 
-import { Tooltip, TooltipTrigger, TooltipContent } from '../Tooltip'
+import { Tooltip } from '../Tooltip'
 
-const Truncate = ({ children }) => {
+const Truncate = ({ children, className }) => {
   const boxRef = useRef(null)
   const textRef = useRef(null)
 
   const boxWidth = boxRef.current?.clientWidth
   const textWidth = textRef.current?.clientWidth
 
-  const trancate = textWidth > boxWidth
+  const truncate = textWidth > boxWidth
 
   return (
-    <Tooltip>
-      <TooltipTrigger>
-        <div ref={boxRef} className="flex overflow-hidden">
-          <div
-            ref={textRef}
-            className={classnames(
-              'whitespace-nowrap',
-              trancate ? 'overflow-hidden text-ellipsis' : null,
-            )}
-          >
-            {children}
-          </div>
+    <Tooltip className={className} content={truncate ? children : null} width={boxWidth}>
+      <div ref={boxRef} className="flex overflow-hidden">
+        <div
+          ref={textRef}
+          className={classnames(
+            'whitespace-nowrap',
+            truncate ? 'overflow-hidden text-ellipsis' : null,
+          )}
+        >
+          {children}
         </div>
-      </TooltipTrigger>
-      {trancate ? (
-        <TooltipContent>
-          <div
-            className="rounded-md bg-black p-2 text-sm text-white shadow-md"
-            style={{ width: `${boxWidth}px` }}
-          >
-            {children}
-          </div>
-        </TooltipContent>
-      ) : null}
+      </div>
     </Tooltip>
   )
 }
 
 Truncate.propTypes = {
   children: PropTypes.string,
+  className: PropTypes.string,
 }
 
 export default Truncate

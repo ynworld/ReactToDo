@@ -14,9 +14,7 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
         type="checkbox"
       />
       <div className="checkbox-custom" />
-      <div className="overflow-hidden text-sm text-gray-800">
-        <Truncate>{label}</Truncate>
-      </div>
+      <Truncate className="overflow-hidden text-sm text-gray-800">{label}</Truncate>
     </label>
   )
 }
