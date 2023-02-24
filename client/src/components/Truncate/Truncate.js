@@ -4,12 +4,14 @@ import classnames from 'classnames'
 
 import { Tooltip } from '../Tooltip'
 
+import { getElementWidth } from '../../helpers/element'
+
 const Truncate = ({ children }) => {
   const containerRef = useRef(null)
   const contentRef = useRef(null)
 
-  const containerWidth = containerRef.current?.getBoundingClientRect().width
-  const contentWidth = contentRef.current?.getBoundingClientRect().width
+  const containerWidth = getElementWidth(containerRef.current)
+  const contentWidth = getElementWidth(contentRef.current)
 
   const shouldTruncate = contentWidth > containerWidth
 
