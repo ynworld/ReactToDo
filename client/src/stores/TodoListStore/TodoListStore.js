@@ -61,7 +61,9 @@ class TodoListStore {
   }
 
   moveItem(fromIndex, toIndex) {
-    this.items.replace(move(this.items, fromIndex, toIndex))
+    const newItems = [...this.importantItems, ...move(this.regularItems, fromIndex, toIndex)]
+
+    this.items.replace(newItems)
   }
 
   reorderItems() {
