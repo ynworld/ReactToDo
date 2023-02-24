@@ -4,27 +4,25 @@ import classnames from 'classnames'
 
 import { Tooltip } from '../Tooltip'
 
-const Truncate = ({ children, className }) => {
-  const boxRef = useRef(null)
-  const textRef = useRef(null)
+const Truncate = ({ children }) => {
+  const containerRef = useRef(null)
+  const contentRef = useRef(null)
 
-  const boxWidth = boxRef.current?.clientWidth
-  const textWidth = textRef.current?.clientWidth
+  const containerWidth = containerRef.current?.getBoundingClientRect().width
+  const contentWidth = contentRef.current?.getBoundingClientRect().width
 
-  const truncate = textWidth > boxWidth
+  const shouldTruncate = contentWidth > containerWidth
 
   return (
-    <Tooltip className={className} content={truncate ? children : null} width={boxWidth}>
-      <div ref={boxRef} className="flex overflow-hidden">
-        <div
-          ref={textRef}
-          className={classnames(
-            'whitespace-nowrap',
-            truncate ? 'overflow-hidden text-ellipsis' : null,
-          )}
-        >
+    <Tooltip
+      className="overflow-hidden"
+      content={shouldTruncate ? children : null}
+      width={containerWidth}
+    >
+      <div ref={containerRef} className="flex whitespace-nowrap">
+        <span ref={contentRef} className={classnames({ truncate: shouldTruncate })}>
           {children}
-        </div>
+        </span>
       </div>
     </Tooltip>
   )
@@ -32,7 +30,6 @@ const Truncate = ({ children, className }) => {
 
 Truncate.propTypes = {
   children: PropTypes.string,
-  className: PropTypes.string,
 }
 
 export default Truncate

@@ -5,7 +5,10 @@ import { Truncate } from '..'
 
 const CheckboxField = ({ label, id, isChecked, onChange }) => {
   return (
-    <label className="flex cursor-pointer items-center gap-3 overflow-hidden" htmlFor={id}>
+    <label
+      className="flex cursor-pointer items-center gap-3 overflow-hidden text-sm text-gray-800"
+      htmlFor={id}
+    >
       <input
         className="invisible absolute"
         defaultChecked={isChecked}
@@ -14,7 +17,7 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
         type="checkbox"
       />
       <div className="checkbox-custom" />
-      <Truncate className="overflow-hidden text-sm text-gray-800">{label}</Truncate>
+      <Truncate>{label}</Truncate>
     </label>
   )
 }
