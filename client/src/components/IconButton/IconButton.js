@@ -12,8 +12,6 @@ const classesByTheme = {
 const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme, children }) => {
   const name = iconNames[iconName]
 
-  const textClasses = classnames(children ? 'px-3 py-1' : 'justify-center')
-
   if (!name) return null
 
   return (
@@ -22,7 +20,7 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
         'group/button group inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
         'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
-        textClasses,
+        children ? 'px-2' : 'justify-center',
       )}
       disabled={disabled}
       onClick={onClick}
