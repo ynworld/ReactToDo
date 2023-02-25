@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import { createContext, useContext } from 'react'
-import { useTooltip } from './index'
+import useTooltip from './useTooltip'
 
 const TooltipContext = createContext(null)
 

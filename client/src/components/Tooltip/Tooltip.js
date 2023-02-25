@@ -6,7 +6,9 @@ const Tooltip = ({ children, content, ...options }) => {
     <TooltipProvider options={options}>
       <TooltipTrigger>{children}</TooltipTrigger>
       <TooltipContent>
-        <div className="rounded-md bg-black p-1 text-xs text-white shadow-md">{content}</div>
+        <div className="rounded-md bg-black py-1 px-2 text-xs text-white shadow-md sm:max-w-sm">
+          {content}
+        </div>
       </TooltipContent>
     </TooltipProvider>
   )

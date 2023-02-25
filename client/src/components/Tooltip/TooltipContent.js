@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types'
 import { forwardRef } from 'react'
 import { useMergeRefs, FloatingPortal } from '@floating-ui/react'
-import { useTooltipContext } from '.'
+import { useTooltipContext } from './TooltipProvider'
 
 const TooltipContent = forwardRef((props, propRef) => {
   const context = useTooltipContext()
