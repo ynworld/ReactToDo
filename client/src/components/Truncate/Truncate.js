@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 import { PropTypes } from 'prop-types'
-import classnames from 'classnames'
 
-import { Tooltip } from '../Tooltip'
+import { Tooltip } from '..'
 
 import { getElementWidth } from '../../helpers/element'
 
@@ -16,11 +15,9 @@ const Truncate = ({ children }) => {
   const isTruncated = contentWidth > containerWidth
 
   return (
-    <Tooltip className="truncate" content={isTruncated ? children : null}>
+    <Tooltip className="overflow-hidden" content={isTruncated ? children : null}>
       <div ref={containerRef} className="truncate">
-        <span ref={contentRef} className={classnames({ truncate: isTruncated })}>
-          {children}
-        </span>
+        <span ref={contentRef}>{children}</span>
       </div>
     </Tooltip>
   )
