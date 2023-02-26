@@ -8,6 +8,7 @@ import { dndItemTypes } from '../../constants/dnd'
 import moveItem from './move-item'
 
 const useSortable = ({
+  canDrag,
   dropCallback = _noop,
   index,
   item: itemToMove,
@@ -17,6 +18,7 @@ const useSortable = ({
   const { ref: itemToMoveRef, ...itemData } = itemToMove
 
   const [{ isDragging }, drag, preview] = useDrag({
+    canDrag,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

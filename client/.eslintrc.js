@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -15,7 +16,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'sort-keys-fix', 'prettier'],
+  plugins: ['react', 'sort-keys-fix', 'prettier', 'jest'],
   rules: {
     'import/no-cycle': 'off',
     'import/prefer-default-export': 'off',

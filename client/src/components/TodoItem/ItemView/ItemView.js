@@ -1,14 +1,14 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { CheckboxField, IconButton } from '../..'
+import { CheckboxField, Icon, IconButton } from '../..'
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
-import { iconNames } from '../../../constants'
+import { iconNames, iconVariants } from '../../../constants'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ todo }) => {
-  const { id, text, isChecked, toggle, canEdit } = todo
+  const { id, text, isChecked, isImportant, toggle, canEdit } = todo
 
   const handleEditStart = () => {
     todo.startEdit()
@@ -16,7 +16,15 @@ const ItemView = ({ todo }) => {
 
   return (
     <>
-      <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
+      <div className="flex flex-col gap-2">
+        <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
+        <div className="flex items-center gap-2 text-xs text-gray-400">
+          <div className="h-4 w-4">
+            <Icon name={iconNames.calendarDays} />
+          </div>
+          {todo.displayDate}
+        </div>
+      </div>
       <Popover>
         <PopoverTrigger>
           <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
@@ -28,6 +36,12 @@ const ItemView = ({ todo }) => {
               iconName={iconNames.pencil}
               onClick={handleEditStart}
               theme="success"
+            />
+            <IconButton
+              iconName={iconNames.fire}
+              iconVariant={isImportant ? iconVariants.solid : undefined}
+              onClick={todo.toggleIsImportant}
+              theme="alert"
             />
             <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
           </div>

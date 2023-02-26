@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 
-import { ItemEdit, ItemView, Icon } from '..'
+import { ItemEdit, ItemView, Icon } from '../index'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
@@ -12,13 +12,16 @@ import { iconNames } from '../../constants'
 const TodoItem = ({ todo, dndProps = {} }) => {
   const { drag, canDrag, isDragging, itemToMoveRef } = dndProps
 
+  const { isImportant } = todo
+
   return (
     <article
-      ref={itemToMoveRef}
+      ref={canDrag ? itemToMoveRef : null}
       className={classnames(
         'group relative flex min-h-[4rem] flex-auto items-center justify-between gap-3 rounded-lg p-4',
-        'bg-gradient-to-br from-white to-gray-50 shadow-md',
+        'border-l-4 bg-gradient-to-br from-white to-gray-50 shadow-md transition-all duration-500',
         isDragging ? 'opacity-0' : 'opacity-100',
+        isImportant ? 'border-alert' : 'border-transparent',
       )}
     >
       {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
@@ -29,7 +32,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
           'absolute top-0 right-0 h-8 w-8 flex-none p-2 text-gray-500 hover:bg-black/[0.03]',
           'rounded-md transition-all duration-300 hover:text-black',
           canDrag ? 'group-hover:opacity-100' : '',
-          isMobile ? 'opacity-100' : 'opacity-0',
+          isMobile && !isImportant ? 'opacity-100' : 'opacity-0',
         )}
       >
         <Icon name={iconNames.chevronUpDown} />

@@ -1,7 +1,9 @@
+/* eslint-disable max-lines */
+
 import { makeObservable, observable, action, computed } from 'mobx'
 import { move } from '../../helpers/array'
 import { put } from '../../api'
-
+import { sortByDate } from '../../helpers'
 import TodoListItem from './TodoListItem'
 
 class TodoListStore {
@@ -13,11 +15,13 @@ class TodoListStore {
       checkedItemsCount: computed,
       deleteItem: action.bound,
       hasItemInEditingMode: computed,
+      importantItems: computed,
       items: observable,
       moveItem: action.bound,
+      newItem: computed,
       percentComplete: computed,
+      regularItems: computed,
       reorderItems: action.bound,
-      resetItems: action.bound,
       setItems: action.bound,
     })
   }
@@ -28,6 +32,18 @@ class TodoListStore {
 
   get checkedItemsCount() {
     return this.items.filter((item) => item.isChecked).length
+  }
+
+  get importantItems() {
+    return this.items.filter((item) => item.isImportant).sort(sortByDate)
+  }
+
+  get regularItems() {
+    return this.items.filter((item) => !item.isImportant && item.id)
+  }
+
+  get newItem() {
+    return this.items.find((item) => !item.id)
   }
 
   get percentComplete() {
@@ -45,17 +61,15 @@ class TodoListStore {
   }
 
   moveItem(fromIndex, toIndex) {
-    this.items.replace(move(this.items, fromIndex, toIndex))
+    const newItems = [...this.importantItems, ...move(this.regularItems, fromIndex, toIndex)]
+
+    this.items.replace(newItems)
   }
 
   reorderItems() {
     const itemIds = this.items.map((item) => item.id)
 
     put(`/todos/reorder`, { itemIds })
-  }
-
-  resetItems() {
-    this.setItems(this.items)
   }
 
   setItems(items) {

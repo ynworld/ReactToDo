@@ -1,4 +1,8 @@
+/* eslint-disable max-lines */
+
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
+
+import { parseISO, format } from 'date-fns'
 
 import { del, put, post } from '../../api'
 
@@ -13,21 +17,28 @@ class TodoListItem {
 
   isEditing = false
 
-  constructor({ id, text, isChecked, isEditing }, index, todoListStore) {
+  isImportant = false
+
+  createdAt = null
+
+  constructor({ id, text, isChecked, isEditing, isImportant, createdAt }, index, todoListStore) {
     makeObservable(this, {
       canEdit: computed,
+      createdAt: observable,
       delete: action.bound,
+      displayDate: computed,
       finishEdit: action,
       id: observable,
       index: observable,
       isChecked: observable,
       isEditing: observable,
-      key: computed,
+      isImportant: observable,
       setText: action,
       snapshot: computed,
       startEdit: action,
       text: observable,
       toggle: action.bound,
+      toggleIsImportant: action.bound,
       updateSnapshot: action.bound,
     })
 
@@ -36,18 +47,28 @@ class TodoListItem {
     this.text = text || ''
     this.isEditing = isEditing || false
     this.index = index ?? null
+    this.isImportant = isImportant || false
+    this.createdAt = createdAt || null
 
     this.todoListStore = todoListStore
 
     reaction(() => this.snapshot, this.save)
   }
 
-  get key() {
-    return this.id || 'new-item'
+  get displayDate() {
+    if (!this.createdAt) return null
+
+    return format(parseISO(this.createdAt), 'P')
   }
 
   get snapshot() {
-    return { id: this.id, isChecked: this.isChecked, text: this.text }
+    return {
+      createdAt: this.createdAt,
+      id: this.id,
+      isChecked: this.isChecked,
+      isImportant: this.isImportant,
+      text: this.text,
+    }
   }
 
   get canEdit() {
@@ -78,14 +99,20 @@ class TodoListItem {
     }
   }
 
+  toggleIsImportant() {
+    this.isImportant = !this.isImportant
+  }
+
   updateSnapshot(updatedItem) {
     if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
 
-    const { id, text, isChecked } = updatedItem
+    const { id, text, isChecked, isImportant, createdAt } = updatedItem
 
     this.id = id
     this.text = text
     this.isChecked = isChecked
+    this.isImportant = isImportant
+    this.createdAt = createdAt
   }
 
   delete() {
