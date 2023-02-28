@@ -16,7 +16,7 @@ const ItemView = ({ todo }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 overflow-hidden">
         <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
         <div className="flex items-center gap-2 text-xs text-gray-400">
           <div className="h-4 w-4">

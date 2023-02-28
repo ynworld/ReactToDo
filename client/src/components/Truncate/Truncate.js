@@ -17,7 +17,9 @@ const Truncate = ({ children }) => {
   return (
     <Tooltip className="overflow-hidden" content={isTruncated ? children : null}>
       <div ref={containerRef} className="truncate">
-        <span ref={contentRef}>{children}</span>
+        <span ref={contentRef} className="whitespace-nowrap">
+          {children}
+        </span>
       </div>
     </Tooltip>
   )

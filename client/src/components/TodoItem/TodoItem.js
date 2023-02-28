@@ -24,7 +24,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
         isImportant ? 'border-alert' : 'border-transparent',
       )}
     >
-      {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} width={width} />}
+      {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
 
       <div
         ref={drag}
