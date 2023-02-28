@@ -9,10 +9,16 @@ const classesByTheme = {
   success: 'group-hover/button:text-primary-dark group-focus:text-primary-dark',
 }
 
-const IconButton = ({ type = 'button', iconName, onClick, disabled = false, theme, children }) => {
-  const name = iconNames[iconName]
-
-  if (!name) return null
+const IconButton = ({
+  type = 'button',
+  iconName,
+  iconVariant,
+  onClick,
+  disabled = false,
+  theme,
+  children,
+}) => {
+  if (!iconName) return null
 
   return (
     <button
@@ -32,7 +38,7 @@ const IconButton = ({ type = 'button', iconName, onClick, disabled = false, them
           'h-6 w-6 flex-none transition-all duration-300',
         )}
       >
-        <Icon name={name} />
+        <Icon name={iconNames[iconName]} variant={iconVariants[iconVariant]} />
       </div>
       {children}
     </button>
