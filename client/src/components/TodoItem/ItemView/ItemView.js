@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { CheckboxField, Icon, IconButton } from '../..'
+import { CheckboxField, Icon, IconButton, Truncate } from '../..'
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
 import { iconNames, iconVariants } from '../../../constants'
@@ -17,7 +17,9 @@ const ItemView = ({ todo }) => {
   return (
     <>
       <div className="flex flex-col gap-2 overflow-hidden">
-        <CheckboxField id={id} isChecked={isChecked} label={text} onChange={toggle} />
+        <CheckboxField id={id} isChecked={isChecked} onChange={toggle}>
+          <Truncate>{text}</Truncate>
+        </CheckboxField>
         <div className="flex items-center gap-2 text-xs text-gray-400">
           <div className="h-4 w-4">
             <Icon name={iconNames.calendarDays} />

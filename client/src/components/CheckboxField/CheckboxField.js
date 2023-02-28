@@ -1,9 +1,7 @@
 import { PropTypes } from 'prop-types'
 import './CheckboxField.css'
 
-import { Truncate } from '..'
-
-const CheckboxField = ({ label, id, isChecked, onChange }) => {
+const CheckboxField = ({ children, id, isChecked, onChange }) => {
   return (
     <label
       className="flex cursor-pointer items-center gap-3 overflow-hidden text-sm text-gray-800"
@@ -17,15 +15,15 @@ const CheckboxField = ({ label, id, isChecked, onChange }) => {
         type="checkbox"
       />
       <div className="checkbox-custom" />
-      <Truncate>{label}</Truncate>
+      {children}
     </label>
   )
 }
 
 CheckboxField.propTypes = {
+  children: PropTypes.node.isRequired,
   id: PropTypes.number,
   isChecked: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 }
 
