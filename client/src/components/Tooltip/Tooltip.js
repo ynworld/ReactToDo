@@ -1,8 +1,10 @@
 import { PropTypes } from 'prop-types'
 import { TooltipProvider, TooltipTrigger, TooltipContent } from '.'
 
-const Tooltip = ({ children, content, className, ...options }) =>
-  content ? (
+const Tooltip = ({ children, content, className, ...options }) => {
+  if (!content) return children
+
+  return (
     <TooltipProvider options={options}>
       <TooltipTrigger className={className}>{children}</TooltipTrigger>
       <TooltipContent>
@@ -11,9 +13,8 @@ const Tooltip = ({ children, content, className, ...options }) =>
         </div>
       </TooltipContent>
     </TooltipProvider>
-  ) : (
-    children
   )
+}
 
 Tooltip.propTypes = {
   children: PropTypes.node,
