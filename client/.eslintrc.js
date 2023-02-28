@@ -49,11 +49,5 @@ module.exports = {
     semi: ['error', 'never'],
     'sort-keys': ['error', 'asc'],
     'sort-keys-fix/sort-keys-fix': 'error',
-    'tailwindcss/no-custom-classname': [
-      'error',
-      {
-        whitelist: ['(?!(group|peer)\\-).*'],
-      },
-    ],
   },
 }

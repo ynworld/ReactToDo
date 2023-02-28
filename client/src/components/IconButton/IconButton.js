@@ -5,8 +5,8 @@ import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
-  alert: 'group-hover/button:text-alert group-focus:text-alert',
-  success: 'group-hover/button:text-primary-dark group-focus:text-primary-dark',
+  alert: 'hover:text-alert group-focus:text-alert',
+  success: 'hover:text-primary-dark group-focus:text-primary-dark',
 }
 
 const IconButton = ({
@@ -23,7 +23,8 @@ const IconButton = ({
   return (
     <button
       className={classnames(
-        'group/button group inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
+        classesByTheme[theme],
+        'inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
         'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
         children ? 'px-2' : 'justify-center',
@@ -32,15 +33,10 @@ const IconButton = ({
       onClick={onClick}
       type={type === 'submit' ? 'submit' : 'button'}
     >
-      <div
-        className={classnames(
-          classesByTheme[theme],
-          'h-6 w-6 flex-none transition-all duration-300',
-        )}
-      >
+      <div className={classnames('h-6 w-6 flex-none transition-all duration-300')}>
         <Icon name={iconNames[iconName]} variant={iconVariants[iconVariant]} />
       </div>
-      {children}
+      {children ? <span className="text-gray-800">{children}</span> : null}
     </button>
   )
 }
