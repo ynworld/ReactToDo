@@ -36,7 +36,7 @@ const IconButton = ({
       <div className={classnames('h-6 w-6 flex-none transition-all duration-300')}>
         <Icon name={iconNames[iconName]} variant={iconVariants[iconVariant]} />
       </div>
-      {children ? <span className="text-gray-800">{children}</span> : null}
+      {children && <span className="text-gray-800">{children}</span>}
     </button>
   )
 }
