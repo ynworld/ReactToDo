@@ -3,23 +3,23 @@ import { useFloating, useClick, useDismiss, useRole, useInteractions } from '@fl
 
 const useModal = ({
   initialOpen = false,
-  open: controlledOpen,
-  onOpenChange: setControlledOpen,
+  isOpen: isControlledOpen,
+  setIsOpen: setIsControlledOpen,
 }) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
+  const [isUncontrolledOpen, setIsUncontrolledOpen] = useState(initialOpen)
 
-  const open = controlledOpen ?? uncontrolledOpen
-  const setOpen = setControlledOpen ?? setUncontrolledOpen
+  const isOpen = isControlledOpen ?? isUncontrolledOpen
+  const setIsOpen = setIsControlledOpen ?? setIsUncontrolledOpen
 
   const data = useFloating({
-    onOpenChange: setOpen,
-    open,
+    onOpenChange: setIsOpen,
+    open: isOpen,
   })
 
   const { context } = data
 
   const click = useClick(context, {
-    enabled: controlledOpen == null,
+    enabled: isControlledOpen == null,
   })
   const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' })
   const role = useRole(context)
@@ -28,12 +28,12 @@ const useModal = ({
 
   return useMemo(
     () => ({
-      open,
-      setOpen,
+      isOpen,
+      setIsOpen,
       ...interactions,
       ...data,
     }),
-    [open, setOpen, interactions, data],
+    [isOpen, setIsOpen, interactions, data],
   )
 }
 

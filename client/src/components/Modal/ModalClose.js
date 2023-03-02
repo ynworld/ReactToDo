@@ -3,11 +3,11 @@ import { forwardRef } from 'react'
 
 import { useModalContext } from './Modal'
 
-const ModalClose = forwardRef(function DialogClose({ children, ...props }, ref) {
-  const { setOpen } = useModalContext()
+const ModalClose = forwardRef(({ children, ...props }, ref) => {
+  const { setIsOpen } = useModalContext()
 
   return (
-    <button type="button" {...props} ref={ref} onClick={() => setOpen(false)}>
+    <button type="button" {...props} ref={ref} onClick={() => setIsOpen(false)}>
       {children}
     </button>
   )

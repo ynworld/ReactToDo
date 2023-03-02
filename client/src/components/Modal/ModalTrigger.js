@@ -4,7 +4,7 @@ import { useMergeRefs } from '@floating-ui/react'
 
 import { useModalContext } from './Modal'
 
-const ModalTrigger = forwardRef(function DialogTrigger({ children, ...props }, propRef) {
+const ModalTrigger = forwardRef(({ children, ...props }, propRef) => {
   const context = useModalContext()
   const childrenRef = children.ref
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef])

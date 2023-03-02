@@ -16,9 +16,9 @@ export const useModalContext = () => {
 }
 
 const Modal = ({ children, ...options }) => {
-  const dialog = useModal(options)
+  const modal = useModal(options)
 
-  return <ModalContext.Provider value={dialog}>{children}</ModalContext.Provider>
+  return <ModalContext.Provider value={modal}>{children}</ModalContext.Provider>
 }
 
 export default Modal
