@@ -52,8 +52,8 @@ class TodoListStore {
     return (this.checkedItemsCount / this.items.length) * 100
   }
 
-  addItem() {
-    this.items.unshift(new TodoListItem({ isEditing: true }, 0, this))
+  addItem(todoItem) {
+    this.items.unshift(new TodoListItem({ ...todoItem }, 0, this))
   }
 
   deleteItem(todoItem) {
