@@ -1,5 +1,12 @@
 import { useState, useMemo } from 'react'
-import { useFloating, useClick, useDismiss, useRole, useInteractions } from '@floating-ui/react'
+import {
+  useFloating,
+  useClick,
+  useDismiss,
+  useRole,
+  useInteractions,
+  useTransitionStyles,
+} from '@floating-ui/react'
 
 const useModal = ({
   initialOpen = false,
@@ -18,6 +25,13 @@ const useModal = ({
 
   const { context } = data
 
+  const { isMounted, styles } = useTransitionStyles(context, {
+    duration: 500,
+    initial: {
+      opacity: 0,
+    },
+  })
+
   const click = useClick(context, {
     enabled: isControlledOpen == null,
   })
@@ -28,12 +42,14 @@ const useModal = ({
 
   return useMemo(
     () => ({
+      isMounted,
       isOpen,
       setIsOpen,
       ...interactions,
       ...data,
+      styles,
     }),
-    [isOpen, setIsOpen, interactions, data],
+    [isMounted, isOpen, setIsOpen, interactions, data, styles],
   )
 }
 

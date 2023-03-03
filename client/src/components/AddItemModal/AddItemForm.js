@@ -14,6 +14,7 @@ const AddItemForm = ({ setIsOpen, todoList }) => {
 
   const handleAddItem = (event) => {
     event.preventDefault()
+    if (inputText.trim() === '') return
     post('/todos', { text: inputText }).then((todoItem) => {
       todoList.addItem(todoItem)
       setIsOpen(false)
