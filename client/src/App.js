@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 
 import AppStore from './stores/AppStore'
 
-import { CompletionBar, TodoList, Loading, AddItemModal } from './components'
+import { CompletionBar, TodoList, Loading, AddItemButtonWithModal } from './components'
 
 const App = () => {
   const [appStore] = useState(() => new AppStore())
@@ -24,7 +24,7 @@ const App = () => {
         <>
           <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold text-gray-800">Tasks</h1>
-            <AddItemModal todoList={todoList} />
+            <AddItemButtonWithModal todoList={todoList} />
           </header>
           <TodoList todoListStore={todoList} />
         </>

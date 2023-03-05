@@ -5,7 +5,7 @@ import { post } from '../../api'
 
 import { TodoListStore } from '../../stores/TodoListStore'
 
-const AddItemForm = ({ setIsOpen, todoList }) => {
+const AddItemForm = ({ onClose, todoList }) => {
   const [inputText, setInputText] = useState('')
 
   const handleTextInput = (event) => {
@@ -17,7 +17,7 @@ const AddItemForm = ({ setIsOpen, todoList }) => {
     if (inputText.trim() === '') return
     post('/todos', { text: inputText }).then((todoItem) => {
       todoList.addItem(todoItem)
-      setIsOpen(false)
+      if (onClose) onClose()
     })
   }
 
@@ -38,7 +38,7 @@ const AddItemForm = ({ setIsOpen, todoList }) => {
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
             'hover:bg-gray-100 active:shadow-sm',
           )}
-          onClick={() => setIsOpen(false)}
+          onClick={onClose}
           type="button"
         >
           Cancel
@@ -60,6 +60,6 @@ const AddItemForm = ({ setIsOpen, todoList }) => {
 export default AddItemForm
 
 AddItemForm.propTypes = {
-  setIsOpen: PropTypes.func,
+  onClose: PropTypes.func,
   todoList: PropTypes.instanceOf(TodoListStore).isRequired,
 }
