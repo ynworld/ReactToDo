@@ -5,7 +5,7 @@ import TriggerButton from './TriggerButton'
 
 import AddItemModal from './AddItemModal'
 
-const AddItemButtonWithModal = ({ todoList }) => {
+const AddItemButtonWithModal = ({ todoList, disabled }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
@@ -18,7 +18,7 @@ const AddItemButtonWithModal = ({ todoList }) => {
 
   return (
     <>
-      <TriggerButton onClick={openModal} />
+      <TriggerButton disabled={disabled} onClick={openModal} />
       <AddItemModal
         isOpen={isOpen}
         onClose={closeModal}
@@ -32,5 +32,6 @@ const AddItemButtonWithModal = ({ todoList }) => {
 export default AddItemButtonWithModal
 
 AddItemButtonWithModal.propTypes = {
+  disabled: PropTypes.bool,
   todoList: PropTypes.instanceOf(TodoListStore).isRequired,
 }
