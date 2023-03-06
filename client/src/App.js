@@ -24,7 +24,7 @@ const App = () => {
         <>
           <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold text-gray-800">Tasks</h1>
-            <AddItemButtonWithModal disabled={todoList.hasItemInEditingMode} todoList={todoList} />
+            <AddItemButtonWithModal todoList={todoList} />
           </header>
           <TodoList todoListStore={todoList} />
         </>

@@ -1,11 +1,12 @@
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
+import { observer } from 'mobx-react'
 import { TodoListStore } from '../../stores/TodoListStore'
 import TriggerButton from './TriggerButton'
 
 import AddItemModal from './AddItemModal'
 
-const AddItemButtonWithModal = ({ todoList, disabled }) => {
+const AddItemButtonWithModal = ({ todoList }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
@@ -18,7 +19,7 @@ const AddItemButtonWithModal = ({ todoList, disabled }) => {
 
   return (
     <>
-      <TriggerButton disabled={disabled} onClick={openModal} />
+      <TriggerButton disabled={todoList.hasItemInEditingMode || isOpen} onClick={openModal} />
       <AddItemModal
         isOpen={isOpen}
         onClose={closeModal}
@@ -29,9 +30,8 @@ const AddItemButtonWithModal = ({ todoList, disabled }) => {
   )
 }
 
-export default AddItemButtonWithModal
+export default observer(AddItemButtonWithModal)
 
 AddItemButtonWithModal.propTypes = {
-  disabled: PropTypes.bool,
   todoList: PropTypes.instanceOf(TodoListStore).isRequired,
 }
