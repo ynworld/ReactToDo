@@ -8,12 +8,12 @@ const PopoverContent = forwardRef((props, propRef) => {
   const { context: floatingContext, ...context } = usePopoverContext()
   const ref = useMergeRefs([context.refs.setFloating, propRef])
 
-  const { styles } = context
+  const { modal, styles } = context
 
   return (
-    context.isOpen && (
+    context.isMounted && (
       <FloatingPortal id="float">
-        <FloatingFocusManager context={floatingContext} initialFocus={-1} modal={false}>
+        <FloatingFocusManager context={floatingContext} initialFocus modal={modal}>
           <div
             ref={ref}
             style={{

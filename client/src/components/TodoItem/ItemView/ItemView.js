@@ -27,7 +27,7 @@ const ItemView = ({ todo }) => {
           {todo.displayDate}
         </div>
       </div>
-      <Popover>
+      <Popover modal>
         <PopoverTrigger>
           <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
         </PopoverTrigger>

@@ -15,8 +15,9 @@ import {
 
 const usePopover = ({
   initialOpen = false,
-  placement = 'bottom',
   isOpen: isControlledOpen,
+  placement = 'bottom',
+  modal = false,
   setIsOpen: setIsControlledOpen,
 }) => {
   const [isUncontrolledOpen, setIsUncontrolledOpen] = useState(initialOpen)
@@ -54,12 +55,13 @@ const usePopover = ({
     () => ({
       isMounted,
       isOpen,
+      modal,
       setIsOpen,
       ...interactions,
       ...data,
       styles,
     }),
-    [isOpen, setIsOpen, isMounted, interactions, data, styles],
+    [data, isOpen, setIsOpen, isMounted, interactions, modal, styles],
   )
 }
 
