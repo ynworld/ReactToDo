@@ -10,6 +10,7 @@ import {
 
 const useModal = ({
   initialOpen = false,
+  isClickOutsideEnabled = true,
   isOpen: isControlledOpen,
   setIsOpen: setIsControlledOpen,
 }) => {
@@ -35,13 +36,17 @@ const useModal = ({
   const click = useClick(context, {
     enabled: isControlledOpen == null,
   })
-  const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' })
+  const dismiss = useDismiss(context, {
+    outsidePress: isClickOutsideEnabled,
+    outsidePressEvent: 'mousedown',
+  })
   const role = useRole(context)
 
   const interactions = useInteractions([click, dismiss, role])
 
   return useMemo(
     () => ({
+      isClickOutsideEnabled,
       isMounted,
       isOpen,
       setIsOpen,
@@ -49,7 +54,7 @@ const useModal = ({
       ...data,
       styles,
     }),
-    [isMounted, isOpen, setIsOpen, interactions, data, styles],
+    [isClickOutsideEnabled, isMounted, isOpen, setIsOpen, interactions, data, styles],
   )
 }
 
