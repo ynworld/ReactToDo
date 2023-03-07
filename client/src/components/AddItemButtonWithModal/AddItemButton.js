@@ -4,7 +4,7 @@ import { forwardRef } from 'react'
 import { Icon } from '../Icon'
 import { iconNames } from '../../constants'
 
-const TriggerButton = forwardRef(({ disabled, onClick }, forwardedRef) => (
+const AddItemButton = forwardRef(({ disabled, onClick }, forwardedRef) => (
   <button
     ref={forwardedRef}
     className={classnames(
@@ -21,9 +21,9 @@ const TriggerButton = forwardRef(({ disabled, onClick }, forwardedRef) => (
   </button>
 ))
 
-TriggerButton.propTypes = {
+AddItemButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 }
 
-export default TriggerButton
+export default AddItemButton

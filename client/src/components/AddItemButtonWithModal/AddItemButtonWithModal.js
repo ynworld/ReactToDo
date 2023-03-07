@@ -2,10 +2,10 @@ import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import { observer } from 'mobx-react'
 import { TodoListStore } from '../../stores/TodoListStore'
-import TriggerButton from './TriggerButton'
 
 import { Modal } from '../Modal'
 import AddItemModal from './AddItemModal'
+import AddItemButton from './AddItemButton'
 import ModalTrigger from '../Modal/ModalTrigger'
 
 const AddItemButtonWithModal = ({ todoList }) => {
@@ -22,7 +22,7 @@ const AddItemButtonWithModal = ({ todoList }) => {
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <ModalTrigger>
-        <TriggerButton disabled={todoList.hasItemInEditingMode || isOpen} onClick={openModal} />
+        <AddItemButton disabled={todoList.hasItemInEditingMode || isOpen} onClick={openModal} />
       </ModalTrigger>
       <AddItemModal
         isOpen={isOpen}
