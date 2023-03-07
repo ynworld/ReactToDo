@@ -9,18 +9,16 @@ import {
 
 import { useModalContext } from './Modal'
 
-const ModalContent = forwardRef((props, propRef) => {
-  const { context: floatingContext, ...context } = useModalContext()
-  const ref = useMergeRefs([context.refs.setFloating, propRef])
-
-  const { styles } = context
+const ModalContent = forwardRef((props, forwardedRef) => {
+  const { context, refs, styles, ...modalState } = useModalContext()
+  const ref = useMergeRefs([refs.setFloating, forwardedRef])
 
   return (
     <FloatingPortal id="modal">
-      {context.isMounted && (
-        <FloatingOverlay className=" bg-black/80" lockScroll>
-          <FloatingFocusManager context={floatingContext} initialFocus={1}>
-            <div ref={ref} {...context.getFloatingProps(props)} style={styles}>
+      {modalState.isMounted && (
+        <FloatingOverlay className="grid place-items-center bg-black/70" lockScroll>
+          <FloatingFocusManager context={context} initialFocus={1}>
+            <div ref={ref} style={styles} {...modalState.getFloatingProps()}>
               {props.children}
             </div>
           </FloatingFocusManager>

@@ -19,12 +19,10 @@ const useModal = ({
   const isOpen = isControlledOpen ?? isUncontrolledOpen
   const setIsOpen = setIsControlledOpen ?? setIsUncontrolledOpen
 
-  const data = useFloating({
+  const { refs, context } = useFloating({
     onOpenChange: setIsOpen,
     open: isOpen,
   })
-
-  const { context } = data
 
   const { isMounted, styles } = useTransitionStyles(context, {
     duration: 500,
@@ -42,19 +40,29 @@ const useModal = ({
   })
   const role = useRole(context)
 
-  const interactions = useInteractions([click, dismiss, role])
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role])
 
   return useMemo(
     () => ({
+      context,
+      getFloatingProps,
+      getReferenceProps,
       isClickOutsideEnabled,
       isMounted,
-      isOpen,
+      refs,
       setIsOpen,
-      ...interactions,
-      ...data,
       styles,
     }),
-    [isClickOutsideEnabled, isMounted, isOpen, setIsOpen, interactions, data, styles],
+    [
+      context,
+      getFloatingProps,
+      getReferenceProps,
+      isClickOutsideEnabled,
+      isMounted,
+      refs,
+      setIsOpen,
+      styles,
+    ],
   )
 }
 

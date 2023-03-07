@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import { TodoListStore } from '../../stores/TodoListStore'
 import TriggerButton from './TriggerButton'
 
+import { Modal } from '../Modal'
 import AddItemModal from './AddItemModal'
 
 const AddItemButtonWithModal = ({ todoList }) => {
@@ -18,7 +19,7 @@ const AddItemButtonWithModal = ({ todoList }) => {
   }
 
   return (
-    <>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <TriggerButton disabled={todoList.hasItemInEditingMode || isOpen} onClick={openModal} />
       <AddItemModal
         isOpen={isOpen}
@@ -26,7 +27,7 @@ const AddItemButtonWithModal = ({ todoList }) => {
         setIsOpen={setIsOpen}
         todoList={todoList}
       />
-    </>
+    </Modal>
   )
 }
 

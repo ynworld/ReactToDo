@@ -2,14 +2,13 @@ import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
 import { Icon } from '../Icon'
 import { iconNames } from '../../constants'
-import { ModalContent } from '../Modal'
 import { TodoListStore } from '../../stores/TodoListStore'
 import AddItemForm from './AddItemForm'
-import Modal from '../Modal/Modal'
+import { ModalContent } from '../Modal'
 
-const AddItemModal = ({ isOpen, onClose, setIsOpen, todoList }) => (
-  <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-    <ModalContent className="mx-auto my-24 w-96 rounded-md bg-gradient-to-br from-white to-gray-100 p-4 shadow-md">
+const AddItemModal = ({ onClose, todoList }) => (
+  <ModalContent>
+    <div className="w-96 rounded-md bg-gradient-to-br from-white to-gray-100 p-4 shadow-md">
       <div className="mb-4 flex justify-between">
         <h2 className="text-xl font-medium">Add New Todo</h2>
         <button
@@ -21,14 +20,12 @@ const AddItemModal = ({ isOpen, onClose, setIsOpen, todoList }) => (
         </button>
       </div>
       <AddItemForm onClose={onClose} todoList={todoList} />
-    </ModalContent>
-  </Modal>
+    </div>
+  </ModalContent>
 )
 
 AddItemModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  setIsOpen: PropTypes.func.isRequired,
   todoList: PropTypes.instanceOf(TodoListStore).isRequired,
 }
 
