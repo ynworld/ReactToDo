@@ -6,6 +6,7 @@ import TriggerButton from './TriggerButton'
 
 import { Modal } from '../Modal'
 import AddItemModal from './AddItemModal'
+import ModalTrigger from '../Modal/ModalTrigger'
 
 const AddItemButtonWithModal = ({ todoList }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,7 +21,9 @@ const AddItemButtonWithModal = ({ todoList }) => {
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <TriggerButton disabled={todoList.hasItemInEditingMode || isOpen} onClick={openModal} />
+      <ModalTrigger>
+        <TriggerButton disabled={todoList.hasItemInEditingMode || isOpen} onClick={openModal} />
+      </ModalTrigger>
       <AddItemModal
         isOpen={isOpen}
         onClose={closeModal}
