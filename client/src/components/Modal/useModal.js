@@ -1,8 +1,16 @@
 import { useState, useMemo } from 'react'
-import { useFloating, useClick, useDismiss, useRole, useInteractions } from '@floating-ui/react'
+import {
+  useFloating,
+  useClick,
+  useDismiss,
+  useRole,
+  useInteractions,
+  useTransitionStyles,
+} from '@floating-ui/react'
 
 const useModal = ({
   initialOpen = false,
+  isClickOutsideEnabled = true,
   isOpen: isControlledOpen,
   setIsOpen: setIsControlledOpen,
 }) => {
@@ -11,29 +19,50 @@ const useModal = ({
   const isOpen = isControlledOpen ?? isUncontrolledOpen
   const setIsOpen = setIsControlledOpen ?? setIsUncontrolledOpen
 
-  const data = useFloating({
+  const { refs, context } = useFloating({
     onOpenChange: setIsOpen,
     open: isOpen,
   })
 
-  const { context } = data
+  const { isMounted, styles } = useTransitionStyles(context, {
+    duration: 500,
+    initial: {
+      opacity: 0,
+    },
+  })
 
   const click = useClick(context, {
     enabled: isControlledOpen == null,
   })
-  const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' })
+  const dismiss = useDismiss(context, {
+    outsidePress: isClickOutsideEnabled,
+    outsidePressEvent: 'mousedown',
+  })
   const role = useRole(context)
 
-  const interactions = useInteractions([click, dismiss, role])
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role])
 
   return useMemo(
     () => ({
-      isOpen,
+      context,
+      getFloatingProps,
+      getReferenceProps,
+      isClickOutsideEnabled,
+      isMounted,
+      refs,
       setIsOpen,
-      ...interactions,
-      ...data,
+      styles,
     }),
-    [isOpen, setIsOpen, interactions, data],
+    [
+      context,
+      getFloatingProps,
+      getReferenceProps,
+      isClickOutsideEnabled,
+      isMounted,
+      refs,
+      setIsOpen,
+      styles,
+    ],
   )
 }
 

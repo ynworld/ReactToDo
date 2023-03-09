@@ -1,3 +1,4 @@
+export * from './AddItemButtonWithModal'
 export * from './TodoList'
 export * from './TodoItem'
 export * from './IconButton'

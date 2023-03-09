@@ -4,7 +4,7 @@ import { makeObservable, observable, action, computed, reaction } from 'mobx'
 
 import { parseISO, format } from 'date-fns'
 
-import { del, put, post } from '../../api'
+import { del, put } from '../../api'
 
 class TodoListItem {
   id = null
@@ -92,11 +92,7 @@ class TodoListItem {
   }
 
   save = (snapshot) => {
-    if (this.id) {
-      put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
-    } else {
-      post('/todos', { text: snapshot.text }).then(this.updateSnapshot)
-    }
+    put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
   }
 
   toggleIsImportant() {
@@ -116,13 +112,9 @@ class TodoListItem {
   }
 
   delete() {
-    if (this.id) {
-      del(`/todos/${this.id}`).then(() => {
-        this.todoListStore.deleteItem(this)
-      })
-    } else {
+    del(`/todos/${this.id}`).then(() => {
       this.todoListStore.deleteItem(this)
-    }
+    })
   }
 }
 

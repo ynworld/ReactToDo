@@ -18,7 +18,6 @@ class TodoListStore {
       importantItems: computed,
       items: observable,
       moveItem: action.bound,
-      newItem: computed,
       percentComplete: computed,
       regularItems: computed,
       reorderItems: action.bound,
@@ -39,11 +38,7 @@ class TodoListStore {
   }
 
   get regularItems() {
-    return this.items.filter((item) => !item.isImportant && item.id)
-  }
-
-  get newItem() {
-    return this.items.find((item) => !item.id)
+    return this.items.filter((item) => !item.isImportant)
   }
 
   get percentComplete() {
@@ -52,8 +47,8 @@ class TodoListStore {
     return (this.checkedItemsCount / this.items.length) * 100
   }
 
-  addItem() {
-    this.items.unshift(new TodoListItem({ isEditing: true }, 0, this))
+  addItem(todoItem) {
+    this.items.unshift(new TodoListItem({ ...todoItem }, 0, this))
   }
 
   deleteItem(todoItem) {
