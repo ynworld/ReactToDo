@@ -1,7 +1,11 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+<<<<<<< HEAD
 import { CheckboxField, Icon, IconButton, Truncate } from '../..'
+=======
+import { CheckboxField, Icon, IconButton, ItemEditButtonWithModal, Truncate } from '../..'
+>>>>>>> 0e7d54f (chore: move item edit to modal)
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
 import { iconNames, iconVariants } from '../../../constants'
@@ -9,11 +13,16 @@ import { iconNames, iconVariants } from '../../../constants'
 import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ todo }) => {
+<<<<<<< HEAD
   const [isOpen, setIsOpen] = useState(null)
   const { id, text, isChecked, isImportant, toggle, canEdit } = todo
+=======
+  const [isOpen, setIsOpen] = useState(false)
+  const { id, text, isChecked, isImportant, toggle } = todo
+>>>>>>> 0e7d54f (chore: move item edit to modal)
 
-  const handleEditStart = () => {
-    todo.startEdit()
+  const closePopover = () => {
+    setIsOpen(false)
   }
 
   return (
@@ -35,12 +44,7 @@ const ItemView = ({ todo }) => {
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex items-center gap-2 rounded-md bg-white p-2 shadow-md">
-            <IconButton
-              disabled={!canEdit}
-              iconName={iconNames.pencil}
-              onClick={handleEditStart}
-              theme="success"
-            />
+            <ItemEditButtonWithModal closePopover={closePopover} todo={todo} />
             <IconButton
               iconName={iconNames.fire}
               iconVariant={isImportant ? iconVariants.solid : undefined}
