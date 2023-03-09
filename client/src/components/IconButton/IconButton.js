@@ -5,8 +5,9 @@ import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
-  alert: 'hover:text-alert group-active:text-alert',
-  success: 'hover:text-primary-dark group-active:text-primary-dark',
+  alert: 'hover:text-alert active:text-alert',
+  alertActive: 'text-alert',
+  success: 'hover:text-primary-dark active:text-primary-dark',
 }
 
 const IconButton = ({
