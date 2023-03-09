@@ -5,15 +5,15 @@ import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
-  alert: 'hover:text-alert active:text-alert',
-  alertActive: 'text-alert',
-  success: 'hover:text-primary-dark active:text-primary-dark',
+  alert: 'text-alert',
+  success: 'text-primary-dark',
 }
 
 const IconButton = ({
   type = 'button',
   iconName,
   iconVariant,
+  isPressed,
   onClick,
   disabled = false,
   theme,
@@ -24,7 +24,7 @@ const IconButton = ({
   return (
     <button
       className={classnames(
-        classesByTheme[theme],
+        isPressed ? classesByTheme[theme] : `hover:${classesByTheme[theme]}`,
         'inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
         'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
@@ -47,6 +47,7 @@ IconButton.propTypes = {
   disabled: PropTypes.bool,
   iconName: PropTypes.oneOf([...Object.values(iconNames)]).isRequired,
   iconVariant: PropTypes.oneOf([...Object.values(iconVariants)]),
+  isPressed: PropTypes.bool,
   onClick: PropTypes.func,
   theme: PropTypes.string,
   type: PropTypes.oneOf(['button', 'submit']),
