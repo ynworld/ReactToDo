@@ -42,6 +42,7 @@ const ItemView = ({ todo }) => {
             <IconButton
               iconName={iconNames.fire}
               iconVariant={isImportant ? iconVariants.solid : undefined}
+              isPressed={isImportant}
               onClick={todo.toggleIsImportant}
               theme="alert"
             />
