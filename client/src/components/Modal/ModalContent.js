@@ -18,7 +18,12 @@ const ModalContent = forwardRef((props, forwardedRef) => {
       {modalState.isMounted && (
         <FloatingOverlay className="grid place-items-center bg-black/70" lockScroll>
           <FloatingFocusManager context={context} initialFocus={1}>
-            <div ref={ref} style={styles} {...modalState.getFloatingProps()}>
+            <div
+              ref={ref}
+              style={styles}
+              className={props.className}
+              {...modalState.getFloatingProps()}
+            >
               {props.children}
             </div>
           </FloatingFocusManager>
