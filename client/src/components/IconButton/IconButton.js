@@ -5,8 +5,8 @@ import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
 
 const classesByTheme = {
-  alert: 'text-alert',
-  success: 'text-primary-dark',
+  alert: { notPressed: 'hover:text-alert', pressed: 'text-alert' },
+  success: { notPressed: 'hover:text-primary-dark', pressed: 'text-primary-dark' },
 }
 
 const IconButton = ({
@@ -25,10 +25,10 @@ const IconButton = ({
     <button
       className={classnames(
         isPressed
-          ? `${classesByTheme[theme]} bg-black/[0.03]`
-          : `hover:${classesByTheme[theme]} hover:bg-black/[0.03]`,
+          ? `${classesByTheme[theme].pressed} bg-black/[0.03]`
+          : `${classesByTheme[theme].notPressed} hover:bg-black/[0.03]`,
         'inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
-        'transition-all duration-300 disabled:pointer-events-none',
+        'transition-all duration-200 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
         children ? 'px-2' : 'justify-center',
       )}
