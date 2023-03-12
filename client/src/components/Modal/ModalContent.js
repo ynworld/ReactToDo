@@ -20,8 +20,8 @@ const ModalContent = forwardRef((props, forwardedRef) => {
           <FloatingFocusManager context={context} initialFocus={1}>
             <div
               ref={ref}
-              style={styles}
               className={props.className}
+              style={styles}
               {...modalState.getFloatingProps()}
             >
               {props.children}
@@ -35,6 +35,7 @@ const ModalContent = forwardRef((props, forwardedRef) => {
 
 ModalContent.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 }
 
 export default ModalContent
