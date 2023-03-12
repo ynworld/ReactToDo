@@ -1,5 +1,6 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
+import { useState } from 'react'
 import { CheckboxField, Icon, IconButton, Truncate } from '../..'
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
@@ -8,6 +9,7 @@ import { iconNames, iconVariants } from '../../../constants'
 import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ todo }) => {
+  const [isOpen, setIsOpen] = useState(null)
   const { id, text, isChecked, isImportant, toggle, canEdit } = todo
 
   const handleEditStart = () => {
@@ -27,9 +29,9 @@ const ItemView = ({ todo }) => {
           {todo.displayDate}
         </div>
       </div>
-      <Popover modal>
+      <Popover isOpen={isOpen} modal setIsOpen={setIsOpen}>
         <PopoverTrigger>
-          <IconButton iconName={iconNames.ellipsisHorizontal} theme="success" />
+          <IconButton iconName={iconNames.ellipsisHorizontal} isPressed={isOpen} theme="success" />
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex items-center gap-2 rounded-md bg-white p-2 shadow-md">

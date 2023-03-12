@@ -24,9 +24,11 @@ const IconButton = ({
   return (
     <button
       className={classnames(
-        isPressed ? classesByTheme[theme] : `hover:${classesByTheme[theme]}`,
+        isPressed
+          ? `${classesByTheme[theme]} bg-black/[0.03]`
+          : `hover:${classesByTheme[theme]} hover:bg-black/[0.03]`,
         'inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
-        'transition-all duration-300 hover:bg-black/[0.03] disabled:pointer-events-none',
+        'transition-all duration-300 disabled:pointer-events-none',
         'disabled:text-gray-400',
         children ? 'px-2' : 'justify-center',
       )}
