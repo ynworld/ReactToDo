@@ -8,24 +8,19 @@ import ItemEditModal from './ItemEditModal'
 import ModalTrigger from '../../Modal/ModalTrigger'
 
 const ItemEditButtonWithModal = ({ todo, closePopover }) => {
-  const { isEditing } = todo
-
-  const toggleEdit = () => {
-    if (!isEditing) todo.startEdit()
-    else todo.finishEdit()
-  }
+  const { isEditing, toggleIsEditing } = todo
 
   return (
-    <Modal isOpen={isEditing} setIsOpen={toggleEdit}>
+    <Modal isOpen={isEditing} setIsOpen={toggleIsEditing}>
       <ModalTrigger>
         <IconButton
           disabled={!todo.canEdit}
           iconName={iconNames.pencil}
-          onClick={toggleEdit}
+          onClick={toggleIsEditing}
           theme="success"
         />
       </ModalTrigger>
-      <ItemEditModal closePopover={closePopover} onClose={toggleEdit} todo={todo} />
+      <ItemEditModal closePopover={closePopover} todo={todo} />
     </Modal>
   )
 }
