@@ -1,5 +1,4 @@
 import { PropTypes } from 'prop-types'
-import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { TodoListItem } from '../../../stores/TodoListStore'
 
@@ -9,39 +8,24 @@ import ItemEditModal from './ItemEditModal'
 import ModalTrigger from '../../Modal/ModalTrigger'
 
 const ItemEditButtonWithModal = ({ todo, closePopover }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const { isEditing } = todo
 
-  useEffect(() => {
-    if (!isOpen) todo.finishEdit()
-  }, [isOpen, todo])
-
-  const openModal = () => {
-    setIsOpen(true)
-    todo.startEdit()
-  }
-
-  const closeModal = () => {
-    setIsOpen(false)
-    todo.finishEdit()
+  const toggleEdit = () => {
+    if (!isEditing) todo.startEdit()
+    else todo.finishEdit()
   }
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={isEditing} setIsOpen={toggleEdit}>
       <ModalTrigger>
         <IconButton
           disabled={!todo.canEdit}
           iconName={iconNames.pencil}
-          onClick={openModal}
+          onClick={toggleEdit}
           theme="success"
         />
       </ModalTrigger>
-      <ItemEditModal
-        closePopover={closePopover}
-        isOpen={isOpen}
-        onClose={closeModal}
-        setIsOpen={setIsOpen}
-        todo={todo}
-      />
+      <ItemEditModal closePopover={closePopover} onClose={toggleEdit} todo={todo} />
     </Modal>
   )
 }
