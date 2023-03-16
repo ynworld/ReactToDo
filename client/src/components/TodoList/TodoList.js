@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Transition } from 'react-transition-group'
 
 import { TodoListStore } from '../../stores/TodoListStore'
@@ -11,9 +11,15 @@ import { TodoItem, TodoItemWithDnd } from '../TodoItem'
 const TodoList = ({ todoListStore }) => {
   const { newItem, importantItems, regularItems } = todoListStore
 
+  const [appear, setAppear] = useState(false)
+
+  useEffect(() => {
+    setAppear(true)
+  }, [])
+
   const transitionStyles = {
     entered: { opacity: 1 },
-    entering: { opacity: 0 },
+    entering: { opacity: 1 },
     exited: { opacity: 0 },
     exiting: { opacity: 0 },
   }
@@ -28,10 +34,10 @@ const TodoList = ({ todoListStore }) => {
         </li>
       )}
       {importantItems.map((todo, index) => {
-        const duration = 300 + index * 100
+        const duration = 400 + index * 200
 
         return (
-          <Transition key={todo.id} appear in nodeRef={nodeRef} timeout={duration}>
+          <Transition key={todo.id} in={appear} nodeRef={nodeRef} timeout={duration}>
             {(state) => (
               <li
                 key={todo.id}
@@ -50,10 +56,10 @@ const TodoList = ({ todoListStore }) => {
       })}
       {regularItems.map((todo, index) => {
         const importantCount = todoListStore.importantItems.length
-        const duration = 300 + (index + importantCount - 1) * 100
+        const duration = 400 + (index + importantCount - 1) * 200
 
         return (
-          <Transition key={todo.id} appear in nodeRef={nodeRef} timeout={duration}>
+          <Transition key={todo.id} in={appear} nodeRef={nodeRef} timeout={duration}>
             {(state) => (
               <li
                 key={todo.id}
