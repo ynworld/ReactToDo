@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 
-import { ItemEdit, ItemView, Icon } from '../index'
+import { ItemView, Icon } from '../index'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
@@ -24,7 +24,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
         isImportant ? 'border-alert' : 'border-transparent',
       )}
     >
-      {todo.isEditing ? <ItemEdit todo={todo} /> : <ItemView todo={todo} />}
+      <ItemView todo={todo} />
 
       <div
         ref={drag}

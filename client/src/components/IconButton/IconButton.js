@@ -1,5 +1,6 @@
 import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
+import { forwardRef } from 'react'
 
 import { Icon } from '../Icon'
 import { iconNames, iconVariants } from '../../constants'
@@ -9,20 +10,23 @@ const classesByTheme = {
   success: { notPressed: 'hover:text-primary-dark', pressed: 'text-primary-dark' },
 }
 
-const IconButton = ({
-  type = 'button',
-  iconName,
-  iconVariant,
-  isPressed,
-  onClick,
-  disabled = false,
-  theme,
-  children,
-}) => {
+const IconButton = forwardRef((props, forwardedRef) => {
+  const {
+    type = 'button',
+    iconName,
+    iconVariant,
+    isPressed,
+    onClick,
+    disabled = false,
+    theme,
+    children,
+  } = props
+
   if (!iconName) return null
 
   return (
     <button
+      ref={forwardedRef}
       className={classnames(
         isPressed
           ? `${classesByTheme[theme].pressed} bg-black/[0.03]`
@@ -42,7 +46,7 @@ const IconButton = ({
       {children && <span className="text-gray-800">{children}</span>}
     </button>
   )
-}
+})
 
 IconButton.propTypes = {
   children: PropTypes.node,

@@ -27,7 +27,6 @@ class TodoListItem {
       createdAt: observable,
       delete: action.bound,
       displayDate: computed,
-      finishEdit: action,
       id: observable,
       index: observable,
       isChecked: observable,
@@ -35,9 +34,9 @@ class TodoListItem {
       isImportant: observable,
       setText: action,
       snapshot: computed,
-      startEdit: action,
       text: observable,
       toggle: action.bound,
+      toggleIsEditing: action.bound,
       toggleIsImportant: action.bound,
       updateSnapshot: action.bound,
     })
@@ -79,12 +78,8 @@ class TodoListItem {
     this.isChecked = !this.isChecked
   }
 
-  startEdit() {
-    this.isEditing = true
-  }
-
-  finishEdit() {
-    this.isEditing = false
+  toggleIsEditing() {
+    this.isEditing = !this.isEditing
   }
 
   setText(value) {
