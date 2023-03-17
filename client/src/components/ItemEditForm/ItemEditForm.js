@@ -7,8 +7,13 @@ import { TodoListStore, TodoListItem } from '../../stores/TodoListStore'
 
 const ItemEditForm = ({ onClose, todo, todoList }) => {
   const [inputText, setInputText] = useState(todo?.text || '')
+  const [startedTyping, setStartedTyping] = useState(false)
+
+  const isEmptyInput = inputText.trim() === ''
+  const isInvalidInput = isEmptyInput && startedTyping
 
   const handleTextInputChange = (event) => {
+    if (!startedTyping) setStartedTyping(true)
     setInputText(event.target.value)
   }
 
@@ -34,34 +39,41 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
     <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
       <input
         className={classnames(
-          'h-8 grow rounded-md border-2 border-primary px-2 text-sm',
-          'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
+          isInvalidInput
+            ? 'border-alert focus:shadow-alert/25'
+            : 'border-primary focus:shadow-primary/25',
+          'h-8 grow rounded-md border-2 px-2 text-sm',
+          'outline-none transition-all duration-300 focus:shadow-md',
         )}
         onChange={handleTextInputChange}
         placeholder="I need to..."
         type="text"
         value={inputText}
       />
-      <div className="flex justify-end gap-2">
-        <button
-          className={classnames(
-            'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
-            'hover:bg-gray-100 active:shadow-sm',
-          )}
-          onClick={onClose}
-          type="button"
-        >
-          Cancel
-        </button>
-        <button
-          className={classnames(
-            'flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
-            'hover:bg-primary-dark active:shadow-sm',
-          )}
-          type="submit"
-        >
-          {todo ? 'Edit' : 'Add'}
-        </button>
+      <div className="flex justify-between">
+        {isInvalidInput && <p className="text-sm font-medium text-alert">Enter some text</p>}
+        <div className="flex grow justify-end gap-2">
+          <button
+            className={classnames(
+              'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
+              'hover:bg-gray-100 active:shadow-sm',
+            )}
+            onClick={onClose}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className={classnames(
+              'flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
+              'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
+            )}
+            disabled={isEmptyInput}
+            type="submit"
+          >
+            Add
+          </button>
+        </div>
       </div>
     </form>
   )
