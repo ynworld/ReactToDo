@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 
-import { ItemView, Icon, ItemEditModal } from '..'
+import { ItemView, Icon, ItemDeleteModal, ItemEditModal } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
@@ -44,6 +44,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
         </div>
       </article>
       <ItemEditModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} todo={todo} />
+      <ItemDeleteModal todo={todo} />
     </>
   )
 }

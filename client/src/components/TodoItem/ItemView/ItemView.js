@@ -17,6 +17,11 @@ const ItemView = ({ openEditModal, todo }) => {
     closePopover()
   }
 
+  const handleDelete = () => {
+    toggleIsDeleting()
+    closePopover()
+  }
+
   return (
     <>
       <div className="flex flex-col gap-2 overflow-hidden">
@@ -53,7 +58,7 @@ const ItemView = ({ openEditModal, todo }) => {
               onClick={todo.toggleIsImportant}
               theme="alert"
             />
-            <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
+            <IconButton iconName={iconNames.trash} onClick={handleDelete} theme="alert" />
           </div>
         </PopoverContent>
       </Popover>
