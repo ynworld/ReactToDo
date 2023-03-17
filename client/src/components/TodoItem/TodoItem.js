@@ -2,8 +2,9 @@ import { PropTypes } from 'prop-types'
 import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
+import { useState } from 'react'
 
-import { ItemView, Icon, Modal, ItemEditModal } from '../index'
+import { ItemView, Icon, ItemEditModal } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
@@ -12,7 +13,10 @@ import { iconNames } from '../../constants'
 const TodoItem = ({ todo, dndProps = {} }) => {
   const { drag, canDrag, isDragging, itemToMoveRef } = dndProps
 
-  const { isEditing, isImportant, toggleIsEditing } = todo
+  const { isImportant } = todo
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const openEditModal = () => setIsEditModalOpen(true)
 
   return (
     <>
@@ -25,7 +29,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
           isImportant ? 'border-alert' : 'border-transparent',
         )}
       >
-        <ItemView todo={todo} />
+        <ItemView openEditModal={openEditModal} todo={todo} />
 
         <div
           ref={drag}
@@ -39,9 +43,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
           <Icon name={iconNames.chevronUpDown} />
         </div>
       </article>
-      <Modal isOpen={isEditing} setIsOpen={toggleIsEditing}>
-        <ItemEditModal todo={todo} />
-      </Modal>
+      <ItemEditModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} todo={todo} />
     </>
   )
 }

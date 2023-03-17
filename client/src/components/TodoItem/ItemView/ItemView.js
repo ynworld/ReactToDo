@@ -8,12 +8,12 @@ import { iconNames, iconVariants } from '../../../constants'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const ItemView = ({ todo }) => {
+const ItemView = ({ openEditModal, todo }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { id, text, isChecked, isImportant, toggle, toggleIsEditing } = todo
+  const { id, text, isChecked, isImportant, toggle } = todo
 
   const startEdit = () => {
-    toggleIsEditing() // Open Edit Modal
+    openEditModal() // Open Edit Modal
     setIsOpen(false) // Close Popover
   }
 
@@ -58,6 +58,7 @@ const ItemView = ({ todo }) => {
 }
 
 ItemView.propTypes = {
+  openEditModal: PropTypes.func.isRequired,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 

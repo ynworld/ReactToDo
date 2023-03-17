@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const EditItemForm = ({ todo, closePopover }) => {
+const EditItemForm = ({ todo, closeModal }) => {
   const [inputText, setInputText] = useState(todo.text || '')
 
   const handleTextInput = (event) => {
@@ -19,9 +19,7 @@ const EditItemForm = ({ todo, closePopover }) => {
     if (text.length === 0) return
 
     todo.setText(text)
-    todo.toggleIsEditing()
-
-    if (closePopover) closePopover()
+    closeModal()
   }
 
   return (
@@ -42,7 +40,7 @@ const EditItemForm = ({ todo, closePopover }) => {
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
             'hover:bg-gray-100 active:shadow-sm',
           )}
-          onClick={todo.toggleIsEditing}
+          onClick={closeModal}
           type="button"
         >
           Cancel
@@ -64,6 +62,6 @@ const EditItemForm = ({ todo, closePopover }) => {
 export default EditItemForm
 
 EditItemForm.propTypes = {
-  closePopover: PropTypes.func,
+  closeModal: PropTypes.func.isRequired,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
