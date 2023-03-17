@@ -2,6 +2,7 @@ import { PropTypes } from 'prop-types'
 import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
+import { useState } from 'react'
 
 import { ItemView, Icon, ItemDeleteModal, ItemEditModal } from '..'
 
@@ -17,6 +18,8 @@ const TodoItem = ({ todo, dndProps = {} }) => {
 
   const [isEditModalOpen, { setValue: setIsEditModalOpen, setTrue: openEditModal }] =
     useBoolean(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const openDeleteModal = () => setIsDeleteModalOpen(true)
 
   return (
     <>
@@ -29,8 +32,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
           isImportant ? 'border-alert' : 'border-transparent',
         )}
       >
-        <ItemView openEditModal={openEditModal} todo={todo} />
-
+        <ItemView openDeleteModal={openDeleteModal} openEditModal={openEditModal} todo={todo} />
         <div
           ref={drag}
           className={classnames(
@@ -44,7 +46,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
         </div>
       </article>
       <ItemEditModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} todo={todo} />
-      <ItemDeleteModal todo={todo} />
+      <ItemDeleteModal isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} todo={todo} />
     </>
   )
 }

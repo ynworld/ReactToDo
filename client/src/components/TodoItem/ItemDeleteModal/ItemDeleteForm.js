@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const EditItemForm = ({ todo }) => {
+const EditItemForm = ({ closeModal, todo }) => {
   const handleDeleteSubmit = (event) => {
     event.preventDefault()
     todo.delete()
@@ -12,14 +12,14 @@ const EditItemForm = ({ todo }) => {
   return (
     <form className="flex w-full flex-col gap-4" onSubmit={handleDeleteSubmit}>
       <p className={classnames('text-sm')}>{todo.text}</p>
-      <p className="font-medium text-sm text-right">Really? This cannot be undone!</p>
+      <p className="text-right text-sm font-medium text-alert">Really? This cannot be undone!</p>
       <div className="flex justify-end gap-2">
         <button
           className={classnames(
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
             'hover:bg-gray-100 active:shadow-sm',
           )}
-          onClick={todo.toggleIsDeleting}
+          onClick={closeModal}
           type="button"
         >
           Cancel
@@ -41,5 +41,6 @@ const EditItemForm = ({ todo }) => {
 export default EditItemForm
 
 EditItemForm.propTypes = {
+  closeModal: PropTypes.func,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
