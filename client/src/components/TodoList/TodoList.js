@@ -35,7 +35,7 @@ const TodoList = ({ todoListStore }) => {
             classNames={transitionClassNames}
             timeout={transitionTimeout}
           >
-            <li key={todo.id}>
+            <li>
               <TodoItem todo={todo} />
             </li>
           </CSSTransition>
@@ -49,7 +49,7 @@ const TodoList = ({ todoListStore }) => {
             classNames={transitionClassNames}
             timeout={transitionTimeout}
           >
-            <li key={todo.id}>
+            <li>
               <TodoItemWithDnd index={index} todo={todo} />
             </li>
           </CSSTransition>
