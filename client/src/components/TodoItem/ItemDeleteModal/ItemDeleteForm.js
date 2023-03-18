@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const EditItemForm = ({ closeModal, todo }) => {
+const ItemDeleteForm = ({ closeModal, todo }) => {
   const handleDeleteSubmit = (event) => {
     event.preventDefault()
     todo.delete()
@@ -38,9 +38,9 @@ const EditItemForm = ({ closeModal, todo }) => {
   )
 }
 
-export default EditItemForm
+export default ItemDeleteForm
 
-EditItemForm.propTypes = {
+ItemDeleteForm.propTypes = {
   closeModal: PropTypes.func,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }

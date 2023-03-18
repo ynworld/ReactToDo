@@ -4,7 +4,7 @@ import { TodoListItem } from '../../../stores/TodoListStore'
 import ItemDeleteForm from './ItemDeleteForm'
 import { Modal, ModalContent, ModalHeader } from '../..'
 
-const ItemEditModal = ({ isOpen, setIsOpen, todo }) => {
+const ItemDeleteModal = ({ isOpen, setIsOpen, todo }) => {
   const closeModal = () => setIsOpen(false)
 
   return (
@@ -17,10 +17,10 @@ const ItemEditModal = ({ isOpen, setIsOpen, todo }) => {
   )
 }
 
-ItemEditModal.propTypes = {
+ItemDeleteModal.propTypes = {
   isOpen: PropTypes.bool,
   setIsOpen: PropTypes.func,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 
-export default observer(ItemEditModal)
+export default observer(ItemDeleteModal)
