@@ -1,19 +1,20 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-import { CheckboxField, Icon, IconButton, ItemEditButtonWithModal, Truncate } from '../..'
+import { CheckboxField, Icon, IconButton, Truncate } from '../..'
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
 import { iconNames, iconVariants } from '../../../constants'
+import { useBoolean } from '../../../hooks'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const ItemView = ({ todo }) => {
-  const [isOpen, setIsOpen] = useState(false)
+const ItemView = ({ openEditModal, todo }) => {
+  const [isPopoverOpen, { setValue: setIsPopoverOpen, setFalse: closePopover }] = useBoolean(false)
   const { id, text, isChecked, isImportant, toggle } = todo
 
-  const closePopover = () => {
-    setIsOpen(false)
+  const handleEditStart = () => {
+    openEditModal()
+    closePopover()
   }
 
   return (
@@ -29,13 +30,22 @@ const ItemView = ({ todo }) => {
           {todo.displayDate}
         </div>
       </div>
-      <Popover isOpen={isOpen} modal setIsOpen={setIsOpen}>
+      <Popover isOpen={isPopoverOpen} modal setIsOpen={setIsPopoverOpen}>
         <PopoverTrigger>
-          <IconButton iconName={iconNames.ellipsisHorizontal} isPressed={isOpen} theme="success" />
+          <IconButton
+            iconName={iconNames.ellipsisHorizontal}
+            isPressed={isPopoverOpen}
+            theme="success"
+          />
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex items-center gap-2 rounded-md bg-white p-2 shadow-md">
-            <ItemEditButtonWithModal closePopover={closePopover} todo={todo} />
+            <IconButton
+              disabled={!todo.canEdit}
+              iconName={iconNames.pencil}
+              onClick={handleEditStart}
+              theme="success"
+            />
             <IconButton
               iconName={iconNames.fire}
               iconVariant={isImportant ? iconVariants.solid : undefined}
@@ -52,6 +62,7 @@ const ItemView = ({ todo }) => {
 }
 
 ItemView.propTypes = {
+  openEditModal: PropTypes.func.isRequired,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 

@@ -15,13 +15,11 @@ class TodoListItem {
 
   isChecked = false
 
-  isEditing = false
-
   isImportant = false
 
   createdAt = null
 
-  constructor({ id, text, isChecked, isEditing, isImportant, createdAt }, index, todoListStore) {
+  constructor({ id, text, isChecked, isImportant, createdAt }, index, todoListStore) {
     makeObservable(this, {
       canEdit: computed,
       createdAt: observable,
@@ -30,13 +28,11 @@ class TodoListItem {
       id: observable,
       index: observable,
       isChecked: observable,
-      isEditing: observable,
       isImportant: observable,
       setText: action,
       snapshot: computed,
       text: observable,
       toggle: action.bound,
-      toggleIsEditing: action.bound,
       toggleIsImportant: action.bound,
       updateSnapshot: action.bound,
     })
@@ -44,7 +40,6 @@ class TodoListItem {
     this.id = id
     this.isChecked = isChecked || false
     this.text = text || ''
-    this.isEditing = isEditing || false
     this.index = index ?? null
     this.isImportant = isImportant || false
     this.createdAt = createdAt || null
@@ -76,10 +71,6 @@ class TodoListItem {
 
   toggle() {
     this.isChecked = !this.isChecked
-  }
-
-  toggleIsEditing() {
-    this.isEditing = !this.isEditing
   }
 
   setText(value) {
