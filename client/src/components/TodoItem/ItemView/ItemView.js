@@ -1,20 +1,20 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
 import { CheckboxField, Icon, IconButton, Truncate } from '../..'
 import { Popover, PopoverTrigger, PopoverContent } from '../../Popover'
 
 import { iconNames, iconVariants } from '../../../constants'
+import { useBoolean } from '../../../hooks'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
 const ItemView = ({ openEditModal, todo }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isPopoverOpen, { setValue: setIsPopoverOpen, setFalse: closePopover }] = useBoolean(false)
   const { id, text, isChecked, isImportant, toggle } = todo
 
-  const startEdit = () => {
-    openEditModal() // Open Edit Modal
-    setIsOpen(false) // Close Popover
+  const handleEditStart = () => {
+    openEditModal()
+    closePopover()
   }
 
   return (
@@ -30,16 +30,20 @@ const ItemView = ({ openEditModal, todo }) => {
           {todo.displayDate}
         </div>
       </div>
-      <Popover isOpen={isOpen} modal setIsOpen={setIsOpen}>
+      <Popover isOpen={isPopoverOpen} modal setIsOpen={setIsPopoverOpen}>
         <PopoverTrigger>
-          <IconButton iconName={iconNames.ellipsisHorizontal} isPressed={isOpen} theme="success" />
+          <IconButton
+            iconName={iconNames.ellipsisHorizontal}
+            isPressed={isPopoverOpen}
+            theme="success"
+          />
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex items-center gap-2 rounded-md bg-white p-2 shadow-md">
             <IconButton
               disabled={!todo.canEdit}
               iconName={iconNames.pencil}
-              onClick={startEdit}
+              onClick={handleEditStart}
               theme="success"
             />
             <IconButton
