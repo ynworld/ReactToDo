@@ -1,5 +1,6 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
+import { createRef } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { TodoListStore } from '../../stores/TodoListStore'
@@ -28,28 +29,34 @@ const TodoList = ({ todoListStore }) => {
         </li>
       )}
       {importantItems.map((todo) => {
+        const ref = createRef()
+
         return (
           <CSSTransition
             key={todo.id}
             appear
             classNames={transitionClassNames}
+            nodeRef={ref}
             timeout={transitionTimeout}
           >
-            <li>
+            <li ref={ref}>
               <TodoItem todo={todo} />
             </li>
           </CSSTransition>
         )
       })}
       {regularItems.map((todo, index) => {
+        const ref = createRef()
+
         return (
           <CSSTransition
             key={todo.id}
             appear
             classNames={transitionClassNames}
+            nodeRef={ref}
             timeout={transitionTimeout}
           >
-            <li>
+            <li ref={ref}>
               <TodoItemWithDnd index={index} todo={todo} />
             </li>
           </CSSTransition>
