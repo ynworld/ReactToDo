@@ -2,21 +2,21 @@ import { PropTypes } from 'prop-types'
 import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
-import { useState } from 'react'
 
 import { ItemView, Icon, ItemEditModal } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
 import { iconNames } from '../../constants'
+import { useBoolean } from '../../hooks'
 
 const TodoItem = ({ todo, dndProps = {} }) => {
   const { drag, canDrag, isDragging, itemToMoveRef } = dndProps
 
   const { isImportant } = todo
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const openEditModal = () => setIsEditModalOpen(true)
+  const [isEditModalOpen, { setValue: setIsEditModalOpen, setTrue: openEditModal }] =
+    useBoolean(false)
 
   return (
     <>
