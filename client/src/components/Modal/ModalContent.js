@@ -20,7 +20,7 @@ const ModalContent = forwardRef((props, forwardedRef) => {
           <FloatingFocusManager context={context} initialFocus={1}>
             <div
               ref={ref}
-              className={props.className}
+              className="w-96 rounded-md bg-gradient-to-br from-white to-gray-100 p-4 shadow-md"
               style={styles}
               {...modalState.getFloatingProps()}
             >

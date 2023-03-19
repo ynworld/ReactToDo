@@ -9,7 +9,7 @@ const ItemDeleteModal = ({ isOpen, setIsOpen, todo }) => {
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <ModalContent className="w-96 rounded-md bg-gradient-to-br from-white to-gray-100 p-4 shadow-md">
+      <ModalContent>
         <ModalHeader title="Delete Todo" />
         <ItemDeleteForm closeModal={closeModal} todo={todo} />
       </ModalContent>
