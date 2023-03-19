@@ -17,7 +17,7 @@ const ItemDeleteForm = ({ closeModal, todo }) => {
         <button
           className={classnames(
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
-            'hover:bg-gray-100 active:shadow-sm',
+            'transition-all duration-300 hover:bg-gray-100 active:shadow-sm',
           )}
           onClick={closeModal}
           type="button"
@@ -26,8 +26,8 @@ const ItemDeleteForm = ({ closeModal, todo }) => {
         </button>
         <button
           className={classnames(
-            'flex h-8 items-center rounded-md bg-alert px-6 py-2 text-sm text-white shadow-md',
-            'hover:bg-alert active:shadow-sm',
+            'flex h-8 items-center rounded-md bg-alert/90 px-6 py-2 text-sm text-white shadow-md',
+            'transition-all duration-300  hover:bg-alert active:shadow-sm',
           )}
           type="submit"
         >
