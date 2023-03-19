@@ -19,7 +19,7 @@ const ItemView = ({ openDeleteModal, openEditModal, todo }) => {
 
   const handleDelete = () => {
     openDeleteModal()
-    setIsOpen(false) // close Popover
+    closePopover()
   }
 
   return (
@@ -67,8 +67,8 @@ const ItemView = ({ openDeleteModal, openEditModal, todo }) => {
 }
 
 ItemView.propTypes = {
-  openEditModal: PropTypes.func.isRequired,
   openDeleteModal: PropTypes.func.isRequired,
+  openEditModal: PropTypes.func.isRequired,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 

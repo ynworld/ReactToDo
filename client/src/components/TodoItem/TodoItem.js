@@ -2,7 +2,6 @@ import { PropTypes } from 'prop-types'
 import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
-import { useState } from 'react'
 
 import { ItemView, Icon, ItemDeleteModal, ItemEditModal } from '..'
 
@@ -18,8 +17,8 @@ const TodoItem = ({ todo, dndProps = {} }) => {
 
   const [isEditModalOpen, { setValue: setIsEditModalOpen, setTrue: openEditModal }] =
     useBoolean(false)
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const openDeleteModal = () => setIsDeleteModalOpen(true)
+  const [isDeleteModalOpen, { setValue: setIsDeleteModalOpen, setTrue: openDeleteModal }] =
+    useBoolean(false)
 
   return (
     <>
