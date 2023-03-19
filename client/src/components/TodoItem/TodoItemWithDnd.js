@@ -7,7 +7,7 @@ import useSortable from '../../hooks/dnd/use-sortable'
 
 import TodoItem from './TodoItem'
 
-const TodoItemWithDnd = ({ index, todo }) => {
+const TodoItemWithDnd = ({ handleDelete, index, todo }) => {
   const itemToMoveRef = useRef(null)
 
   const { todoListStore } = todo
@@ -22,12 +22,19 @@ const TodoItemWithDnd = ({ index, todo }) => {
     type: dndItemTypes.todo,
   })
 
-  return <TodoItem dndProps={{ canDrag, drag, isDragging, itemToMoveRef }} todo={todo} />
+  return (
+    <TodoItem
+      dndProps={{ canDrag, drag, isDragging, itemToMoveRef }}
+      handleDelete={handleDelete}
+      todo={todo}
+    />
+  )
 }
 
 export default observer(TodoItemWithDnd)
 
 TodoItemWithDnd.propTypes = {
+  handleDelete: PropTypes.func,
   index: PropTypes.number,
   todo: PropTypes.object,
 }

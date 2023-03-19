@@ -3,21 +3,19 @@ import { isMobile } from 'react-device-detect'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 
-import { ItemView, Icon, ItemDeleteModal, ItemEditModal } from '..'
+import { ItemView, Icon, ItemEditModal } from '..'
 
 import { TodoListItem } from '../../stores/TodoListStore'
 
 import { iconNames } from '../../constants'
 import { useBoolean } from '../../hooks'
 
-const TodoItem = ({ todo, dndProps = {} }) => {
+const TodoItem = ({ handleDelete, todo, dndProps = {} }) => {
   const { drag, canDrag, isDragging, itemToMoveRef } = dndProps
 
   const { isImportant } = todo
 
   const [isEditModalOpen, { setValue: setIsEditModalOpen, setTrue: openEditModal }] =
-    useBoolean(false)
-  const [isDeleteModalOpen, { setValue: setIsDeleteModalOpen, setTrue: openDeleteModal }] =
     useBoolean(false)
 
   return (
@@ -31,7 +29,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
           isImportant ? 'border-alert' : 'border-transparent',
         )}
       >
-        <ItemView openDeleteModal={openDeleteModal} openEditModal={openEditModal} todo={todo} />
+        <ItemView handleDelete={handleDelete} openEditModal={openEditModal} todo={todo} />
         <div
           ref={drag}
           className={classnames(
@@ -45,13 +43,13 @@ const TodoItem = ({ todo, dndProps = {} }) => {
         </div>
       </article>
       <ItemEditModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} todo={todo} />
-      <ItemDeleteModal isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} todo={todo} />
     </>
   )
 }
 
 TodoItem.propTypes = {
   dndProps: PropTypes.object,
+  handleDelete: PropTypes.func,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 

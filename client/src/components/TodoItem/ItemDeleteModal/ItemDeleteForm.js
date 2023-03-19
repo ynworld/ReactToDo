@@ -3,15 +3,21 @@ import classnames from 'classnames'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const ItemDeleteForm = ({ closeModal, todo }) => {
+const ItemDeleteForm = ({ closeModal, setItemToDelete, todo }) => {
   const handleDeleteSubmit = (event) => {
     event.preventDefault()
     todo.delete()
+    closeModal()
+    setItemToDelete(null)
   }
 
   return (
     <form className="flex w-full flex-col gap-4" onSubmit={handleDeleteSubmit}>
-      <p className={classnames('text-sm')}>{todo.text}</p>
+      {todo ? (
+        <p className={classnames('text-sm transition-all')}>{todo.text}</p>
+      ) : (
+        <p className={classnames('text-sm font-medium text-alert transition-all')}>Todo Deleted!</p>
+      )}
       <p className="text-right text-sm font-medium text-alert">Really? This cannot be undone!</p>
       <div className="flex justify-end gap-2">
         <button
@@ -42,5 +48,6 @@ export default ItemDeleteForm
 
 ItemDeleteForm.propTypes = {
   closeModal: PropTypes.func,
-  todo: PropTypes.instanceOf(TodoListItem).isRequired,
+  setItemToDelete: PropTypes.func,
+  todo: PropTypes.instanceOf(TodoListItem),
 }
