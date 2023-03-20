@@ -11,8 +11,8 @@ const PopoverContent = forwardRef((props, propRef) => {
   const { modal, styles } = context
 
   return (
-    context.isMounted && (
-      <FloatingPortal id="float">
+    <FloatingPortal id="float">
+      {context.isMounted && (
         <FloatingFocusManager context={floatingContext} initialFocus modal={modal}>
           <div
             ref={ref}
@@ -29,8 +29,8 @@ const PopoverContent = forwardRef((props, propRef) => {
             {props.children}
           </div>
         </FloatingFocusManager>
-      </FloatingPortal>
-    )
+      )}
+    </FloatingPortal>
   )
 })
 
