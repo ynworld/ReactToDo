@@ -1,17 +1,14 @@
-import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
 import { TodoListItem } from '../../../stores/TodoListStore'
 import ItemDeleteForm from './ItemDeleteForm'
 import { Modal, ModalContent, ModalHeader } from '../..'
 
-const ItemDeleteModal = ({ isOpen, setIsOpen, setItemToDelete, todo }) => {
-  const closeModal = () => setIsOpen(false)
-
+const ItemDeleteModal = ({ isOpen, onClose, todo }) => {
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={isOpen} setIsOpen={onClose}>
       <ModalContent>
         <ModalHeader title="Delete Todo" />
-        <ItemDeleteForm closeModal={closeModal} setItemToDelete={setItemToDelete} todo={todo} />
+        <ItemDeleteForm closeModal={onClose} todo={todo} />
       </ModalContent>
     </Modal>
   )
@@ -19,9 +16,8 @@ const ItemDeleteModal = ({ isOpen, setIsOpen, setItemToDelete, todo }) => {
 
 ItemDeleteModal.propTypes = {
   isOpen: PropTypes.bool,
-  setIsOpen: PropTypes.func,
-  setItemToDelete: PropTypes.func,
+  onClose: PropTypes.func,
   todo: PropTypes.instanceOf(TodoListItem),
 }
 
-export default observer(ItemDeleteModal)
+export default ItemDeleteModal

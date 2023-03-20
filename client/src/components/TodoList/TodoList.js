@@ -8,8 +8,6 @@ import { TodoListStore } from '../../stores/TodoListStore'
 import { ItemDeleteModal, DragPreview } from '..'
 import { TodoItem, TodoItemWithDnd } from '../TodoItem'
 
-import { useBoolean } from '../../hooks'
-
 const transitionClassNames = {
   appear: 'opacity-0',
   appearActive: 'opacity-100 transition-opacity duration-500',
@@ -21,15 +19,12 @@ const transitionClassNames = {
 const transitionTimeout = 500
 
 const TodoList = ({ todoListStore }) => {
-  const { items, newItem, importantItems, regularItems } = todoListStore
+  const { newItem, importantItems, regularItems } = todoListStore
 
-  const [itemToDelete, setItemToDelete] = useState(null)
+  const [itemIdToDelete, setItemIdToDelete] = useState(null)
 
-  const [isDeleteModalOpen, { setValue: setIsDeleteModalOpen }] = useBoolean(false)
-
-  const handleDelete = (id) => {
-    setItemToDelete(items.find((item) => item.id === id))
-    setIsDeleteModalOpen(true)
+  const closeItemDeleteModal = () => {
+    setItemIdToDelete(null)
   }
 
   return (
@@ -52,7 +47,7 @@ const TodoList = ({ todoListStore }) => {
               timeout={transitionTimeout}
             >
               <li ref={ref}>
-                <TodoItem handleDelete={handleDelete} todo={todo} />
+                <TodoItem onDelete={setItemIdToDelete} todo={todo} />
               </li>
             </CSSTransition>
           )
@@ -69,7 +64,7 @@ const TodoList = ({ todoListStore }) => {
               timeout={transitionTimeout}
             >
               <li ref={ref}>
-                <TodoItemWithDnd handleDelete={handleDelete} index={index} todo={todo} />
+                <TodoItemWithDnd index={index} onDelete={setItemIdToDelete} todo={todo} />
               </li>
             </CSSTransition>
           )
@@ -77,10 +72,9 @@ const TodoList = ({ todoListStore }) => {
         <DragPreview />
       </TransitionGroup>
       <ItemDeleteModal
-        isOpen={isDeleteModalOpen}
-        setIsOpen={setIsDeleteModalOpen}
-        setItemToDelete={setItemToDelete}
-        todo={itemToDelete}
+        isOpen={Boolean(itemIdToDelete)}
+        onClose={closeItemDeleteModal}
+        todo={todoListStore.items.find((item) => item.id === itemIdToDelete)}
       />
     </>
   )
