@@ -1,29 +1,44 @@
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import classnames from 'classnames'
+import { post } from '../../api'
 
-import { TodoListItem } from '../../../stores/TodoListStore'
+import { TodoListStore, TodoListItem } from '../../stores/TodoListStore'
 
-const EditItemForm = ({ todo, closeModal }) => {
-  const [inputText, setInputText] = useState(todo.text || '')
+const ItemEditForm = ({ onClose, todo, todoList }) => {
+  const [inputText, setInputText] = useState(todo?.text || '')
+
+  const isInputEmpty = inputText.trim() === ''
 
   const handleTextInput = (event) => {
     setInputText(event.target.value)
   }
 
-  const handleEditSubmit = (event) => {
-    event.preventDefault()
+  const handleAddItem = () => {
+    if (isInputEmpty) return
+    post('/todos', { text: inputText }).then((todoItem) => {
+      todoList.addItem(todoItem)
+      onClose()
+    })
+  }
 
+  const handleEditItem = () => {
     const text = inputText.trim()
 
-    if (text.length === 0) return
+    if (isInputEmpty) return
 
     todo.setText(text)
-    closeModal()
+    onClose()
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    if (todo) handleEditItem()
+    else handleAddItem()
   }
 
   return (
-    <form className="flex w-full flex-col gap-4" onSubmit={handleEditSubmit}>
+    <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
       <input
         className={classnames(
           'h-8 grow rounded-md border-2 border-primary px-2 text-sm',
@@ -40,7 +55,7 @@ const EditItemForm = ({ todo, closeModal }) => {
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
             'hover:bg-gray-100 active:shadow-sm',
           )}
-          onClick={closeModal}
+          onClick={onClose}
           type="button"
         >
           Cancel
@@ -52,16 +67,17 @@ const EditItemForm = ({ todo, closeModal }) => {
           )}
           type="submit"
         >
-          Edit
+          {todo ? 'Edit' : 'Add'}
         </button>
       </div>
     </form>
   )
 }
 
-export default EditItemForm
+export default ItemEditForm
 
-EditItemForm.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  todo: PropTypes.instanceOf(TodoListItem).isRequired,
+ItemEditForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  todo: PropTypes.instanceOf(TodoListItem),
+  todoList: PropTypes.instanceOf(TodoListStore),
 }
