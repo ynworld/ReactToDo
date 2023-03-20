@@ -10,7 +10,7 @@ import { TodoListItem } from '../../stores/TodoListStore'
 import { iconNames } from '../../constants'
 import { useBoolean } from '../../hooks'
 
-const TodoItem = ({ todo, dndProps = {} }) => {
+const TodoItem = ({ onDelete, todo, dndProps = {} }) => {
   const { drag, canDrag, isDragging, itemToMoveRef } = dndProps
 
   const { isImportant } = todo
@@ -29,8 +29,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
           isImportant ? 'border-alert' : 'border-transparent',
         )}
       >
-        <ItemView openEditModal={openEditModal} todo={todo} />
-
+        <ItemView onDelete={onDelete} openEditModal={openEditModal} todo={todo} />
         <div
           ref={drag}
           className={classnames(
@@ -50,6 +49,7 @@ const TodoItem = ({ todo, dndProps = {} }) => {
 
 TodoItem.propTypes = {
   dndProps: PropTypes.object,
+  onDelete: PropTypes.func,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
 

@@ -8,13 +8,17 @@ import { useBoolean } from '../../../hooks'
 
 import { TodoListItem } from '../../../stores/TodoListStore'
 
-const ItemView = ({ openEditModal, todo }) => {
+const ItemView = ({ onDelete, openEditModal, todo }) => {
   const [isPopoverOpen, { setValue: setIsPopoverOpen, setFalse: closePopover }] = useBoolean(false)
   const { id, text, isChecked, isImportant, toggle } = todo
 
   const handleEditStart = () => {
     openEditModal()
     closePopover()
+  }
+
+  const handleDeleteStart = () => {
+    onDelete(todo.id)
   }
 
   return (
@@ -53,7 +57,7 @@ const ItemView = ({ openEditModal, todo }) => {
               onClick={todo.toggleIsImportant}
               theme="alert"
             />
-            <IconButton iconName={iconNames.trash} onClick={todo.delete} theme="alert" />
+            <IconButton iconName={iconNames.trash} onClick={handleDeleteStart} theme="alert" />
           </div>
         </PopoverContent>
       </Popover>
@@ -62,6 +66,7 @@ const ItemView = ({ openEditModal, todo }) => {
 }
 
 ItemView.propTypes = {
+  onDelete: PropTypes.func,
   openEditModal: PropTypes.func.isRequired,
   todo: PropTypes.instanceOf(TodoListItem).isRequired,
 }
