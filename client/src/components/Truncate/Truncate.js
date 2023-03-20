@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { PropTypes } from 'prop-types'
 
 import { Tooltip } from '..'
@@ -6,13 +6,16 @@ import { Tooltip } from '..'
 import { getElementWidth } from '../../helpers/element'
 
 const Truncate = ({ children }) => {
+  const [isTruncated, setIsTruncated] = useState(false)
   const containerRef = useRef(null)
   const contentRef = useRef(null)
 
-  const containerWidth = getElementWidth(containerRef.current)
-  const contentWidth = getElementWidth(contentRef.current)
+  useEffect(() => {
+    const containerWidth = getElementWidth(containerRef.current)
+    const contentWidth = getElementWidth(contentRef.current)
 
-  const isTruncated = contentWidth > containerWidth
+    setIsTruncated(contentWidth > containerWidth)
+  }, [children])
 
   return (
     <Tooltip className="overflow-hidden" content={isTruncated ? children : null}>
