@@ -30,8 +30,8 @@ const IconButton = forwardRef((props, forwardedRef) => {
       className={classnames(
         isPressed
           ? `${classesByTheme[theme].pressed} bg-black/[0.03]`
-          : `${classesByTheme[theme].notPressed} hover:bg-black/[0.03]`,
-        'inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm text-gray-800',
+          : `${classesByTheme[theme].notPressed} text-gray-800 hover:bg-black/[0.03]`,
+        'inline-flex min-h-[2rem] min-w-[2rem] items-center gap-2 rounded-md text-sm',
         'transition-all duration-200 hover:bg-black/[0.03] disabled:pointer-events-none',
         'disabled:text-gray-400',
         children ? 'px-2' : 'justify-center',

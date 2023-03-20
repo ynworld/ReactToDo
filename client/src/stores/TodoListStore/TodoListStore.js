@@ -14,7 +14,6 @@ class TodoListStore {
       addItem: action.bound,
       checkedItemsCount: computed,
       deleteItem: action.bound,
-      hasItemInEditingMode: computed,
       importantItems: computed,
       items: observable,
       moveItem: action.bound,
@@ -23,10 +22,6 @@ class TodoListStore {
       reorderItems: action.bound,
       setItems: action.bound,
     })
-  }
-
-  get hasItemInEditingMode() {
-    return this.items.some((item) => item.isEditing)
   }
 
   get checkedItemsCount() {

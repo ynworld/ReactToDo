@@ -21,7 +21,6 @@ class TodoListItem {
 
   constructor({ id, text, isChecked, isImportant, createdAt }, index, todoListStore) {
     makeObservable(this, {
-      canEdit: computed,
       createdAt: observable,
       delete: action.bound,
       displayDate: computed,
@@ -63,10 +62,6 @@ class TodoListItem {
       isImportant: this.isImportant,
       text: this.text,
     }
-  }
-
-  get canEdit() {
-    return !this.todoListStore.hasItemInEditingMode
   }
 
   toggle() {

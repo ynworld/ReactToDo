@@ -44,12 +44,7 @@ const ItemView = ({ onDelete, openEditModal, todo }) => {
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex items-center gap-2 rounded-md bg-white p-2 shadow-md">
-            <IconButton
-              disabled={!todo.canEdit}
-              iconName={iconNames.pencil}
-              onClick={handleEditStart}
-              theme="success"
-            />
+            <IconButton iconName={iconNames.pencil} onClick={handleEditStart} theme="success" />
             <IconButton
               iconName={iconNames.fire}
               iconVariant={isImportant ? iconVariants.solid : undefined}
