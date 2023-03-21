@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
 
 import { Tooltip } from '..'
@@ -32,4 +33,4 @@ Truncate.propTypes = {
   children: PropTypes.string,
 }
 
-export default Truncate
+export default observer(Truncate)
