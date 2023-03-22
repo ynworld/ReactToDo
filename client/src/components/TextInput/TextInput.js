@@ -1,41 +1,44 @@
 import { useState } from 'react'
 import classnames from 'classnames'
-import { PropTypes } from 'mobx-react'
+import { PropTypes } from 'prop-types'
+import { Truncate } from '..'
 
-const TextInput = ({ inputText, setInputText, placeholder }) => {
+const TextInput = ({ error, value, setValue, placeholder }) => {
   const [errorText, setErrorText] = useState(null)
 
   const validateInput = (text) => {
     if (text.trim() === '') {
-      setErrorText('Enter some text')
+      setErrorText(error)
     } else {
       setErrorText(null)
     }
   }
 
   const handleTextInputChange = (event) => {
-    setInputText(event.target.value)
+    setValue(event.target.value)
     validateInput(event.target.value)
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="relative flex flex-col">
       <input
         className={classnames(
           errorText
             ? 'border-alert focus:shadow-alert/25'
             : 'border-primary focus:shadow-primary/25',
-          'h-8 grow rounded-md border-2 px-2 text-sm',
+          'h-8 flex-1 rounded-md border-2 p-2 text-sm',
           'outline-none transition-all duration-300 focus:shadow-md',
         )}
         onChange={handleTextInputChange}
         placeholder={placeholder}
         type="text"
-        value={inputText}
+        value={value}
       />
-      <p className="min-h-[1rem] text-sm font-medium leading-4 text-alert">
-        {errorText && errorText}
-      </p>
+      {errorText && (
+        <div className="absolute -bottom-6 max-w-full text-sm font-medium text-alert">
+          <Truncate>{errorText}</Truncate>
+        </div>
+      )}
     </div>
   )
 }
@@ -43,7 +46,8 @@ const TextInput = ({ inputText, setInputText, placeholder }) => {
 export default TextInput
 
 TextInput.propTypes = {
-  inputText: PropTypes.string,
+  error: PropTypes.string,
   placeholder: PropTypes.string,
-  setInputText: PropTypes.func,
+  setValue: PropTypes.func,
+  value: PropTypes.string,
 }
