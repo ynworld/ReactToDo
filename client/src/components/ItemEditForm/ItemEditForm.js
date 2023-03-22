@@ -59,7 +59,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           disabled={inputText.trim() === ''}
           type="submit"
         >
-          Add
+          {todo ? 'Edit' : 'Add'}
         </button>
       </div>
     </form>
