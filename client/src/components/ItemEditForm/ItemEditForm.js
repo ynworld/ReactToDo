@@ -8,33 +8,26 @@ import { TodoListStore, TodoListItem } from '../../stores/TodoListStore'
 const ItemEditForm = ({ onClose, todo, todoList }) => {
   const [inputText, setInputText] = useState(todo?.text || '')
 
-  const isInputEmpty = inputText.trim() === ''
-
-  const handleTextInput = (event) => {
+  const handleTextInputChange = (event) => {
     setInputText(event.target.value)
   }
 
-  const handleAddItem = () => {
-    if (isInputEmpty) return
-    post('/todos', { text: inputText }).then((todoItem) => {
-      todoList.addItem(todoItem)
-      onClose()
-    })
-  }
-
-  const handleEditItem = () => {
-    const text = inputText.trim()
-
-    if (isInputEmpty) return
-
-    todo.setText(text)
-    onClose()
-  }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if (todo) handleEditItem()
-    else handleAddItem()
+
+    const trimmedText = inputText.trim()
+
+    if (trimmedText === '') return
+
+    if (todo) {
+      todo.setText(trimmedText)
+    } else {
+      const todoItem = await post('/todos', { text: trimmedText })
+
+      todoList.addItem(todoItem)
+    }
+
+    onClose()
   }
 
   return (
@@ -44,7 +37,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           'h-8 grow rounded-md border-2 border-primary px-2 text-sm',
           'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
         )}
-        onChange={handleTextInput}
+        onChange={handleTextInputChange}
         placeholder="I need to..."
         type="text"
         value={inputText}
