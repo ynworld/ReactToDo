@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
 import { TodoListStore } from '../../stores/TodoListStore'
-import AddItemForm from './AddItemForm'
-import { ModalContent, ModalHeader } from '../Modal'
+import { ItemEditForm, ModalContent, ModalHeader } from '..'
 
 const AddItemModal = ({ onClose, todoList }) => (
   <ModalContent>
     <ModalHeader title="Add New Todo" />
-    <AddItemForm onClose={onClose} todoList={todoList} />
+    <ItemEditForm onClose={onClose} todoList={todoList} />
   </ModalContent>
 )
 
