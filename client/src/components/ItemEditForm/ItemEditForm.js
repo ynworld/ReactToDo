@@ -9,6 +9,10 @@ import { TodoListStore, TodoListItem } from '../../stores/TodoListStore'
 const ItemEditForm = ({ onClose, todo, todoList }) => {
   const [inputText, setInputText] = useState(todo?.text || '')
 
+  const handleTextInputChange = (event) => {
+    setInputText(event.target.value)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -31,8 +35,8 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
       <TextInput
         error="Please enter some text"
+        onChange={handleTextInputChange}
         placeholder="I need to..."
-        setValue={setInputText}
         value={inputText}
       />
       <div className="flex grow justify-end gap-2">

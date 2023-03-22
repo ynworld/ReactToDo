@@ -3,8 +3,10 @@ import classnames from 'classnames'
 import { PropTypes } from 'prop-types'
 import { Truncate } from '..'
 
-const TextInput = ({ error, value, setValue, placeholder }) => {
+const TextInput = ({ value, onChange, ...inputProps }) => {
   const [errorText, setErrorText] = useState(null)
+
+  const error = 'Please enter some text'
 
   const validateInput = (text) => {
     if (text.trim() === '') {
@@ -14,8 +16,8 @@ const TextInput = ({ error, value, setValue, placeholder }) => {
     }
   }
 
-  const handleTextInputChange = (event) => {
-    setValue(event.target.value)
+  const handleChange = (event) => {
+    onChange(event)
     validateInput(event.target.value)
   }
 
@@ -29,8 +31,8 @@ const TextInput = ({ error, value, setValue, placeholder }) => {
           'h-8 flex-1 rounded-md border-2 p-2 text-sm',
           'outline-none transition-all duration-300 focus:shadow-md',
         )}
-        onChange={handleTextInputChange}
-        placeholder={placeholder}
+        {...inputProps}
+        onChange={handleChange}
         type="text"
         value={value}
       />
@@ -46,8 +48,7 @@ const TextInput = ({ error, value, setValue, placeholder }) => {
 export default TextInput
 
 TextInput.propTypes = {
-  error: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  setValue: PropTypes.func,
   value: PropTypes.string,
 }
