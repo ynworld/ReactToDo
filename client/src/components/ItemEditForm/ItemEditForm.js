@@ -2,6 +2,7 @@ import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import classnames from 'classnames'
 import { post } from '../../api'
+import { TextInput } from '..'
 
 import { TodoListStore, TodoListItem } from '../../stores/TodoListStore'
 
@@ -31,18 +32,9 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
   }
 
   return (
-    <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-      <input
-        className={classnames(
-          'h-8 grow rounded-md border-2 border-primary px-2 text-sm',
-          'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
-        )}
-        onChange={handleTextInputChange}
-        placeholder="I need to..."
-        type="text"
-        value={inputText}
-      />
-      <div className="flex justify-end gap-2">
+    <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
+      <TextInput onChange={handleTextInputChange} placeholder="I need to..." value={inputText} />
+      <div className="flex grow justify-end gap-2">
         <button
           className={classnames(
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
@@ -56,8 +48,10 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
         <button
           className={classnames(
             'flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
-            'hover:bg-primary-dark active:shadow-sm',
+            'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
+            'transition-all duration-300',
           )}
+          disabled={inputText.trim() === ''}
           type="submit"
         >
           {todo ? 'Edit' : 'Add'}
