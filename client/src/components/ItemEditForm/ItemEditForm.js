@@ -33,12 +33,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
-      <TextInput
-        error="Please enter some text"
-        onChange={handleTextInputChange}
-        placeholder="I need to..."
-        value={inputText}
-      />
+      <TextInput onChange={handleTextInputChange} placeholder="I need to..." value={inputText} />
       <div className="flex grow justify-end gap-2">
         <button
           className={classnames(
