@@ -9,15 +9,13 @@ import { CompletionBar, TodoList, Loading, AddItemButtonWithModal } from './comp
 const isMstEnabled = true
 
 const App = () => {
-  let newAppStore
+  const getStore = () => {
+    if (isMstEnabled) return mstAppStore.create()
 
-  if (isMstEnabled) {
-    newAppStore = mstAppStore.create()
-  } else {
-    newAppStore = new AppStore()
+    return new AppStore()
   }
 
-  const [appStore] = useState(() => newAppStore)
+  const [appStore] = useState(() => getStore())
   const { isLoading, todoList } = appStore
 
   useEffect(() => {
