@@ -1,5 +1,5 @@
 import { types, flow } from 'mobx-state-tree'
-import { TodoListStore } from './TodoListStore'
+import { mstTodoListStore } from './TodoListStore'
 import { get } from '../api'
 
 const mstAppStore = types
@@ -9,7 +9,7 @@ const mstAppStore = types
   }))
   .views(() => ({
     get todoList() {
-      return new TodoListStore()
+      return mstTodoListStore.create()
     },
   }))
   .actions((self) => ({

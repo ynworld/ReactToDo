@@ -6,7 +6,7 @@ import { put } from '../../api'
 
 const mstTodoListStore = types
   .model('TodoListStore', {
-    items: [],
+    items: types.array(types.frozen()),
   })
   .views((self) => ({
     get checkedItemsCount() {

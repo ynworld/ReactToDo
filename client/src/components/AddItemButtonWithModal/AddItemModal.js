@@ -12,7 +12,7 @@ const AddItemModal = ({ onClose, todoList }) => (
 
 AddItemModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  todoList: PropTypes.instanceOf(TodoListStore).isRequired,
+  todoList: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListStore)]).isRequired,
 }
 
 export default observer(AddItemModal)
