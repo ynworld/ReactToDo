@@ -20,6 +20,7 @@ const mstAppStore = types
 
         self.todoList.setItems(items)
       } catch (error) {
+        // eslint-disable-next-line
         console.log(error)
       } finally {
         self.isLoading = false
