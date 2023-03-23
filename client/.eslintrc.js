@@ -31,6 +31,7 @@ module.exports = {
       { blankLine: 'any', next: ['const', 'let'], prev: ['const', 'let'] },
       { blankLine: 'always', next: ['block-like', 'return'], prev: '*' },
     ],
+    'no-param-reassign': 'off',
     'prettier/prettier': 'error',
     'react/forbid-prop-types': 'off',
     'react/function-component-definition': [
