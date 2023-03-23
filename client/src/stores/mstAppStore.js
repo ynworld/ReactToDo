@@ -14,15 +14,17 @@ const mstAppStore = types
   }))
   .actions((self) => ({
     loadTodoList: flow(function* loadTodoList() {
-      const { items } = yield get('/todos')
+      try {
+        self.isLoading = true
+        const { items } = yield get('/todos')
 
-      self.todoList.setItems(items)
-      self.setIsLoading(false)
+        self.todoList.setItems(items)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        self.isLoading = false
+      }
     }),
-
-    setIsLoading(value) {
-      self.isLoading = value
-    },
   }))
 
 export default mstAppStore
