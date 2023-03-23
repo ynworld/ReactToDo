@@ -2,17 +2,27 @@ import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 
 import AppStore from './stores/AppStore'
+import mstAppStore from './stores/mstAppStore'
 
 import { CompletionBar, TodoList, Loading, AddItemButtonWithModal } from './components'
 
+const isMstEnabled = true
+
 const App = () => {
-  const [appStore] = useState(() => new AppStore())
+  let newAppStore
+
+  if (isMstEnabled) {
+    newAppStore = mstAppStore.create()
+  } else {
+    newAppStore = new AppStore()
+  }
+
+  const [appStore] = useState(() => newAppStore)
+  const { isLoading, todoList } = appStore
 
   useEffect(() => {
     appStore.loadTodoList()
   }, [appStore])
-
-  const { isLoading, todoList } = appStore
 
   return (
     <main className="mx-auto p-4 sm:max-w-md">
