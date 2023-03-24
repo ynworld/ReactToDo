@@ -3,14 +3,11 @@ import { mstTodoListStore } from './TodoListStore'
 import { get } from '../api'
 
 const mstAppStore = types
-  .model('AppStore', {})
+  .model('AppStore', {
+    todoList: types.optional(types.maybe(mstTodoListStore), () => mstTodoListStore.create()),
+  })
   .volatile(() => ({
     isLoading: false,
-  }))
-  .views(() => ({
-    get todoList() {
-      return mstTodoListStore.create()
-    },
   }))
   .actions((self) => ({
     loadTodoList: flow(function* loadTodoList() {
