@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { flow, types } from 'mobx-state-tree'
 import mstTodoListItem from './mstTodoListItem'
 import { sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
@@ -42,11 +42,16 @@ const mstTodoListStore = types
       self.items.replace(newItems)
     },
 
-    reorderItems() {
+    reorderItems: flow(function* reorderItems() {
       const itemIds = self.items.map((item) => item.id)
 
-      put(`/todos/reorder`, { itemIds })
-    },
+      try {
+        yield put(`/todos/reorder`, { itemIds })
+      } catch (error) {
+        // eslint-ignore-next-line
+        console.log(error)
+      }
+    }),
 
     setItems(items) {
       const itemModels = items.map((item, index) => mstTodoListItem.create({ ...item, index }))
