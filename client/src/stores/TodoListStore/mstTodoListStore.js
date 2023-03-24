@@ -1,6 +1,6 @@
 import { flow, types } from 'mobx-state-tree'
 import mstTodoListItem from './mstTodoListItem'
-import { sortByDate } from '../../helpers'
+import { logError, sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
 import { put } from '../../api'
 
@@ -48,8 +48,7 @@ const mstTodoListStore = types
       try {
         yield put(`/todos/reorder`, { itemIds })
       } catch (error) {
-        // eslint-disable-next-line
-        console.log(error)
+        logError(error)
       }
     }),
 

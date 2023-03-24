@@ -1,12 +1,13 @@
 import { flow, getParentOfType, getSnapshot, onSnapshot, types } from 'mobx-state-tree'
 
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import { del, put } from '../../api'
 import mstTodoListStore from './mstTodoListStore'
+import { logError } from '../../helpers'
 
 const mstTodoListItem = types
   .model('TodoItem', {
-    createdAt: types.string,
+    createdAt: types.Date,
     id: types.identifierNumber,
     isChecked: false,
     isImportant: false,
@@ -16,7 +17,7 @@ const mstTodoListItem = types
     get displayDate() {
       if (!self.createdAt) return null
 
-      return format(parseISO(self.createdAt), 'P')
+      return format(self.createdAt, 'P')
     },
 
     get todoListStore() {
@@ -34,8 +35,7 @@ const mstTodoListItem = types
 
         self.todoListStore.deleteItem(self)
       } catch (error) {
-        // eslint-disable-next-line
-        console.log(error)
+        logError(error)
       }
     }),
 
@@ -50,8 +50,7 @@ const mstTodoListItem = types
         self.isImportant = isImportant
         self.createdAt = createdAt
       } catch (error) {
-        // eslint-disable-next-line
-        console.log(error)
+        logError(error)
       }
     }),
 
