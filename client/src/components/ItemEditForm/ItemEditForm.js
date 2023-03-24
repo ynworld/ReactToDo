@@ -65,6 +65,6 @@ export default ItemEditForm
 
 ItemEditForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  todo: PropTypes.instanceOf(TodoListItem),
+  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]),
   todoList: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListStore)]),
 }

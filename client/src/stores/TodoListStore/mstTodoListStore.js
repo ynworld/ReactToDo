@@ -1,12 +1,12 @@
 import { types } from 'mobx-state-tree'
-import { TodoListItem } from '.'
+import mstTodoListItem from './mstTodoListItem'
 import { sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
 import { put } from '../../api'
 
 const mstTodoListStore = types
-  .model('TodoListStore', {
-    items: types.array(types.frozen()),
+  .model('TodoList', {
+    items: types.array(types.optional(mstTodoListItem, {})),
   })
   .views((self) => ({
     get checkedItemsCount() {
@@ -29,7 +29,7 @@ const mstTodoListStore = types
   }))
   .actions((self) => ({
     addItem(todoItem) {
-      self.items.unshift(new TodoListItem({ ...todoItem }, 0, self))
+      self.items.unshift(mstTodoListItem.create({ ...todoItem, index: 0 }))
     },
 
     deleteItem(todoItem) {
@@ -49,7 +49,7 @@ const mstTodoListStore = types
     },
 
     setItems(items) {
-      const itemModels = items.map((item, index) => new TodoListItem(item, index, self))
+      const itemModels = items.map((item, index) => mstTodoListItem.create({ ...item, index }))
 
       self.items.replace(itemModels)
     },

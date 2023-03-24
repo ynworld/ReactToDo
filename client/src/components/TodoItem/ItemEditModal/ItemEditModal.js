@@ -19,7 +19,7 @@ const ItemEditModal = ({ isOpen, setIsOpen, todo }) => {
 ItemEditModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  todo: PropTypes.instanceOf(TodoListItem).isRequired,
+  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]).isRequired,
 }
 
 export default observer(ItemEditModal)

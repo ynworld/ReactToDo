@@ -4,7 +4,7 @@ import { get } from '../api'
 
 const mstAppStore = types
   .model('AppStore', {
-    todoList: types.optional(types.maybe(mstTodoListStore), () => mstTodoListStore.create()),
+    todoList: types.optional(mstTodoListStore, {}),
   })
   .volatile(() => ({
     isLoading: false,

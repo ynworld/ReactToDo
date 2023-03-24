@@ -50,7 +50,7 @@ const TodoItem = ({ onDelete, todo, dndProps = {} }) => {
 TodoItem.propTypes = {
   dndProps: PropTypes.object,
   onDelete: PropTypes.func,
-  todo: PropTypes.instanceOf(TodoListItem).isRequired,
+  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]).isRequired,
 }
 
 export default observer(TodoItem)
