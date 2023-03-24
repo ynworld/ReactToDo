@@ -29,7 +29,7 @@ const mstTodoListStore = types
   }))
   .actions((self) => ({
     addItem(todoItem) {
-      self.items.unshift(mstTodoListItem.create({ ...todoItem, index: 0 }))
+      self.items.unshift(mstTodoListItem.create({ ...todoItem }))
     },
 
     deleteItem(todoItem) {
@@ -48,16 +48,19 @@ const mstTodoListStore = types
       try {
         yield put(`/todos/reorder`, { itemIds })
       } catch (error) {
-        // eslint-ignore-next-line
+        // eslint-disable-next-line
         console.log(error)
       }
     }),
 
     setItems(items) {
-      const itemModels = items.map((item, index) => mstTodoListItem.create({ ...item, index }))
+      const itemModels = items.map((item) => mstTodoListItem.create({ ...item }))
 
       self.items.replace(itemModels)
     },
+  }))
+  .volatile(() => ({
+    undoArray: [],
   }))
 
 export default mstTodoListStore

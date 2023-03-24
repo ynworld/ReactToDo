@@ -11,7 +11,7 @@ const TodoItemWithDnd = ({ onDelete, index, todo }) => {
   const itemToMoveRef = useRef(null)
 
   const { todoListStore } = todo
-  const canDrag = !todoListStore.hasItemInEditingMode && !todo.isImportant
+  const canDrag = !todo.isImportant
 
   const { drag, isDragging } = useSortable({
     canDrag,

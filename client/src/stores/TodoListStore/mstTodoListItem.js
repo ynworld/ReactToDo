@@ -7,7 +7,6 @@ const mstTodoListItem = types
   .model('TodoItem', {
     createdAt: types.maybe(types.string),
     id: types.maybe(types.integer),
-    index: types.maybe(types.integer),
     isChecked: types.optional(types.boolean, false),
     isImportant: types.optional(types.boolean, false),
     text: types.optional(types.string, ''),
