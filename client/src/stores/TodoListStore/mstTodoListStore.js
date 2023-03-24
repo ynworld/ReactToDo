@@ -5,8 +5,8 @@ import { move } from '../../helpers/array'
 import { put } from '../../api'
 
 const mstTodoListStore = types
-  .model('TodoList', {
-    items: types.array(types.optional(mstTodoListItem, {})),
+  .model('TodoListStore', {
+    items: types.array(mstTodoListItem),
   })
   .views((self) => ({
     get checkedItemsCount() {
@@ -29,7 +29,7 @@ const mstTodoListStore = types
   }))
   .actions((self) => ({
     addItem(todoItem) {
-      self.items.unshift(mstTodoListItem.create({ ...todoItem }))
+      self.items.unshift(todoItem)
     },
 
     deleteItem(todoItem) {
@@ -54,13 +54,8 @@ const mstTodoListStore = types
     }),
 
     setItems(items) {
-      const itemModels = items.map((item) => mstTodoListItem.create({ ...item }))
-
-      self.items.replace(itemModels)
+      self.items.replace(items)
     },
-  }))
-  .volatile(() => ({
-    undoArray: [],
   }))
 
 export default mstTodoListStore

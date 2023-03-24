@@ -47,5 +47,5 @@ export default ItemDeleteForm
 
 ItemDeleteForm.propTypes = {
   closeModal: PropTypes.func,
-  todo: PropTypes.instanceOf(TodoListItem),
+  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]),
 }

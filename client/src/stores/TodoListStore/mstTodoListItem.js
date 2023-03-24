@@ -1,15 +1,16 @@
-import { flow, getParent, getSnapshot, onSnapshot, types } from 'mobx-state-tree'
+import { flow, getParentOfType, getSnapshot, onSnapshot, types } from 'mobx-state-tree'
 
 import { format, parseISO } from 'date-fns'
 import { del, put } from '../../api'
+import mstTodoListStore from './mstTodoListStore'
 
 const mstTodoListItem = types
   .model('TodoItem', {
-    createdAt: types.maybe(types.string),
-    id: types.maybe(types.integer),
-    isChecked: types.optional(types.boolean, false),
-    isImportant: types.optional(types.boolean, false),
-    text: types.optional(types.string, ''),
+    createdAt: types.string,
+    id: types.identifierNumber,
+    isChecked: false,
+    isImportant: false,
+    text: types.string,
   })
   .views((self) => ({
     get displayDate() {
@@ -19,7 +20,7 @@ const mstTodoListItem = types
     },
 
     get todoListStore() {
-      return getParent(self, 2)
+      return getParentOfType(self, mstTodoListStore)
     },
   }))
   .actions((self) => ({
@@ -29,9 +30,9 @@ const mstTodoListItem = types
 
     delete: flow(function* deleteItem() {
       try {
-        yield del(`/todos/${self.id}`).then(() => {
-          self.todoListStore.deleteItem(self)
-        })
+        yield del(`/todos/${self.id}`)
+
+        self.todoListStore.deleteItem(self)
       } catch (error) {
         // eslint-disable-next-line
         console.log(error)
