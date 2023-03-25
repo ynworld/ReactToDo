@@ -37,6 +37,7 @@ const _omit = require('lodash/omit')
 const _isArray = require('lodash/isArray')
 
 const express = require('express')
+
 const router = express.Router()
 
 const todoList = require('../mocks/todo-list')
@@ -92,9 +93,13 @@ router.post('/', (req, res) => {
 
   const { isChecked = false, text } = todoItem
 
-  if (!text) return res.status(400).send({ error: 'Text is required' })
+  if (!text) {
+    res.status(400).send({ error: 'Text is required' })
 
-  const newItem = { id: Date.now(), isChecked, text, createdAt: new Date() }
+    return
+  }
+
+  const newItem = { createdAt: Date.now(), id: Date.now(), isChecked, isImportant: false, text }
 
   todoListItems.unshift(newItem)
 
@@ -137,7 +142,9 @@ router.put('/reorder', (req, res) => {
   if (itemIds.length === 0) return
 
   if (itemIds.length !== todoListItems.length) {
-    return res.status(400).send({ error: 'Item count mismatch' })
+    res.status(400).send({ error: 'Item count mismatch' })
+
+    return
   }
 
   const reorderedTodoList = itemIds.map((id) => todoListItems.find((item) => item.id === id))
@@ -209,6 +216,7 @@ router.delete('/:id', (req, res) => {
     res.status(404).send({ error: 'Todo item not found' })
   } else {
     const [removedItem] = todoListItems.splice(itemIndex, 1)
+
     res.status(200).send(removedItem)
   }
 })

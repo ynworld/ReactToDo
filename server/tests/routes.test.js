@@ -1,6 +1,6 @@
 const supertest = require('supertest')
-const app = require('../app')
 const _isNumber = require('lodash/isNumber')
+const app = require('../app')
 
 const request = supertest(app)
 
@@ -41,6 +41,7 @@ test('should update todo item', async () => {
   const {
     body: { id },
   } = await request.post('/todos').send({ text: 'Test todo' })
+
   await request.get('/todos')
 
   const editedTodoText = 'Edited todo'
@@ -57,6 +58,7 @@ test('should reorder todo list', async () => {
   const existingIds = res.body.items.map((item) => item.id)
 
   const itemIds = existingIds
+
   itemIds.reverse()
 
   const { body, statusCode } = await request.put('/todos/reorder').send({ itemIds })
