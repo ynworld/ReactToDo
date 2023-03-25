@@ -17,7 +17,7 @@ const ItemDeleteModal = ({ isOpen, onClose, todo }) => {
 ItemDeleteModal.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  todo: PropTypes.instanceOf(TodoListItem),
+  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]),
 }
 
 export default ItemDeleteModal

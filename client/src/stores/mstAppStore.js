@@ -1,16 +1,13 @@
 import { types, flow } from 'mobx-state-tree'
-import { TodoListStore } from './TodoListStore'
+import { mstTodoListStore } from './TodoListStore'
 import { get } from '../api'
 
 const mstAppStore = types
-  .model('AppStore', {})
+  .model('AppStore', {
+    todoList: types.optional(mstTodoListStore, {}),
+  })
   .volatile(() => ({
     isLoading: false,
-  }))
-  .views(() => ({
-    get todoList() {
-      return new TodoListStore()
-    },
   }))
   .actions((self) => ({
     loadTodoList: flow(function* loadTodoList() {

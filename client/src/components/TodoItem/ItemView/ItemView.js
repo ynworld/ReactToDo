@@ -31,7 +31,7 @@ const ItemView = ({ onDelete, openEditModal, todo }) => {
 ItemView.propTypes = {
   onDelete: PropTypes.func,
   openEditModal: PropTypes.func.isRequired,
-  todo: PropTypes.instanceOf(TodoListItem).isRequired,
+  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]).isRequired,
 }
 
 export default observer(ItemView)

@@ -81,7 +81,8 @@ const TodoList = ({ todoListStore }) => {
 }
 
 TodoList.propTypes = {
-  todoListStore: PropTypes.instanceOf(TodoListStore).isRequired,
+  todoListStore: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListStore)])
+    .isRequired,
 }
 
 export default observer(TodoList)

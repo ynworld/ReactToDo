@@ -9,8 +9,6 @@ import { del, put } from '../../api'
 class TodoListItem {
   id = null
 
-  index = null
-
   text = ''
 
   isChecked = false
@@ -19,13 +17,12 @@ class TodoListItem {
 
   createdAt = null
 
-  constructor({ id, text, isChecked, isImportant, createdAt }, index, todoListStore) {
+  constructor({ id, text, isChecked, isImportant, createdAt }, todoListStore) {
     makeObservable(this, {
       createdAt: observable,
       delete: action.bound,
       displayDate: computed,
       id: observable,
-      index: observable,
       isChecked: observable,
       isImportant: observable,
       setText: action,
@@ -39,7 +36,6 @@ class TodoListItem {
     this.id = id
     this.isChecked = isChecked || false
     this.text = text || ''
-    this.index = index ?? null
     this.isImportant = isImportant || false
     this.createdAt = createdAt || null
 
