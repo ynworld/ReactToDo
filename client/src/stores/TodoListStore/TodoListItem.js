@@ -2,7 +2,7 @@
 
 import { makeObservable, observable, action, computed, reaction } from 'mobx'
 
-import { parseISO, format } from 'date-fns'
+import { format } from 'date-fns'
 
 import { del, put } from '../../api'
 
@@ -51,7 +51,7 @@ class TodoListItem {
   get displayDate() {
     if (!this.createdAt) return null
 
-    return format(parseISO(this.createdAt), 'P')
+    return format(this.createdAt, 'P')
   }
 
   get snapshot() {
