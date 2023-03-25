@@ -196,7 +196,9 @@ router.put('/:id', (req, res) => {
 
   const currentItem = todoListItems[itemIndex]
 
-  if (_has(updatedItem, ['text', 'isChecked', 'isImportant'])) {
+  const requiredFields = ['text', 'isChecked', 'isImportant']
+
+  if (requiredFields.some((field) => !_has(updatedItem, field))) {
     res.status(400).send({ error: 'Fields mismatch' })
 
     return
