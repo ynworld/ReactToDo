@@ -54,7 +54,7 @@ const todoItems = [
 
 const dateModifiedItems = todoItems.map((item, index) => ({
   ...item,
-  createdAt: createdAt + index * 1000,
+  createdAt: createdAt - index * 1000 * 60 * 60 * 24,
 }))
 
 module.exports = dateModifiedItems
