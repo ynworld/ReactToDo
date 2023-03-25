@@ -44,12 +44,16 @@ test('should update todo item', async () => {
 
   await request.get('/todos')
 
-  const editedTodoText = 'Edited todo'
+  const updatedTodo = {
+    isChecked: true,
+    isImportant: true,
+    text: 'Edited todo',
+  }
 
-  const { body, statusCode } = await request.put(`/todos/${id}`).send({ text: editedTodoText })
+  const { body, statusCode } = await request.put(`/todos/${id}`).send(updatedTodo)
 
   expect(statusCode).toBe(200)
-  expect(body.text).toBe(editedTodoText)
+  expect(body).toMatchObject(updatedTodo)
 })
 
 test('should reorder todo list', async () => {

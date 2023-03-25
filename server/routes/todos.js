@@ -35,6 +35,10 @@
 const _omit = require('lodash/omit')
 
 const _isArray = require('lodash/isArray')
+const _has = require('lodash/has')
+const _isNumber = require('lodash/isNumber')
+const _isString = require('lodash/isString')
+const _isBoolean = require('lodash/isBoolean')
 
 const express = require('express')
 
@@ -184,10 +188,39 @@ router.put('/:id', (req, res) => {
 
   if (itemIndex === -1) {
     res.status(404).send({ error: 'Todo item not found' })
-  } else {
-    todoListItems[itemIndex] = { ...todoListItems[itemIndex], ..._omit(req.body, 'id') }
-    res.send(todoListItems[itemIndex])
+
+    return
   }
+
+  const updatedItem = req.body
+
+  const currentItem = todoListItems[itemIndex]
+
+  if (_has(updatedItem, ['text', 'isChecked', 'isImportant'])) {
+    res.status(400).send({ error: 'Fields mismatch' })
+
+    return
+  }
+
+  const areItemFieldsValid = ({ text, isChecked, isImportant }) => {
+    return _isString(text) && _isBoolean(isChecked) && _isBoolean(isImportant)
+  }
+
+  if (!areItemFieldsValid(updatedItem)) {
+    res.status(400).send({ error: 'Types mismatch' })
+
+    return
+  }
+
+  todoListItems[itemIndex] = {
+    createdAt: currentItem.createdAt,
+    id: currentItem.id,
+    isChecked: updatedItem.isChecked,
+    isImportant: updatedItem.isImportant,
+    text: updatedItem.text,
+  }
+
+  res.send(todoListItems[itemIndex])
 })
 
 /**
