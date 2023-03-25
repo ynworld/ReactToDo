@@ -13,6 +13,9 @@ const TodoListItem = types
     isImportant: types.boolean,
     text: types.string,
   })
+  .volatile(() => ({
+    didJustLoad: true,
+  }))
   .views((self) => ({
     get displayDate() {
       if (!self.createdAt) return null
@@ -40,6 +43,12 @@ const TodoListItem = types
     }),
 
     save: flow(function* save() {
+      if (self.didJustLoad === true) {
+        self.didJustLoad = false
+
+        return
+      }
+
       try {
         yield put(`/todos/${self.id}`, getSnapshot(self))
       } catch (error) {
