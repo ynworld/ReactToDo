@@ -1,5 +1,4 @@
 import { PropTypes } from 'prop-types'
-import { TodoListItem } from '../../../stores/TodoListStore'
 import ItemDeleteForm from './ItemDeleteForm'
 import { Modal, ModalContent, ModalHeader } from '../..'
 
@@ -17,7 +16,7 @@ const ItemDeleteModal = ({ isOpen, onClose, todo }) => {
 ItemDeleteModal.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]),
+  todo: PropTypes.object,
 }
 
 export default ItemDeleteModal

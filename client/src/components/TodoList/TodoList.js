@@ -3,8 +3,6 @@ import { observer } from 'mobx-react'
 import { createRef, useState } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { TodoListStore } from '../../stores/TodoListStore'
-
 import { ItemDeleteModal, DragPreview } from '..'
 import { TodoItem, TodoItemWithDnd } from '../TodoItem'
 
@@ -81,8 +79,7 @@ const TodoList = ({ todoListStore }) => {
 }
 
 TodoList.propTypes = {
-  todoListStore: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListStore)])
-    .isRequired,
+  todoListStore: PropTypes.object.isRequired,
 }
 
 export default observer(TodoList)

@@ -1,98 +1,63 @@
-/* eslint-disable max-lines */
-
-import { makeObservable, observable, action, computed, reaction } from 'mobx'
+import { flow, getParentOfType, getSnapshot, onSnapshot, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
-
 import { del, put } from '../../api'
+import TodoListStore from './TodoListStore'
+import { logError } from '../../helpers'
 
-class TodoListItem {
-  id = null
+const TodoListItem = types
+  .model('TodoItem', {
+    createdAt: types.Date,
+    id: types.identifierNumber,
+    isChecked: types.boolean,
+    isImportant: types.boolean,
+    text: types.string,
+  })
+  .views((self) => ({
+    get displayDate() {
+      if (!self.createdAt) return null
 
-  text = ''
+      return format(self.createdAt, 'P')
+    },
 
-  isChecked = false
+    get todoListStore() {
+      return getParentOfType(self, TodoListStore)
+    },
+  }))
+  .actions((self) => ({
+    afterCreate() {
+      onSnapshot(self, self.save)
+    },
 
-  isImportant = false
+    delete: flow(function* remove() {
+      try {
+        yield del(`/todos/${self.id}`)
 
-  createdAt = null
+        self.todoListStore.deleteItem(self)
+      } catch (error) {
+        logError(error, 'Delete Error:')
+      }
+    }),
 
-  constructor({ id, text, isChecked, isImportant, createdAt }, todoListStore) {
-    makeObservable(this, {
-      createdAt: observable,
-      delete: action.bound,
-      displayDate: computed,
-      id: observable,
-      isChecked: observable,
-      isImportant: observable,
-      setText: action,
-      snapshot: computed,
-      text: observable,
-      toggle: action.bound,
-      toggleIsImportant: action.bound,
-      updateSnapshot: action.bound,
-    })
+    save: flow(function* save() {
+      try {
+        yield put(`/todos/${self.id}`, getSnapshot(self))
+      } catch (error) {
+        logError(error, 'Save Error:')
+      }
+    }),
 
-    this.id = id
-    this.isChecked = isChecked || false
-    this.text = text || ''
-    this.isImportant = isImportant || false
-    this.createdAt = createdAt || null
+    setText(value) {
+      self.text = value
+    },
 
-    this.todoListStore = todoListStore
+    toggle() {
+      self.isChecked = !self.isChecked
+    },
 
-    reaction(() => this.snapshot, this.save)
-  }
-
-  get displayDate() {
-    if (!this.createdAt) return null
-
-    return format(this.createdAt, 'P')
-  }
-
-  get snapshot() {
-    return {
-      createdAt: this.createdAt,
-      id: this.id,
-      isChecked: this.isChecked,
-      isImportant: this.isImportant,
-      text: this.text,
-    }
-  }
-
-  toggle() {
-    this.isChecked = !this.isChecked
-  }
-
-  setText(value) {
-    this.text = value
-  }
-
-  save = (snapshot) => {
-    put(`/todos/${this.id}`, snapshot).then(this.updateSnapshot)
-  }
-
-  toggleIsImportant() {
-    this.isImportant = !this.isImportant
-  }
-
-  updateSnapshot(updatedItem) {
-    if (JSON.stringify(this.snapshot) === JSON.stringify(updatedItem)) return
-
-    const { id, text, isChecked, isImportant, createdAt } = updatedItem
-
-    this.id = id
-    this.text = text
-    this.isChecked = isChecked
-    this.isImportant = isImportant
-    this.createdAt = createdAt
-  }
-
-  delete() {
-    del(`/todos/${this.id}`).then(() => {
-      this.todoListStore.deleteItem(this)
-    })
-  }
-}
+    toggleIsImportant() {
+      self.isImportant = !self.isImportant
+    },
+  }))
 
 export default TodoListItem

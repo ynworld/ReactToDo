@@ -5,8 +5,6 @@ import classnames from 'classnames'
 
 import { ItemView, Icon, ItemEditModal } from '..'
 
-import { TodoListItem } from '../../stores/TodoListStore'
-
 import { iconNames } from '../../constants'
 import { useBoolean } from '../../hooks'
 
@@ -50,7 +48,7 @@ const TodoItem = ({ onDelete, todo, dndProps = {} }) => {
 TodoItem.propTypes = {
   dndProps: PropTypes.object,
   onDelete: PropTypes.func,
-  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]).isRequired,
+  todo: PropTypes.object.isRequired,
 }
 
 export default observer(TodoItem)

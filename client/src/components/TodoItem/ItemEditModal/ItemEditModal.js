@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
-import { TodoListItem } from '../../../stores/TodoListStore'
 import { ItemEditForm, Modal, ModalHeader, ModalContent } from '../..'
 
 const ItemEditModal = ({ isOpen, setIsOpen, todo }) => {
@@ -19,7 +18,7 @@ const ItemEditModal = ({ isOpen, setIsOpen, todo }) => {
 ItemEditModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]).isRequired,
+  todo: PropTypes.object.isRequired,
 }
 
 export default observer(ItemEditModal)
