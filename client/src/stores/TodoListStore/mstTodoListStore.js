@@ -1,4 +1,4 @@
-import { flow, types } from 'mobx-state-tree'
+import { destroy, flow, types } from 'mobx-state-tree'
 import mstTodoListItem from './mstTodoListItem'
 import { logError, sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
@@ -33,7 +33,7 @@ const mstTodoListStore = types
     },
 
     deleteItem(todoItem) {
-      self.items.remove(todoItem)
+      destroy(todoItem)
     },
 
     moveItem(fromIndex, toIndex) {
@@ -48,7 +48,7 @@ const mstTodoListStore = types
       try {
         yield put(`/todos/reorder`, { itemIds })
       } catch (error) {
-        logError(error)
+        logError(error, 'Reorder Error:')
       }
     }),
 

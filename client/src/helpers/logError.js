@@ -1,6 +1,6 @@
-const logError = (error) => {
+const logError = (error, description = 'Internal Error:') => {
   // eslint-disable-next-line
-  console.log('Todo List Error:', error)
+  console.log(description, error)
 }
 
 export default logError

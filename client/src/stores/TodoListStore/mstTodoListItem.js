@@ -9,8 +9,8 @@ const mstTodoListItem = types
   .model('TodoItem', {
     createdAt: types.Date,
     id: types.identifierNumber,
-    isChecked: false,
-    isImportant: false,
+    isChecked: types.boolean,
+    isImportant: types.boolean,
     text: types.string,
   })
   .views((self) => ({
@@ -29,28 +29,21 @@ const mstTodoListItem = types
       onSnapshot(self, self.save)
     },
 
-    delete: flow(function* deleteItem() {
+    delete: flow(function* remove() {
       try {
         yield del(`/todos/${self.id}`)
 
         self.todoListStore.deleteItem(self)
       } catch (error) {
-        logError(error)
+        logError(error, 'Delete Error:')
       }
     }),
 
     save: flow(function* save() {
       try {
-        const updatedItem = yield put(`/todos/${self.id}`, getSnapshot(self))
-        const { id, text, isChecked, isImportant, createdAt } = updatedItem
-
-        self.id = id
-        self.text = text
-        self.isChecked = isChecked
-        self.isImportant = isImportant
-        self.createdAt = createdAt
+        yield put(`/todos/${self.id}`, getSnapshot(self))
       } catch (error) {
-        logError(error)
+        logError(error, 'Save Error:')
       }
     }),
 
