@@ -4,6 +4,7 @@ const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUI = require('swagger-ui-express')
 
 const app = express()
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
@@ -14,22 +15,22 @@ const port = process.env.PORT || 3131
 const options = {
   apis: ['./routes/*.js'],
   definition: {
-    servers: [{ url: `http://localhost:${port}` }],
-    openapi: '3.0.3',
     info: {
+      contact: {
+        email: 'sd@alexdus.com',
+        name: 'Aleksandr',
+        url: 'https://alexdus.com',
+      },
+      description: 'Leaning app',
       license: {
         name: 'MIT',
         url: 'https://spdx.org/licenses/MIT.html',
       },
-      contact: {
-        name: 'Aleksandr',
-        url: 'https://alexdus.com',
-        email: 'sd@alexdus.com',
-      },
-      description: 'Leaning app',
       title: 'React Todo App',
       version: '0.1.0',
     },
+    openapi: '3.0.3',
+    servers: [{ url: `http://localhost:${port}` }],
   },
 }
 

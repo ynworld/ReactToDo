@@ -32,13 +32,10 @@
  *         createdAt: '2023-02-05T21:44:24.112Z'
  */
 
-const _omit = require('lodash/omit')
-
-const _isArray = require('lodash/isArray')
 const _has = require('lodash/has')
-const _isNumber = require('lodash/isNumber')
-const _isString = require('lodash/isString')
+const _isArray = require('lodash/isArray')
 const _isBoolean = require('lodash/isBoolean')
+const _isString = require('lodash/isString')
 
 const express = require('express')
 
