@@ -1,29 +1,28 @@
-import { makeObservable, observable, action } from 'mobx'
+import { types, flow } from 'mobx-state-tree'
 import { TodoListStore } from './TodoListStore'
 import { get } from '../api'
+import { logError } from '../helpers'
 
-class AppStore {
-  todoList = new TodoListStore()
+const AppStore = types
+  .model('AppStore', {
+    todoList: types.optional(TodoListStore, {}),
+  })
+  .volatile(() => ({
+    isLoading: false,
+  }))
+  .actions((self) => ({
+    loadTodoList: flow(function* loadTodoList() {
+      try {
+        self.isLoading = true
+        const { items } = yield get('/todos')
 
-  isLoading = true
-
-  constructor() {
-    makeObservable(this, {
-      isLoading: observable,
-      setIsLoading: action,
-    })
-  }
-
-  setIsLoading(value) {
-    this.isLoading = value
-  }
-
-  loadTodoList() {
-    get('/todos').then(({ items }) => {
-      this.todoList.setItems(items)
-      this.setIsLoading(false)
-    })
-  }
-}
+        self.todoList.setItems(items)
+      } catch (error) {
+        logError(error, 'List Load Error:')
+      } finally {
+        self.isLoading = false
+      }
+    }),
+  }))
 
 export default AppStore

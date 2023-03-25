@@ -4,8 +4,6 @@ import classnames from 'classnames'
 import { post } from '../../api'
 import { TextInput } from '..'
 
-import { TodoListStore, TodoListItem } from '../../stores/TodoListStore'
-
 const ItemEditForm = ({ onClose, todo, todoList }) => {
   const [inputText, setInputText] = useState(todo?.text || '')
 
@@ -65,6 +63,6 @@ export default ItemEditForm
 
 ItemEditForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]),
-  todoList: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListStore)]),
+  todo: PropTypes.object,
+  todoList: PropTypes.object,
 }

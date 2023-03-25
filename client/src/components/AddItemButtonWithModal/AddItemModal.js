@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
-import { TodoListStore } from '../../stores/TodoListStore'
 import { ItemEditForm, ModalContent, ModalHeader } from '..'
 
 const AddItemModal = ({ onClose, todoList }) => (
@@ -12,7 +11,7 @@ const AddItemModal = ({ onClose, todoList }) => (
 
 AddItemModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  todoList: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListStore)]).isRequired,
+  todoList: PropTypes.object.isRequired,
 }
 
 export default observer(AddItemModal)

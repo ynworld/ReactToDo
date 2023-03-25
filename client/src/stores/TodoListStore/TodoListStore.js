@@ -1,72 +1,60 @@
-/* eslint-disable max-lines */
-
-import { makeObservable, observable, action, computed } from 'mobx'
+import { destroy, flow, types } from 'mobx-state-tree'
+import TodoListItem from './TodoListItem'
+import { logError, sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
 import { put } from '../../api'
-import { sortByDate } from '../../helpers'
-import TodoListItem from './TodoListItem'
 
-class TodoListStore {
-  items = []
+const TodoListStore = types
+  .model('TodoListStore', {
+    items: types.array(TodoListItem),
+  })
+  .views((self) => ({
+    get checkedItemsCount() {
+      return self.items.filter((item) => item.isChecked).length
+    },
 
-  constructor() {
-    makeObservable(this, {
-      addItem: action.bound,
-      checkedItemsCount: computed,
-      deleteItem: action.bound,
-      importantItems: computed,
-      items: observable,
-      moveItem: action.bound,
-      percentComplete: computed,
-      regularItems: computed,
-      reorderItems: action.bound,
-      setItems: action.bound,
-    })
-  }
+    get importantItems() {
+      return self.items.filter((item) => item.isImportant).sort(sortByDate)
+    },
 
-  get checkedItemsCount() {
-    return this.items.filter((item) => item.isChecked).length
-  }
+    get percentComplete() {
+      if (self.items.length === 0) return 0
 
-  get importantItems() {
-    return this.items.filter((item) => item.isImportant).sort(sortByDate)
-  }
+      return (self.checkedItemsCount / self.items.length) * 100
+    },
 
-  get regularItems() {
-    return this.items.filter((item) => !item.isImportant)
-  }
+    get regularItems() {
+      return self.items.filter((item) => !item.isImportant)
+    },
+  }))
+  .actions((self) => ({
+    addItem(todoItem) {
+      self.items.unshift(todoItem)
+    },
 
-  get percentComplete() {
-    if (this.items.length === 0) return 0
+    deleteItem(todoItem) {
+      destroy(todoItem)
+    },
 
-    return (this.checkedItemsCount / this.items.length) * 100
-  }
+    moveItem(fromIndex, toIndex) {
+      const newItems = [...self.importantItems, ...move(self.regularItems, fromIndex, toIndex)]
 
-  addItem(todoItem) {
-    this.items.unshift(new TodoListItem({ ...todoItem }, this))
-  }
+      self.items.replace(newItems)
+    },
 
-  deleteItem(todoItem) {
-    this.items.remove(todoItem)
-  }
+    reorderItems: flow(function* reorderItems() {
+      const itemIds = self.items.map((item) => item.id)
 
-  moveItem(fromIndex, toIndex) {
-    const newItems = [...this.importantItems, ...move(this.regularItems, fromIndex, toIndex)]
+      try {
+        yield put(`/todos/reorder`, { itemIds })
+      } catch (error) {
+        logError(error, 'Reorder Error:')
+      }
+    }),
 
-    this.items.replace(newItems)
-  }
-
-  reorderItems() {
-    const itemIds = this.items.map((item) => item.id)
-
-    put(`/todos/reorder`, { itemIds })
-  }
-
-  setItems(items) {
-    const itemModels = items.map((item) => new TodoListItem(item, this))
-
-    this.items.replace(itemModels)
-  }
-}
+    setItems(items) {
+      self.items.replace(items)
+    },
+  }))
 
 export default TodoListStore

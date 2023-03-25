@@ -4,7 +4,6 @@ import { CheckboxField, Icon, Truncate } from '../..'
 
 import { iconNames } from '../../../constants'
 
-import { TodoListItem } from '../../../stores/TodoListStore'
 import ActionsDropdown from './ActionsDropdown'
 
 const ItemView = ({ onDelete, openEditModal, todo }) => {
@@ -31,7 +30,7 @@ const ItemView = ({ onDelete, openEditModal, todo }) => {
 ItemView.propTypes = {
   onDelete: PropTypes.func,
   openEditModal: PropTypes.func.isRequired,
-  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]).isRequired,
+  todo: PropTypes.object.isRequired,
 }
 
 export default observer(ItemView)

@@ -1,8 +1,6 @@
 import { PropTypes } from 'prop-types'
 import classnames from 'classnames'
 
-import { TodoListItem } from '../../../stores/TodoListStore'
-
 let todoText = ''
 
 const ItemDeleteForm = ({ closeModal, todo }) => {
@@ -47,5 +45,5 @@ export default ItemDeleteForm
 
 ItemDeleteForm.propTypes = {
   closeModal: PropTypes.func,
-  todo: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(TodoListItem)]),
+  todo: PropTypes.object,
 }
