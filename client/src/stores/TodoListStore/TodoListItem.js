@@ -1,9 +1,9 @@
-import { addDisposer, flow, getParentOfType, getSnapshot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, flow, getParentOfType, getSnapshot, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
 import { del, put } from '../../api'
 import TodoListStore from './TodoListStore'
-import { logError } from '../../helpers'
+import { logError, onChildAction } from '../../helpers'
 
 const TodoListItem = types
   .model('TodoItem', {
@@ -26,7 +26,7 @@ const TodoListItem = types
   }))
   .actions((self) => ({
     afterCreate() {
-      addDisposer(self, onAction(self, self.save, true))
+      addDisposer(self, onChildAction(self, self.save, true))
     },
 
     delete: flow(function* remove() {
