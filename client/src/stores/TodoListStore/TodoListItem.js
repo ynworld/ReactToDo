@@ -1,4 +1,4 @@
-import { flow, getParentOfType, getSnapshot, onSnapshot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getParentOfType, getSnapshot, onAction, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
 import { del, put } from '../../api'
@@ -26,7 +26,7 @@ const TodoListItem = types
   }))
   .actions((self) => ({
     afterCreate() {
-      onSnapshot(self, self.save)
+      addDisposer(self, onAction(self, self.save, true))
     },
 
     delete: flow(function* remove() {
