@@ -10,6 +10,8 @@ const App = () => {
   const { isLoading, todoList } = appStore
 
   useEffect(() => {
+    if (appStore.isLoading) return
+
     appStore.loadTodoList()
   }, [appStore])
 
