@@ -1,4 +1,4 @@
-import { flow, getParentOfType, getSnapshot, onSnapshot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getParentOfType, getSnapshot, onAction, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
 import { del, put } from '../../api'
@@ -13,9 +13,6 @@ const TodoListItem = types
     isImportant: types.boolean,
     text: types.string,
   })
-  .volatile(() => ({
-    didJustLoad: true,
-  }))
   .views((self) => ({
     get displayDate() {
       if (!self.createdAt) return null
@@ -29,7 +26,7 @@ const TodoListItem = types
   }))
   .actions((self) => ({
     afterCreate() {
-      onSnapshot(self, self.save)
+      addDisposer(self, onAction(self, self.save, true))
     },
 
     delete: flow(function* remove() {
@@ -43,12 +40,6 @@ const TodoListItem = types
     }),
 
     save: flow(function* save() {
-      if (self.didJustLoad === true) {
-        self.didJustLoad = false
-
-        return
-      }
-
       try {
         yield put(`/todos/${self.id}`, getSnapshot(self))
       } catch (error) {
