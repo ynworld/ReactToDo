@@ -3,25 +3,23 @@ import { get } from '../api'
 import { logError } from '../helpers'
 
 const useTodoListItems = () => {
-  const [items, setItems] = useState(null)
+  const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(
-    () => async () => {
-      setIsLoading(true)
+  useEffect(() => {
+    setIsLoading(true)
 
-      try {
-        const { items: todos } = await get('/todos')
-
+    get('/todos')
+      .then(({ items: todos }) => {
         setItems(todos)
-      } catch (error) {
-        logError(error, 'Loading Error:')
-      } finally {
+      })
+      .catch((error) => {
+        logError(error, 'useTodoListItems error:')
+      })
+      .finally(() => {
         setIsLoading(false)
-      }
-    },
-    [],
-  )
+      })
+  }, [])
 
   return { isLoading, items }
 }

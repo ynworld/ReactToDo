@@ -13,7 +13,6 @@ const App = () => {
   const { todoList } = appStore
 
   useEffect(() => {
-    if (!items) return
     todoList.setItems(items)
   }, [todoList, items])
 
