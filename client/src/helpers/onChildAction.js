@@ -1,27 +1,27 @@
 import { addMiddleware } from 'mobx-state-tree'
 
 const onChildAction = (target, listener, attachAfter = false) =>
-  addMiddleware(target, function handler(rawCall, next) {
-    if (rawCall.type === 'action' && rawCall.id === rawCall.rootId) {
+  addMiddleware(target, (call, next) => {
+    if (call.type === 'action' && call.id === call.rootId) {
       const info = {
-        args: rawCall.args,
-        name: rawCall.name,
+        args: call.args,
+        name: call.name,
       }
 
       if (attachAfter) {
-        const res = next(rawCall)
+        const result = next(call)
 
         listener(info)
 
-        return res
+        return result
       }
 
       listener(info)
 
-      return next(rawCall)
+      return next(call)
     }
 
-    return next(rawCall)
+    return next(call)
   })
 
 export default onChildAction
