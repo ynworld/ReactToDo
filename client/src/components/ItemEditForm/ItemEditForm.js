@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import classnames from 'classnames'
@@ -26,13 +28,18 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
     event.preventDefault()
 
     const trimmedText = inputText.trim()
+    const trimmedDescription = descriptionText.trim()
 
     if (trimmedText === '') return
 
     if (todo) {
       todo.setText(trimmedText)
+
+      if (trimmedDescription === '') return
+
+      todo.setDescription(trimmedDescription)
     } else {
-      const todoItem = await post('/todos', { text: trimmedText })
+      const todoItem = await post('/todos', { description: trimmedDescription, text: trimmedText })
 
       todoList.addItem(todoItem)
     }
@@ -51,6 +58,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
         </label>
         <TextInput
           id="title"
+          maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
           value={inputText}
@@ -69,7 +77,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
           )}
           id="description"
-          maxLength={250}
+          maxLength={descriptionMaxLength}
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}

@@ -13,6 +13,9 @@
  *         text:
  *           type: string
  *           description: The text of todo
+ *         description:
+ *           type: string
+ *           description: Description of todo
  *         isChecked:
  *           type: boolean
  *           description: Is todo marked as done
@@ -29,6 +32,7 @@
  *         isChecked: false
  *         isImportant: true
  *         text: Go shopping
+ *         description: Buy eggs, milk, pasta, and oj
  *         createdAt: '2023-02-05T21:44:24.112Z'
  */
 
@@ -92,7 +96,7 @@ router.post('/', (req, res) => {
 
   if (!todoItem) return
 
-  const { isChecked = false, text } = todoItem
+  const { isChecked = false, description, text } = todoItem
 
   if (!text) {
     res.status(400).send({ error: 'Text is required' })
@@ -100,7 +104,14 @@ router.post('/', (req, res) => {
     return
   }
 
-  const newItem = { createdAt: Date.now(), id: Date.now(), isChecked, isImportant: false, text }
+  const newItem = {
+    createdAt: Date.now(),
+    id: Date.now(),
+    isChecked,
+    isImportant: false,
+    description,
+    text,
+  }
 
   todoListItems.unshift(newItem)
 
@@ -217,6 +228,7 @@ router.put('/:id', (req, res) => {
     isChecked: updatedItem.isChecked,
     isImportant: updatedItem.isImportant,
     text: updatedItem.text,
+    description: updatedItem.description,
   }
 
   res.send(todoListItems[itemIndex])

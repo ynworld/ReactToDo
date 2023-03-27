@@ -8,6 +8,7 @@ import { logError, onChildAction } from '../../helpers'
 const TodoListItem = types
   .model('TodoItem', {
     createdAt: types.Date,
+    description: types.string,
     id: types.identifierNumber,
     isChecked: types.boolean,
     isImportant: types.boolean,
@@ -46,6 +47,10 @@ const TodoListItem = types
         logError(error, 'Save Error:')
       }
     }),
+
+    setDescription(value) {
+      self.description = value
+    },
 
     setText(value) {
       self.text = value
