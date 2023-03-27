@@ -4,11 +4,22 @@ import classnames from 'classnames'
 import { post } from '../../api'
 import { TextInput } from '..'
 
+const titleMaxLength = 35
+const descriptionMaxLength = 250
+
 const ItemEditForm = ({ onClose, todo, todoList }) => {
   const [inputText, setInputText] = useState(todo?.text || '')
+  const [descriptionText, setDescriptionText] = useState(todo?.description || '')
+
+  const titleLength = inputText.length
+  const descriptionLength = descriptionText.length
 
   const handleTextInputChange = (event) => {
     setInputText(event.target.value)
+  }
+
+  const handleDescriptionInputChange = (event) => {
+    setDescriptionText(event.target.value)
   }
 
   const handleSubmit = async (event) => {
@@ -31,7 +42,41 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
-      <TextInput onChange={handleTextInputChange} placeholder="I need to..." value={inputText} />
+      <div className="flex flex-col gap-1">
+        <label className="flex justify-between text-xs text-gray-500" htmlFor="title">
+          <span>Title</span>
+          <span>
+            {titleLength} / {titleMaxLength}
+          </span>
+        </label>
+        <TextInput
+          id="title"
+          onChange={handleTextInputChange}
+          placeholder="I need to..."
+          value={inputText}
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="flex justify-between text-xs text-gray-500" htmlFor="description">
+          <span>Description</span>
+          <span>
+            {descriptionLength} / {descriptionMaxLength}
+          </span>
+        </label>
+        <textarea
+          className={classnames(
+            'grow rounded-md border-2 border-primary p-2 text-sm',
+            'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
+          )}
+          id="description"
+          maxLength={250}
+          onChange={handleDescriptionInputChange}
+          placeholder="Enter description (optional)"
+          rows={6}
+          type="text"
+          value={descriptionText}
+        />
+      </div>
       <div className="flex grow justify-end gap-2">
         <button
           className={classnames(
