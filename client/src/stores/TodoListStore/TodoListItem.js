@@ -41,6 +41,9 @@ const TodoListItem = types
     }),
 
     save: flow(function* save() {
+      // eslint-disable-next-line
+      console.log('saving...')
+
       try {
         yield put(`/todos/${self.id}`, getSnapshot(self))
       } catch (error) {
@@ -48,12 +51,9 @@ const TodoListItem = types
       }
     }),
 
-    setDescription(value) {
-      self.description = value
-    },
-
-    setText(value) {
-      self.text = value
+    setText(text, description) {
+      self.text = text
+      self.description = description
     },
 
     toggle() {

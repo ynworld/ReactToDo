@@ -25,20 +25,16 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
     setDescriptionText(event.target.value)
   }
 
+  const trimmedText = inputText.trim()
+  const trimmedDescription = descriptionText.trim()
+
+  const hasNoChanges = trimmedText === todo.text && trimmedDescription === todo.description
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const trimmedText = inputText.trim()
-    const trimmedDescription = descriptionText.trim()
-
-    if (trimmedText === '') return
-
     if (todo) {
-      todo.setText(trimmedText)
-
-      if (trimmedDescription === '') return
-
-      todo.setDescription(trimmedDescription)
+      todo.setText(trimmedText, trimmedDescription)
     } else {
       const todoItem = await post('/todos', { description: trimmedDescription, text: trimmedText })
 
@@ -103,7 +99,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={inputText.trim() === ''}
+          disabled={inputText.trim() === '' || hasNoChanges}
           type="submit"
         >
           {todo ? 'Edit' : 'Add'}
