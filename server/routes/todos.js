@@ -38,12 +38,12 @@
 
 const _has = require('lodash/has')
 const _isArray = require('lodash/isArray')
-const _isBoolean = require('lodash/isBoolean')
-const _isString = require('lodash/isString')
 
 const express = require('express')
 
 const router = express.Router()
+
+const areItemFieldsValid = require('../helpers/are-item-fields-valid')
 
 const todoList = require('../mocks/todo-list')
 
@@ -96,20 +96,20 @@ router.post('/', (req, res) => {
 
   if (!todoItem) return
 
-  const { isChecked = false, description, text } = todoItem
+  const { isChecked = false, description, isImportant = false, text } = todoItem
 
-  if (!text) {
-    res.status(400).send({ error: 'Text is required' })
+  if (!areItemFieldsValid(todoItem)) {
+    res.status(400).send({ error: 'Types mismatch' })
 
     return
   }
 
   const newItem = {
     createdAt: Date.now(),
+    description,
     id: Date.now(),
     isChecked,
-    isImportant: false,
-    description,
+    isImportant,
     text,
   }
 
@@ -212,10 +212,6 @@ router.put('/:id', (req, res) => {
     return
   }
 
-  const areItemFieldsValid = ({ text, isChecked, isImportant }) => {
-    return _isString(text) && _isBoolean(isChecked) && _isBoolean(isImportant)
-  }
-
   if (!areItemFieldsValid(updatedItem)) {
     res.status(400).send({ error: 'Types mismatch' })
 
@@ -224,11 +220,11 @@ router.put('/:id', (req, res) => {
 
   todoListItems[itemIndex] = {
     createdAt: currentItem.createdAt,
+    description: updatedItem.description,
     id: currentItem.id,
     isChecked: updatedItem.isChecked,
     isImportant: updatedItem.isImportant,
     text: updatedItem.text,
-    description: updatedItem.description,
   }
 
   res.send(todoListItems[itemIndex])

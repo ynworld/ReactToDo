@@ -4,6 +4,13 @@ const app = require('../app')
 
 const request = supertest(app)
 
+const todoItemMock = {
+  description: 'Updated description',
+  isChecked: true,
+  isImportant: true,
+  text: 'Edited todo',
+}
+
 test('should load todo list', async () => {
   const res = await request.get('/todos')
 
@@ -12,11 +19,10 @@ test('should load todo list', async () => {
 })
 
 test('should create todo item', async () => {
-  const testTodoText = 'Test todo'
-  const { body, statusCode } = await request.post('/todos').send({ text: testTodoText })
+  const { body, statusCode } = await request.post('/todos').send(todoItemMock)
 
   expect(statusCode).toBe(200)
-  expect(body.text).toBe(testTodoText)
+  expect(body).toMatchObject(todoItemMock)
   expect(_isNumber(body.id)).toBe(true)
 })
 
@@ -29,7 +35,7 @@ test('should fail to creat todo without text', async () => {
 test('should delete todo item', async () => {
   const {
     body: { id },
-  } = await request.post('/todos').send({ text: 'Test todo' })
+  } = await request.post('/todos').send(todoItemMock)
 
   const { body, statusCode } = await request.delete(`/todos/${id}`)
 
@@ -40,14 +46,15 @@ test('should delete todo item', async () => {
 test('should update todo item', async () => {
   const {
     body: { id },
-  } = await request.post('/todos').send({ text: 'Test todo' })
+  } = await request.post('/todos').send(todoItemMock)
 
   await request.get('/todos')
 
   const updatedTodo = {
-    isChecked: true,
-    isImportant: true,
-    text: 'Edited todo',
+    description: '21',
+    isChecked: false,
+    isImportant: false,
+    text: '21 21',
   }
 
   const { body, statusCode } = await request.put(`/todos/${id}`).send(updatedTodo)
