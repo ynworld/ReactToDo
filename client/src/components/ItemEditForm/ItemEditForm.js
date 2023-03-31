@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import classnames from 'classnames'
 import { post } from '../../api'
-import { TextInput, InputBlock } from '..'
+import { TextInput, InputBlock, TextArea } from '..'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
@@ -62,21 +62,16 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
       </InputBlock>
       <InputBlock
         htmlFor="description"
-        title="Title"
+        title="Description"
         titleLength={descriptionLength}
         titleMaxLength={descriptionMaxLength}
       >
-        <textarea
-          className={classnames(
-            'grow rounded-md border-2 border-primary p-2 text-sm',
-            'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
-          )}
+        <TextArea
           id="description"
           maxLength={descriptionMaxLength}
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}
-          type="text"
           value={descriptionText}
         />
       </InputBlock>
