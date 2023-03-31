@@ -28,7 +28,8 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
   const trimmedText = inputText.trim()
   const trimmedDescription = descriptionText.trim()
 
-  const hasNoChanges = trimmedText === todo?.text && trimmedDescription === todo?.description
+  const canSubmit =
+    trimmedText !== '' && (trimmedText !== todo?.text || trimmedDescription !== todo?.description)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -92,7 +93,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={inputText.trim() === '' || hasNoChanges}
+          disabled={!canSubmit}
           type="submit"
         >
           {todo ? 'Edit' : 'Add'}
