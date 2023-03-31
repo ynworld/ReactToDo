@@ -35,7 +35,8 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
     event.preventDefault()
 
     if (todo) {
-      todo.setText(trimmedText, trimmedDescription)
+      todo.setText(trimmedText)
+      todo.setDescription(trimmedDescription)
     } else {
       const todoItem = await post('/todos', { description: trimmedDescription, text: trimmedText })
 
