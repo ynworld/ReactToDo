@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import classnames from 'classnames'
 import { post } from '../../api'
-import { TextInput } from '..'
+import { TextInput, InputBlock } from '..'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
@@ -28,7 +28,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
   const trimmedText = inputText.trim()
   const trimmedDescription = descriptionText.trim()
 
-  const hasNoChanges = trimmedText === todo.text && trimmedDescription === todo.description
+  const hasNoChanges = trimmedText === todo?.text && trimmedDescription === todo?.description
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -46,13 +46,12 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-1">
-        <label className="flex justify-between text-xs text-gray-500" htmlFor="title">
-          <span>Title</span>
-          <span>
-            {titleLength} / {titleMaxLength}
-          </span>
-        </label>
+      <InputBlock
+        htmlFor="title"
+        title="Title"
+        titleLength={titleLength}
+        titleMaxLength={titleMaxLength}
+      >
         <TextInput
           id="title"
           maxLength={titleMaxLength}
@@ -60,14 +59,13 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           placeholder="I need to..."
           value={inputText}
         />
-      </div>
-      <div className="flex flex-col gap-1">
-        <label className="flex justify-between text-xs text-gray-500" htmlFor="description">
-          <span>Description</span>
-          <span>
-            {descriptionLength} / {descriptionMaxLength}
-          </span>
-        </label>
+      </InputBlock>
+      <InputBlock
+        htmlFor="description"
+        title="Title"
+        titleLength={descriptionLength}
+        titleMaxLength={descriptionMaxLength}
+      >
         <textarea
           className={classnames(
             'grow rounded-md border-2 border-primary p-2 text-sm',
@@ -81,7 +79,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           type="text"
           value={descriptionText}
         />
-      </div>
+      </InputBlock>
       <div className="flex grow justify-end gap-2">
         <button
           className={classnames(
