@@ -96,13 +96,13 @@ router.post('/', (req, res) => {
 
   if (!todoItem) return
 
-  const { isChecked = false, description, isImportant = false, text } = todoItem
-
   if (!areItemFieldsValid(todoItem)) {
     res.status(400).send({ error: 'Types mismatch' })
 
     return
   }
+
+  const { isChecked = false, description = '', isImportant = false, text } = todoItem
 
   const newItem = {
     createdAt: Date.now(),
