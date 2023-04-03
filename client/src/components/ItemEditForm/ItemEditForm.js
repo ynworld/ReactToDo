@@ -58,6 +58,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}
+          style={{ resize: 'none' }}
           value={descriptionText}
         />
       </InputBlock>

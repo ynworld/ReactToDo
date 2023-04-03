@@ -22,16 +22,18 @@ const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => 
   }
 
   return (
-    <>
+    <span
+      className={classnames(
+        className,
+        errorText
+          ? 'border-alert shadow-md shadow-alert/25'
+          : 'border-primary focus-within:shadow-md',
+        'inline-flex items-center rounded-md border-2 p-1 text-sm',
+        'relative transition-all duration-300 focus-within:shadow-primary/25',
+      )}
+    >
       <input
-        className={classnames(
-          className,
-          errorText
-            ? 'border-alert shadow-md shadow-alert/25'
-            : 'border-primary focus:shadow-md focus:shadow-primary/25',
-          'flex-1 rounded-md border-2 p-2 text-sm',
-          'outline-none transition-all duration-300',
-        )}
+        className="flex-1 bg-transparent p-1 outline-none"
         maxLength={maxLength}
         onChange={handleChange}
         type="text"
@@ -39,7 +41,7 @@ const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => 
         {...inputProps}
       />
       {maxLength && (
-        <div className="absolute right-2 top-1/2 text-xs text-gray-500">
+        <div className="px-0.5 text-xs text-gray-500">
           {value.length} / {maxLength}
         </div>
       )}
@@ -48,7 +50,7 @@ const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => 
           <Truncate>{errorText}</Truncate>
         </div>
       )}
-    </>
+    </span>
   )
 }
 
