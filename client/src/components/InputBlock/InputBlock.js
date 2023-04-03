@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types'
 
 const InputBlock = ({ children, title, htmlFor }) => (
-  <div className="relative flex flex-col gap-1">
+  <div className="flex flex-col gap-1">
     <label className="flex justify-between text-xs text-gray-500" htmlFor={htmlFor}>
       <span>{title}</span>
     </label>

@@ -54,15 +54,15 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
       <InputBlock htmlFor="description" title="Description">
         <TextArea
           id="description"
+          isResizable={false}
           maxLength={descriptionMaxLength}
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}
-          style={{ resize: 'none' }}
           value={descriptionText}
         />
       </InputBlock>
-      <div className="flex grow justify-end gap-2">
+      <div className="mt-2 flex grow justify-end gap-2">
         <button
           className={classnames(
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
