@@ -13,7 +13,7 @@ const ItemView = ({ onDelete, openEditModal, todo }) => {
     <>
       <div className="flex flex-col gap-2">
         <CheckboxField id={id} isChecked={isChecked} onChange={toggle}>
-          <Tooltip content={description !== '' ? description : null} placement="top-start">
+          <Tooltip content={description} placement="top-start">
             <span>{text}</span>
           </Tooltip>
         </CheckboxField>

@@ -50,9 +50,8 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
       <InputBlock
         htmlFor="title"
+        limitProps={{ count: titleLength, maxCount: titleMaxLength }}
         title="Title"
-        titleLength={titleLength}
-        titleMaxLength={titleMaxLength}
       >
         <TextInput
           id="title"
@@ -64,9 +63,8 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
       </InputBlock>
       <InputBlock
         htmlFor="description"
+        limitProps={{ count: descriptionLength, maxCount: descriptionMaxLength }}
         title="Description"
-        titleLength={descriptionLength}
-        titleMaxLength={descriptionMaxLength}
       >
         <TextArea
           id="description"
