@@ -27,7 +27,7 @@ const TodoListItem = types
   }))
   .actions((self) => ({
     afterCreate() {
-      addDisposer(self, onChildAction(self, self.save, true))
+      addDisposer(self, onChildAction(self, self.save, true, ['delete']))
     },
 
     delete: flow(function* remove() {
