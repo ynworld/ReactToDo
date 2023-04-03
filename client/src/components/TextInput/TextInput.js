@@ -5,7 +5,7 @@ import { Truncate } from '..'
 
 const emptyFieldErrorText = 'Please enter some text'
 
-const TextInput = ({ value, onChange, className, ...inputProps }) => {
+const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => {
   const [errorText, setErrorText] = useState(null)
 
   const validateInput = (text) => {
@@ -22,7 +22,7 @@ const TextInput = ({ value, onChange, className, ...inputProps }) => {
   }
 
   return (
-    <div className="relative flex flex-col">
+    <>
       <input
         className={classnames(
           className,
@@ -32,17 +32,23 @@ const TextInput = ({ value, onChange, className, ...inputProps }) => {
           'flex-1 rounded-md border-2 p-2 text-sm',
           'outline-none transition-all duration-300',
         )}
+        maxLength={maxLength}
         onChange={handleChange}
         type="text"
         value={value}
         {...inputProps}
       />
+      {maxLength && (
+        <div className="absolute right-2 top-1/2 text-xs text-gray-500">
+          {value.length} / {maxLength}
+        </div>
+      )}
       {errorText && (
         <div className="absolute -bottom-6 max-w-full text-sm font-medium text-alert">
           <Truncate>{errorText}</Truncate>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
@@ -50,6 +56,7 @@ export default TextInput
 
 TextInput.propTypes = {
   className: PropTypes.string,
+  maxLength: PropTypes.number,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   value: PropTypes.string,

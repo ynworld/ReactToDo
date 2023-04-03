@@ -1,6 +1,3 @@
-/* eslint-disable max-lines */
-// TODO: Refactor/ separate component
-
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import classnames from 'classnames'
@@ -13,9 +10,6 @@ const descriptionMaxLength = 250
 const ItemEditForm = ({ onClose, todo, todoList }) => {
   const [inputText, setInputText] = useState(todo?.text || '')
   const [descriptionText, setDescriptionText] = useState(todo?.description || '')
-
-  const titleLength = inputText.length
-  const descriptionLength = descriptionText.length
 
   const handleTextInputChange = (event) => {
     setInputText(event.target.value)
@@ -48,11 +42,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
-      <InputBlock
-        htmlFor="title"
-        limitProps={{ count: titleLength, maxCount: titleMaxLength }}
-        title="Title"
-      >
+      <InputBlock htmlFor="title" title="Title">
         <TextInput
           id="title"
           maxLength={titleMaxLength}
@@ -61,11 +51,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           value={inputText}
         />
       </InputBlock>
-      <InputBlock
-        htmlFor="description"
-        limitProps={{ count: descriptionLength, maxCount: descriptionMaxLength }}
-        title="Description"
-      >
+      <InputBlock htmlFor="description" title="Description">
         <TextArea
           id="description"
           maxLength={descriptionMaxLength}

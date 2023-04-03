@@ -1,12 +1,9 @@
 import { PropTypes } from 'prop-types'
 
-const InputBlock = ({ children, title, limitProps: { count, maxCount }, htmlFor }) => (
-  <div className="flex flex-col gap-1">
+const InputBlock = ({ children, title, htmlFor }) => (
+  <div className="relative flex flex-col gap-1">
     <label className="flex justify-between text-xs text-gray-500" htmlFor={htmlFor}>
       <span>{title}</span>
-      <span>
-        {count} / {maxCount}
-      </span>
     </label>
     {children}
   </div>
@@ -15,8 +12,7 @@ const InputBlock = ({ children, title, limitProps: { count, maxCount }, htmlFor 
 InputBlock.propTypes = {
   children: PropTypes.node,
   htmlFor: PropTypes.string.isRequired,
-  limitProps: PropTypes.object,
-  titleMaxLength: PropTypes.number,
+  title: PropTypes.string,
 }
 
 export default InputBlock
