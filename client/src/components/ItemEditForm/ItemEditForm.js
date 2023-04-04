@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types'
 import { useState } from 'react'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
-import { TextInput, InputBlock, TextArea, ItemEditFormStore } from '..'
+import { TextInput, InputBlock, TextArea, ItemEditFormStore, Spinner } from '..'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
@@ -31,7 +31,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 
     await formStore.submit()
 
-    onClose()
+    if (!formStore.isSubmitting) onClose()
   }
 
   return (
@@ -69,14 +69,17 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
         </button>
         <button
           className={classnames(
-            'flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
+            'relative flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
           disabled={!formStore.canSubmit}
           type="submit"
         >
-          {todo ? 'Edit' : 'Add'}
+          <div className="flex justify-center">
+            {formStore.isSubmitting && <Spinner />}
+            {todo ? 'Edit' : 'Add'}
+          </div>
         </button>
       </div>
     </form>

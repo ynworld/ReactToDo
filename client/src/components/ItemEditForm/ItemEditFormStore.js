@@ -4,11 +4,13 @@ import { logError } from '../../helpers'
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
     description: types.string,
+    isSubmitting: false,
     text: types.string,
   })
   .views((self) => ({
     get canSubmit() {
       return (
+        !self.isSubmitting &&
         self.trimmedText !== '' &&
         (self.trimmedText !== self.env.todo?.text ||
           self.trimmedDescription !== self.env.todo?.description)
@@ -41,14 +43,18 @@ const ItemEditFormStore = types
     },
 
     submit: flow(function* submit() {
-      if (self.env.todo) {
-        self.env.todo.update(self.trimmedValues)
-      } else {
-        try {
+      self.isSubmitting = true
+
+      try {
+        if (self.env.todo) {
+          self.env.todo.update(self.trimmedValues)
+          self.isSubmitting = false
+        } else {
           yield self.env.onCreate(self.trimmedValues)
-        } catch (error) {
-          logError(error, 'Add New Item Error:')
+          self.isSubmitting = false
         }
+      } catch (error) {
+        logError(error, 'Submit Error:')
       }
     }),
   }))
