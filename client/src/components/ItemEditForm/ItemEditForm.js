@@ -1,41 +1,35 @@
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
+import { observer } from 'mobx-react'
 import classnames from 'classnames'
-import { post } from '../../api'
-import { TextInput, InputBlock, TextArea } from '..'
+import { TextInput, InputBlock, TextArea, ItemEditFormStore } from '..'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
 
 const ItemEditForm = ({ onClose, todo, todoList }) => {
-  const [inputText, setInputText] = useState(todo?.text || '')
-  const [descriptionText, setDescriptionText] = useState(todo?.description || '')
+  const [formStore] = useState(
+    ItemEditFormStore.create(
+      {
+        description: todo?.description || '',
+        text: todo?.text || '',
+      },
+      { todo, todoList },
+    ),
+  )
 
   const handleTextInputChange = (event) => {
-    setInputText(event.target.value)
+    formStore.setText(event.target.value)
   }
 
   const handleDescriptionInputChange = (event) => {
-    setDescriptionText(event.target.value)
+    formStore.setDescription(event.target.value)
   }
-
-  const trimmedText = inputText.trim()
-  const trimmedDescription = descriptionText.trim()
-
-  const canSubmit =
-    trimmedText !== '' && (trimmedText !== todo?.text || trimmedDescription !== todo?.description)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (todo) {
-      todo.setText(trimmedText)
-      todo.setDescription(trimmedDescription)
-    } else {
-      const todoItem = await post('/todos', { description: trimmedDescription, text: trimmedText })
-
-      todoList.addItem(todoItem)
-    }
+    await formStore.submit()
 
     onClose()
   }
@@ -48,7 +42,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
-          value={inputText}
+          value={formStore.text}
         />
       </InputBlock>
       <InputBlock htmlFor="description" title="Description">
@@ -59,7 +53,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}
-          value={descriptionText}
+          value={formStore.description}
         />
       </InputBlock>
       <div className="mt-2 flex grow justify-end gap-2">
@@ -79,7 +73,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={!canSubmit}
+          disabled={!formStore.canSubmit}
           type="submit"
         >
           {todo ? 'Edit' : 'Add'}
@@ -89,7 +83,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
   )
 }
 
-export default ItemEditForm
+export default observer(ItemEditForm)
 
 ItemEditForm.propTypes = {
   onClose: PropTypes.func.isRequired,
