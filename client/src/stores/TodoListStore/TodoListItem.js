@@ -48,20 +48,17 @@ const TodoListItem = types
       }
     }),
 
-    setDescription(description) {
-      self.description = description
-    },
-
-    setText(text) {
-      self.text = text
-    },
-
     toggle() {
       self.isChecked = !self.isChecked
     },
 
     toggleIsImportant() {
       self.isImportant = !self.isImportant
+    },
+
+    update({ text, description }) {
+      self.text = text
+      self.description = description
     },
   }))
 

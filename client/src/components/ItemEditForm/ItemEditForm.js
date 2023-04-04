@@ -14,7 +14,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
         description: todo?.description || '',
         text: todo?.text || '',
       },
-      { todo, todoList },
+      { onCreate: todoList?.createTodo, todo },
     ),
   )
 

@@ -1,6 +1,5 @@
 import { flow, types, getEnv } from 'mobx-state-tree'
 import { logError } from '../../helpers'
-import { post } from '../../api'
 
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
@@ -27,6 +26,10 @@ const ItemEditFormStore = types
     get trimmedText() {
       return self.text.trim()
     },
+
+    get trimmedValues() {
+      return { description: self.trimmedDescription, text: self.trimmedText }
+    },
   }))
   .actions((self) => ({
     setDescription(value) {
@@ -39,16 +42,10 @@ const ItemEditFormStore = types
 
     submit: flow(function* submit() {
       if (self.env.todo) {
-        self.env.todo.setText(self.trimmedText)
-        self.env.todo.setDescription(self.trimmedDescription)
+        self.env.todo.update(self.trimmedValues)
       } else {
         try {
-          const todoItem = yield post('/todos', {
-            description: self.trimmedDescription,
-            text: self.trimmedText,
-          })
-
-          self.env.todoList.addItem(todoItem)
+          yield self.env.onCreate(self.trimmedValues)
         } catch (error) {
           logError(error, 'Add New Item Error:')
         }
