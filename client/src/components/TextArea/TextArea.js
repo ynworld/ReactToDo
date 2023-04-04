@@ -7,7 +7,7 @@ const TextArea = ({ value, className, maxLength, isResizable = true, ...textArea
       <textarea
         className={classnames(
           className,
-          !isResizable ? 'resize-none' : null,
+          { 'resize-none': !isResizable },
           'grow rounded-md border-2 border-primary p-2 text-sm',
           'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
         )}
