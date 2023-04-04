@@ -8,6 +8,7 @@ import { logError, onChildAction } from '../../helpers'
 const TodoListItem = types
   .model('TodoItem', {
     createdAt: types.Date,
+    description: types.string,
     id: types.identifierNumber,
     isChecked: types.boolean,
     isImportant: types.boolean,
@@ -26,7 +27,7 @@ const TodoListItem = types
   }))
   .actions((self) => ({
     afterCreate() {
-      addDisposer(self, onChildAction(self, self.save, true))
+      addDisposer(self, onChildAction(self, self.save, true, ['delete']))
     },
 
     delete: flow(function* remove() {
@@ -47,8 +48,12 @@ const TodoListItem = types
       }
     }),
 
-    setText(value) {
-      self.text = value
+    setDescription(description) {
+      self.description = description
+    },
+
+    setText(text) {
+      self.text = text
     },
 
     toggle() {

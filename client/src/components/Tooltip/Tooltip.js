@@ -8,7 +8,7 @@ const Tooltip = ({ children, content, className, ...options }) => {
     <TooltipProvider options={options}>
       <TooltipTrigger className={className}>{children}</TooltipTrigger>
       <TooltipContent>
-        <div className="rounded-md bg-black py-1 px-2 text-xs text-white shadow-md sm:max-w-sm">
+        <div className="rounded-md bg-black py-1 px-2 text-xs text-white shadow-md sm:max-w-xs">
           {content}
         </div>
       </TooltipContent>

@@ -1,19 +1,21 @@
 import { PropTypes } from 'prop-types'
 import { observer } from 'mobx-react'
-import { CheckboxField, Icon, Truncate } from '../..'
+import { CheckboxField, Icon, Tooltip } from '../..'
 
 import { iconNames } from '../../../constants'
 
 import ActionsDropdown from './ActionsDropdown'
 
 const ItemView = ({ onDelete, openEditModal, todo }) => {
-  const { id, text, isChecked, toggle } = todo
+  const { description, id, text, isChecked, toggle } = todo
 
   return (
     <>
-      <div className="flex flex-col gap-2 overflow-hidden">
+      <div className="flex flex-col gap-2">
         <CheckboxField id={id} isChecked={isChecked} onChange={toggle}>
-          <Truncate>{text}</Truncate>
+          <Tooltip content={description} placement="top-start">
+            <span>{text}</span>
+          </Tooltip>
         </CheckboxField>
         <div className="flex items-center gap-2 text-xs text-gray-400">
           <div className="h-4 w-4">

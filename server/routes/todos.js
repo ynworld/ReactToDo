@@ -13,6 +13,9 @@
  *         text:
  *           type: string
  *           description: The text of todo
+ *         description:
+ *           type: string
+ *           description: Description of todo
  *         isChecked:
  *           type: boolean
  *           description: Is todo marked as done
@@ -29,17 +32,18 @@
  *         isChecked: false
  *         isImportant: true
  *         text: Go shopping
+ *         description: Buy eggs, milk, pasta, and oj
  *         createdAt: '2023-02-05T21:44:24.112Z'
  */
 
 const _has = require('lodash/has')
 const _isArray = require('lodash/isArray')
-const _isBoolean = require('lodash/isBoolean')
-const _isString = require('lodash/isString')
 
 const express = require('express')
 
 const router = express.Router()
+
+const areItemFieldsValid = require('../helpers/are-item-fields-valid')
 
 const todoList = require('../mocks/todo-list')
 
@@ -92,15 +96,22 @@ router.post('/', (req, res) => {
 
   if (!todoItem) return
 
-  const { isChecked = false, text } = todoItem
-
-  if (!text) {
-    res.status(400).send({ error: 'Text is required' })
+  if (!areItemFieldsValid(todoItem)) {
+    res.status(400).send({ error: 'Types mismatch' })
 
     return
   }
 
-  const newItem = { createdAt: Date.now(), id: Date.now(), isChecked, isImportant: false, text }
+  const { isChecked = false, description = '', isImportant = false, text } = todoItem
+
+  const newItem = {
+    createdAt: Date.now(),
+    description,
+    id: Date.now(),
+    isChecked,
+    isImportant,
+    text,
+  }
 
   todoListItems.unshift(newItem)
 
@@ -201,10 +212,6 @@ router.put('/:id', (req, res) => {
     return
   }
 
-  const areItemFieldsValid = ({ text, isChecked, isImportant }) => {
-    return _isString(text) && _isBoolean(isChecked) && _isBoolean(isImportant)
-  }
-
   if (!areItemFieldsValid(updatedItem)) {
     res.status(400).send({ error: 'Types mismatch' })
 
@@ -213,6 +220,7 @@ router.put('/:id', (req, res) => {
 
   todoListItems[itemIndex] = {
     createdAt: currentItem.createdAt,
+    description: updatedItem.description,
     id: currentItem.id,
     isChecked: updatedItem.isChecked,
     isImportant: updatedItem.isImportant,
