@@ -2,18 +2,16 @@ import classnames from 'classnames'
 import { PropTypes } from 'prop-types'
 
 const TextArea = ({ value, className, maxLength, isResizable = true, ...textAreaProps }) => {
-  const style = isResizable ? {} : { resize: 'none' }
-
   return (
-    <div className="relative flex">
+    <span className="relative inline-flex">
       <textarea
         className={classnames(
           className,
+          !isResizable ? 'resize-none' : null,
           'grow rounded-md border-2 border-primary p-2 text-sm',
           'outline-none transition-all duration-300 focus:shadow-md focus:shadow-primary/25',
         )}
         maxLength={maxLength}
-        style={style}
         value={value}
         {...textAreaProps}
       />
@@ -22,7 +20,7 @@ const TextArea = ({ value, className, maxLength, isResizable = true, ...textArea
           {value.length} / {maxLength}
         </div>
       )}
-    </div>
+    </span>
   )
 }
 
