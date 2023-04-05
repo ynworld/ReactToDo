@@ -1,12 +1,18 @@
 import { PropTypes } from 'prop-types'
+import { useState } from 'react'
 import classnames from 'classnames'
+import { Spinner } from '../../Spinner'
 
 let todoText = ''
 
 const ItemDeleteForm = ({ closeModal, todo }) => {
-  const handleDeleteSubmit = (event) => {
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const handleDeleteSubmit = async (event) => {
     event.preventDefault()
-    todo.delete()
+    setIsDeleting(true)
+    await todo.delete()
+    setIsDeleting(false)
     closeModal()
   }
 
@@ -29,12 +35,16 @@ const ItemDeleteForm = ({ closeModal, todo }) => {
         </button>
         <button
           className={classnames(
-            'flex h-8 items-center rounded-md bg-alert/90 px-6 py-2 text-sm text-white shadow-md',
-            'transition-all duration-300  hover:bg-alert active:shadow-sm',
+            'relative flex h-8 items-center rounded-md bg-alert/90 px-6 py-2 text-sm text-white shadow-md',
+            'transition-all duration-300  hover:bg-alert active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
           )}
+          disabled={isDeleting}
           type="submit"
         >
-          Delete
+          <div className="flex justify-center">
+            {isDeleting && <Spinner />}
+            Delete
+          </div>
         </button>
       </div>
     </form>

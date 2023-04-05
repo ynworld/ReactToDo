@@ -29,7 +29,6 @@ const TodoListItem = types
     delete: flow(function* remove() {
       try {
         yield del(`/todos/${self.id}`)
-
         self.todoListStore.deleteItem(self)
       } catch (error) {
         logError(error, 'Delete Error:')
