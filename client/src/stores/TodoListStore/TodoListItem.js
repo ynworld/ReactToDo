@@ -35,7 +35,7 @@ const TodoListItem = types
       }
     }),
 
-    save: flow(function* update(payload) {
+    save: flow(function* save(payload) {
       try {
         const updatedTodo = yield put(`/todos/${self.id}`, {
           ...getSnapshot(self),

@@ -3,8 +3,8 @@ import { logError } from '../../helpers'
 
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
-    description: types.string,
-    text: types.string,
+    description: '',
+    text: '',
   })
   .volatile(() => ({
     isSubmitting: false,
@@ -16,7 +16,9 @@ const ItemEditFormStore = types
       const areFieldsChanged =
         self.payload.text !== todo?.text || self.payload.description !== todo?.description
 
-      return !self.isSubmitting && self.trimmedText !== '' && areFieldsChanged
+      const isTextEmpty = self.text.trim() === ''
+
+      return !self.isSubmitting && !isTextEmpty && areFieldsChanged
     },
 
     get env() {
@@ -24,7 +26,7 @@ const ItemEditFormStore = types
     },
 
     get payload() {
-      return { description: self.desctiption.trim(), text: self.text.trim() }
+      return { description: self.description.trim(), text: self.text.trim() }
     },
   }))
   .actions((self) => ({
@@ -41,7 +43,7 @@ const ItemEditFormStore = types
 
       if (!todo) return
 
-      applySnapshot(self, todo)
+      applySnapshot(self, { ...todo })
     },
 
     setText(value) {
@@ -55,10 +57,10 @@ const ItemEditFormStore = types
         const handleSubmit = self.env.todo ? self.env.onUpdate : self.env.onCreate
 
         yield handleSubmit(self.payload)
-
-        self.isSubmitting = false
       } catch (error) {
         logError(error, 'Submit Error:')
+      } finally {
+        self.isSubmitting = false
       }
     }),
   }))
