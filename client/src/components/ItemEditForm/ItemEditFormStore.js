@@ -9,12 +9,7 @@ const ItemEditFormStore = types
   })
   .views((self) => ({
     get canSubmit() {
-      return (
-        !self.isSubmitting &&
-        self.trimmedText !== '' &&
-        (self.trimmedText !== self.env.todo?.text ||
-          self.trimmedDescription !== self.env.todo?.description)
-      )
+      return !self.isSubmitting && self.trimmedText !== ''
     },
 
     get env() {
@@ -46,13 +41,13 @@ const ItemEditFormStore = types
       self.isSubmitting = true
 
       try {
-        if (self.env.todo) {
-          self.env.todo.update(self.trimmedValues)
-          self.isSubmitting = false
+        if (self.env.onUpdate) {
+          yield self.env.onUpdate(self.trimmedValues)
         } else {
           yield self.env.onCreate(self.trimmedValues)
-          self.isSubmitting = false
         }
+
+        self.isSubmitting = false
       } catch (error) {
         logError(error, 'Submit Error:')
       }

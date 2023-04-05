@@ -14,9 +14,13 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
         description: todo?.description || '',
         text: todo?.text || '',
       },
-      { onCreate: todoList?.createTodo, todo },
+      { onCreate: todoList?.createTodo, onUpdate: todo?.save },
     ),
   )
+
+  const canSubmit =
+    formStore.canSubmit &&
+    (formStore.trimmedText !== todo?.text || formStore.trimmedDescription !== todo?.description)
 
   const handleTextInputChange = (event) => {
     formStore.setText(event.target.value)
@@ -73,7 +77,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={!formStore.canSubmit}
+          disabled={!canSubmit}
           type="submit"
         >
           <div className="flex justify-center">
