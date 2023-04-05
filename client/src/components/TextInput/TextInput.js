@@ -1,33 +1,18 @@
-import { useState } from 'react'
+import { observer } from 'mobx-react'
 import classnames from 'classnames'
 import { PropTypes } from 'prop-types'
 import { Truncate } from '..'
 
-const emptyFieldErrorText = 'Please enter some text'
+const errorText = 'Please enter some text'
 
-const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => {
-  const [errorText, setErrorText] = useState(null)
-
-  const validateInput = (text) => {
-    if (text.trim() === '') {
-      setErrorText(emptyFieldErrorText)
-    } else {
-      setErrorText(null)
-    }
-  }
-
-  const handleChange = (event) => {
-    onChange(event)
-    validateInput(event.target.value)
-  }
-
+const TextInput = ({ value, onChange, className, maxLength, isValid, ...inputProps }) => {
   return (
     <span
       className={classnames(
         className,
-        errorText
-          ? 'border-alert shadow-md shadow-alert/25'
-          : 'border-primary focus-within:shadow-md',
+        !isValid
+          ? 'border-alert shadow-md shadow-alert/25 focus-within:shadow-alert/25'
+          : 'border-primary focus-within:shadow-md focus-within:shadow-primary/25',
         'inline-flex items-center rounded-md border-2 p-1 text-sm',
         'relative transition-all duration-300 focus-within:shadow-primary/25',
       )}
@@ -35,7 +20,7 @@ const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => 
       <input
         className="flex-1 bg-transparent p-1 outline-none"
         maxLength={maxLength}
-        onChange={handleChange}
+        onChange={onChange}
         type="text"
         value={value}
         {...inputProps}
@@ -45,7 +30,7 @@ const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => 
           {value.length} / {maxLength}
         </div>
       )}
-      {errorText && (
+      {!isValid && (
         <div className="absolute -bottom-6 max-w-full text-sm font-medium text-alert">
           <Truncate>{errorText}</Truncate>
         </div>
@@ -54,10 +39,11 @@ const TextInput = ({ value, onChange, className, maxLength, ...inputProps }) => 
   )
 }
 
-export default TextInput
+export default observer(TextInput)
 
 TextInput.propTypes = {
   className: PropTypes.string,
+  isValid: PropTypes.bool,
   maxLength: PropTypes.number,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,

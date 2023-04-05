@@ -10,20 +10,23 @@ const descriptionMaxLength = 250
 const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
   const [formStore] = useState(ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
 
+  const { canSubmit, description, isSubmitting, isValid, setDescription, setText, submit, text } =
+    formStore
+
   const handleTextInputChange = (event) => {
-    formStore.setText(event.target.value)
+    setText(event.target.value)
   }
 
   const handleDescriptionInputChange = (event) => {
-    formStore.setDescription(event.target.value)
+    setDescription(event.target.value)
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await formStore.submit()
+    await submit()
 
-    if (!formStore.isSubmitting) onCancel()
+    if (!isSubmitting) onCancel()
   }
 
   return (
@@ -31,10 +34,11 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       <InputBlock htmlFor="title" title="Title">
         <TextInput
           id="title"
+          isValid={isValid}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
-          value={formStore.text}
+          value={text}
         />
       </InputBlock>
       <InputBlock htmlFor="description" title="Description">
@@ -45,7 +49,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}
-          value={formStore.description}
+          value={description}
         />
       </InputBlock>
       <div className="mt-2 flex grow justify-end gap-2">
@@ -65,11 +69,11 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={!formStore.canSubmit}
+          disabled={!canSubmit}
           type="submit"
         >
           <div className="flex justify-center">
-            {formStore.isSubmitting && <Spinner />}
+            {isSubmitting && <Spinner />}
             {todo ? 'Edit' : 'Add'}
           </div>
         </button>
