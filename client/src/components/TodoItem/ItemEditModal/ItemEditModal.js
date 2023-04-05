@@ -9,7 +9,7 @@ const ItemEditModal = ({ isOpen, setIsOpen, todo }) => {
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <ModalContent>
         <ModalHeader title="Edit To Do" />
-        <ItemEditForm onClose={closeModal} todo={todo} />
+        <ItemEditForm onCancel={closeModal} onUpdate={todo.save} todo={todo} />
       </ModalContent>
     </Modal>
   )

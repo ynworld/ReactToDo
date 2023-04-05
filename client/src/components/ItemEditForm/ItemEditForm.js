@@ -7,20 +7,8 @@ import { TextInput, InputBlock, TextArea, ItemEditFormStore, Spinner } from '..'
 const titleMaxLength = 35
 const descriptionMaxLength = 250
 
-const ItemEditForm = ({ onClose, todo, todoList }) => {
-  const [formStore] = useState(
-    ItemEditFormStore.create(
-      {
-        description: todo?.description || '',
-        text: todo?.text || '',
-      },
-      { onCreate: todoList?.createTodo, onUpdate: todo?.save },
-    ),
-  )
-
-  const canSubmit =
-    formStore.canSubmit &&
-    (formStore.trimmedText !== todo?.text || formStore.trimmedDescription !== todo?.description)
+const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
+  const [formStore] = useState(ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
 
   const handleTextInputChange = (event) => {
     formStore.setText(event.target.value)
@@ -35,7 +23,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 
     await formStore.submit()
 
-    if (!formStore.isSubmitting) onClose()
+    if (!formStore.isSubmitting) onCancel()
   }
 
   return (
@@ -66,7 +54,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
             'hover:bg-gray-100 active:shadow-sm',
           )}
-          onClick={onClose}
+          onClick={onCancel}
           type="button"
         >
           Cancel
@@ -77,7 +65,7 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={!canSubmit}
+          disabled={!formStore.canSubmit}
           type="submit"
         >
           <div className="flex justify-center">
@@ -93,7 +81,8 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
 export default observer(ItemEditForm)
 
 ItemEditForm.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
+  onUpdate: PropTypes.func,
   todo: PropTypes.object,
-  todoList: PropTypes.object,
 }

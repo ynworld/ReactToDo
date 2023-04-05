@@ -5,7 +5,7 @@ import { ItemEditForm, ModalContent, ModalHeader } from '..'
 const AddItemModal = ({ onClose, todoList }) => (
   <ModalContent>
     <ModalHeader title="Add New Todo" />
-    <ItemEditForm onClose={onClose} todoList={todoList} />
+    <ItemEditForm onCancel={onClose} onCreate={todoList.createTodo} />
   </ModalContent>
 )
 

@@ -1,36 +1,47 @@
-import { flow, types, getEnv } from 'mobx-state-tree'
+import { flow, types, getEnv, applySnapshot } from 'mobx-state-tree'
 import { logError } from '../../helpers'
 
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
     description: types.string,
-    isSubmitting: false,
     text: types.string,
   })
+  .volatile(() => ({
+    isSubmitting: false,
+  }))
   .views((self) => ({
     get canSubmit() {
-      return !self.isSubmitting && self.trimmedText !== ''
+      const { todo } = self.env
+
+      const areFieldsChanged =
+        self.payload.text !== todo?.text || self.payload.description !== todo?.description
+
+      return !self.isSubmitting && self.trimmedText !== '' && areFieldsChanged
     },
 
     get env() {
       return getEnv(self)
     },
 
-    get trimmedDescription() {
-      return self.description.trim()
-    },
-
-    get trimmedText() {
-      return self.text.trim()
-    },
-
-    get trimmedValues() {
-      return { description: self.trimmedDescription, text: self.trimmedText }
+    get payload() {
+      return { description: self.desctiption.trim(), text: self.text.trim() }
     },
   }))
   .actions((self) => ({
+    afterCreate() {
+      self.setInitialData()
+    },
+
     setDescription(value) {
       self.description = value
+    },
+
+    setInitialData() {
+      const { todo } = self.env
+
+      if (!todo) return
+
+      applySnapshot(self, todo)
     },
 
     setText(value) {
@@ -38,14 +49,12 @@ const ItemEditFormStore = types
     },
 
     submit: flow(function* submit() {
-      self.isSubmitting = true
-
       try {
-        if (self.env.onUpdate) {
-          yield self.env.onUpdate(self.trimmedValues)
-        } else {
-          yield self.env.onCreate(self.trimmedValues)
-        }
+        self.isSubmitting = true
+
+        const handleSubmit = self.env.todo ? self.env.onUpdate : self.env.onCreate
+
+        yield handleSubmit(self.payload)
 
         self.isSubmitting = false
       } catch (error) {
