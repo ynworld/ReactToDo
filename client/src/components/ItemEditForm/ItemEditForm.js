@@ -10,7 +10,7 @@ const descriptionMaxLength = 250
 const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
   const [formStore] = useState(ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
 
-  const { canSubmit, description, isSubmitting, isValid, setDescription, setText, submit, text } =
+  const { canSubmit, description, isSubmitting, isInvalid, setDescription, setText, submit, text } =
     formStore
 
   const handleTextInputChange = (event) => {
@@ -34,7 +34,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       <InputBlock htmlFor="title" title="Title">
         <TextInput
           id="title"
-          isValid={isValid}
+          isInvalid={isInvalid}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."

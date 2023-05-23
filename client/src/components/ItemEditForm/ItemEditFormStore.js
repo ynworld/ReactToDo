@@ -19,8 +19,8 @@ const ItemEditFormStore = types
       return getEnv(self)
     },
 
-    get isValid() {
-      return !(self.text.trim() === '' && !self.isNew)
+    get isInvalid() {
+      return self.text.trim() === '' && !self.isNew
     },
 
     get payload() {

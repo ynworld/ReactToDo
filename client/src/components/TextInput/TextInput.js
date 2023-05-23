@@ -5,12 +5,12 @@ import { Truncate } from '..'
 
 const errorText = 'Please enter some text'
 
-const TextInput = ({ value, onChange, className, maxLength, isValid, ...inputProps }) => {
+const TextInput = ({ value, onChange, className, maxLength, isInvalid, ...inputProps }) => {
   return (
     <span
       className={classnames(
         className,
-        !isValid
+        isInvalid
           ? 'border-alert shadow-md shadow-alert/25 focus-within:shadow-alert/25'
           : 'border-primary focus-within:shadow-md focus-within:shadow-primary/25',
         'inline-flex items-center rounded-md border-2 p-1 text-sm',
@@ -30,7 +30,7 @@ const TextInput = ({ value, onChange, className, maxLength, isValid, ...inputPro
           {value.length} / {maxLength}
         </div>
       )}
-      {!isValid && (
+      {isInvalid && (
         <div className="absolute -bottom-6 max-w-full text-sm font-medium text-alert">
           <Truncate>{errorText}</Truncate>
         </div>
@@ -43,7 +43,7 @@ export default observer(TextInput)
 
 TextInput.propTypes = {
   className: PropTypes.string,
-  isValid: PropTypes.bool,
+  isInvalid: PropTypes.bool,
   maxLength: PropTypes.number,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
