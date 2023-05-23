@@ -1,7 +1,7 @@
-import './Spinner.css'
+import styles from './Spinner.module.css'
 
 const Spinner = () => (
-  <div className="lds-ripple">
+  <div className={styles.spinner}>
     <div />
     <div />
   </div>
