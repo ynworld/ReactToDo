@@ -4,10 +4,10 @@ import { logError } from '../../helpers'
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
     description: '',
+    isNew: false,
     text: '',
   })
   .volatile(() => ({
-    isNew: types.boolean,
     isSubmitting: false,
   }))
   .views((self) => ({
