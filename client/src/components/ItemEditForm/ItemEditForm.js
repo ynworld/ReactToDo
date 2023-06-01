@@ -36,7 +36,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
     event.preventDefault()
 
     await submit()
-    onCancel()
+    if (!isSubmitting) onCancel()
   }
 
   return (

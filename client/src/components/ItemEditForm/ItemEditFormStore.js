@@ -55,6 +55,8 @@ const ItemEditFormStore = types
     },
 
     submit: flow(function* submit() {
+      if (self.isSubmitting) return
+
       try {
         const { todo } = self.env
         const areFieldsChanged =
@@ -69,6 +71,8 @@ const ItemEditFormStore = types
         yield handleSubmit(self.payload)
       } catch (error) {
         logError(error, 'Submit Error:')
+      } finally {
+        self.isSubmitting = false
       }
     }),
   }))
