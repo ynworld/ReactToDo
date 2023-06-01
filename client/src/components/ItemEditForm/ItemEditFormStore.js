@@ -70,8 +70,6 @@ const ItemEditFormStore = types
         yield handleSubmit(self.payload)
       } catch (error) {
         logError(error, 'Submit Error:')
-      } finally {
-        self.isSubmitting = false
       }
     }),
   }))
