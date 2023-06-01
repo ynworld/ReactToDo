@@ -14,7 +14,7 @@ const TextInput = ({ value, onChange, className, maxLength, isInvalid, ...inputP
           ? 'border-alert shadow-md shadow-alert/25 focus-within:shadow-alert/25'
           : 'border-primary focus-within:shadow-md focus-within:shadow-primary/25',
         'inline-flex items-center rounded-md border-2 p-1 text-sm',
-        'relative transition-all duration-300 focus-within:shadow-primary/25',
+        'relative transition-all duration-300',
       )}
     >
       <input

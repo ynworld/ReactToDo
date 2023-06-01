@@ -8,14 +8,23 @@ const titleMaxLength = 35
 const descriptionMaxLength = 250
 
 const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
-  const [formStore] = useState(
-    ItemEditFormStore.create({ isNew: !todo }, { onCreate, onUpdate, todo }),
-  )
+  const [formStore] = useState(ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
 
-  const { canSubmit, description, isSubmitting, isInvalid, setDescription, setText, submit, text } =
-    formStore
+  const {
+    canSubmit,
+    description,
+    isSubmitting,
+    isInvalid,
+    isNew,
+    setIsNew,
+    setDescription,
+    setText,
+    submit,
+    text,
+  } = formStore
 
   const handleTextInputChange = (event) => {
+    if (isNew) setIsNew(false)
     setText(event.target.value)
   }
 

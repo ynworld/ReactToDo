@@ -4,7 +4,7 @@ import { logError } from '../../helpers'
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
     description: '',
-    isNew: false,
+    isNew: true, // prevents empty input on new Todos showing as invalid
     text: '',
   })
   .volatile(() => ({
@@ -40,18 +40,17 @@ const ItemEditFormStore = types
       const { todo } = self.env
 
       if (!todo) {
-        self.isNew = true
-
         return
       }
-
-      self.isNew = false
 
       applySnapshot(self, { ...todo })
     },
 
+    setIsNew(value) {
+      self.isNew = value
+    },
+
     setText(value) {
-      if (self.isNew) self.isNew = false
       self.text = value
     },
 
