@@ -3,18 +3,24 @@ import { useState } from 'react'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 import { TextInput, InputBlock, TextArea, ItemEditFormStore, Spinner } from '..'
+import { logError } from '../../helpers'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
 
 const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
-  const [formStore] = useState(() => ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
+  const [formStore] = useState(() =>
+    ItemEditFormStore.create(
+      { description: todo?.description, text: todo?.text },
+      { onSubmit: todo ? onUpdate : onCreate },
+    ),
+  )
 
   const handleTextInputChange = (event) => {
     const { setText, validate } = formStore
 
     setText(event.target.value)
-    validate('text')
+    validate()
   }
 
   const handleDescriptionInputChange = (event) => {
@@ -31,7 +37,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
 
       onCancel()
     } catch (error) {
-      console.log(error, 'ItemEditForm | handleSubmit')
+      logError(error, 'ItemEditForm | handleSubmit')
     }
   }
 
@@ -40,7 +46,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       <InputBlock htmlFor="title" title="Title">
         <TextInput
           errorText={errors.get('text')}
-          isInvalid={Boolean(errors.get('text'))}
+          isInvalid={errors.has('text')}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."

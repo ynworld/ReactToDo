@@ -1,4 +1,4 @@
-import { flow, types, getEnv, applySnapshot } from 'mobx-state-tree'
+import { flow, types, getEnv } from 'mobx-state-tree'
 import { logError } from '../../helpers'
 
 const ItemEditFormStore = types
@@ -8,15 +8,12 @@ const ItemEditFormStore = types
     text: '',
   })
   .volatile(() => ({
+    initialValues: {},
     isSubmitting: false,
   }))
   .views((self) => ({
     get canSubmit() {
       return !self.isSubmitting && self.isValid
-    },
-
-    get env() {
-      return getEnv(self)
     },
 
     get isTextValid() {
@@ -33,21 +30,11 @@ const ItemEditFormStore = types
   }))
   .actions((self) => ({
     afterCreate() {
-      self.setInitialData()
+      self.initialValues = { description: self.description, text: self.text }
     },
 
     setDescription(value) {
       self.description = value
-    },
-
-    setInitialData() {
-      const { todo } = self.env
-
-      if (!todo) {
-        return
-      }
-
-      applySnapshot(self, { ...todo })
     },
 
     setText(value) {
@@ -58,18 +45,15 @@ const ItemEditFormStore = types
       if (!self.canSubmit) throw new Error('ItemEditFormStore | submit | Invalid form')
 
       try {
-        const { todo } = self.env
-
         const areFieldsChanged =
-          self.payload.text !== todo?.text || self.payload.description !== todo?.description
+          self.payload.text !== self.initialValues.text ||
+          self.payload.description !== self.initialValues.description
 
         if (!areFieldsChanged) return
 
         self.isSubmitting = true
 
-        const handleSubmit = self.env.todo ? self.env.onUpdate : self.env.onCreate
-
-        yield handleSubmit(self.payload)
+        yield getEnv(self).onSubmit(self.payload)
       } catch (error) {
         logError(error, 'Submit Error:')
         throw new Error('ItemEditFormStore | submit | Error submitting form')
@@ -78,8 +62,8 @@ const ItemEditFormStore = types
       }
     }),
 
-    validate(field) {
-      if (field === 'text' && !self.isTextValid) {
+    validate() {
+      if (!self.isTextValid) {
         self.errors.set('text', 'Title is required, please enter some text')
       } else {
         self.errors.delete('text')
