@@ -4,11 +4,11 @@ import { logError } from '../../helpers'
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
     description: '',
-    isNew: true, // prevents empty input on new Todos showing as invalid
     text: '',
   })
   .volatile(() => ({
     isSubmitting: false,
+    isValid: true,
   }))
   .views((self) => ({
     get canSubmit() {
@@ -17,10 +17,6 @@ const ItemEditFormStore = types
 
     get env() {
       return getEnv(self)
-    },
-
-    get isInvalid() {
-      return self.text.trim() === '' && !self.isNew
     },
 
     get payload() {
@@ -44,10 +40,6 @@ const ItemEditFormStore = types
       }
 
       applySnapshot(self, { ...todo })
-    },
-
-    setIsNew(value) {
-      self.isNew = value
     },
 
     setText(value) {
@@ -75,6 +67,10 @@ const ItemEditFormStore = types
         self.isSubmitting = false
       }
     }),
+
+    validate() {
+      self.isValid = self.text.trim().length > 0
+    },
   }))
 
 export default ItemEditFormStore

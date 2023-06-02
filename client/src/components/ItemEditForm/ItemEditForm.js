@@ -8,34 +8,26 @@ const titleMaxLength = 35
 const descriptionMaxLength = 250
 
 const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
-  const [formStore] = useState(ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
-
-  const {
-    canSubmit,
-    description,
-    isSubmitting,
-    isInvalid,
-    isNew,
-    setIsNew,
-    setDescription,
-    setText,
-    submit,
-    text,
-  } = formStore
+  const [formStore] = useState(() => ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
 
   const handleTextInputChange = (event) => {
-    if (isNew) setIsNew(false)
+    const { setText, validate } = formStore
+
     setText(event.target.value)
+    validate()
   }
 
   const handleDescriptionInputChange = (event) => {
-    setDescription(event.target.value)
+    formStore.setDescription(event.target.value)
   }
+
+  const { canSubmit, description, isSubmitting, isValid, text } = formStore
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await submit()
+    await formStore.submit()
+
     if (!isSubmitting) onCancel()
   }
 
@@ -44,7 +36,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       <InputBlock htmlFor="title" title="Title">
         <TextInput
           id="title"
-          isInvalid={isInvalid}
+          isInvalid={!isValid}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
