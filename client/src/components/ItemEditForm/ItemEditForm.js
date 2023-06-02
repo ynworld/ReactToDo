@@ -40,7 +40,6 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       <InputBlock htmlFor="title" title="Title">
         <TextInput
           errorText={errors.get('text')}
-          id="title"
           isInvalid={Boolean(errors.get('text'))}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
@@ -50,7 +49,6 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       </InputBlock>
       <InputBlock htmlFor="description" title="Description">
         <TextArea
-          id="description"
           isResizable={false}
           maxLength={descriptionMaxLength}
           onChange={handleDescriptionInputChange}

@@ -23,12 +23,7 @@ const AddItemButtonWithModal = ({ todoList }) => {
       <AddItemButton disabled={todoList.hasItemInEditingMode} onClick={openModal} />
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
         <ModalContent>
-          <AddItemModal
-            isOpen={isOpen}
-            onClose={closeModal}
-            setIsOpen={setIsOpen}
-            todoList={todoList}
-          />
+          <AddItemModal onClose={closeModal} todoList={todoList} />
         </ModalContent>
       </Modal>
     </>
