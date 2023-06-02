@@ -46,7 +46,7 @@ module.exports = {
     'react/jsx-sort-props': ['error', { reservedFirst: ['key', 'ref'] }],
     'react/jsx-uses-react': 'off',
     'react/no-multi-comp': ['error', { ignoreStateless: false }],
-    'react/prop-types': 'off',
+    'react/prop-types': 'warn',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
     semi: ['error', 'never'],

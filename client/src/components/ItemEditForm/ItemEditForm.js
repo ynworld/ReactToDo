@@ -14,29 +14,34 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
     const { setText, validate } = formStore
 
     setText(event.target.value)
-    validate()
+    validate('text')
   }
 
   const handleDescriptionInputChange = (event) => {
     formStore.setDescription(event.target.value)
   }
 
-  const { canSubmit, description, isSubmitting, isValid, text } = formStore
+  const { canSubmit, description, errors, isSubmitting, text } = formStore
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await formStore.submit()
+    try {
+      await formStore.submit()
 
-    if (!isSubmitting) onCancel()
+      onCancel()
+    } catch (error) {
+      console.log(error, 'ItemEditForm | handleSubmit')
+    }
   }
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
       <InputBlock htmlFor="title" title="Title">
         <TextInput
+          errorText={errors.get('text')}
           id="title"
-          isInvalid={!isValid}
+          isInvalid={Boolean(errors.get('text'))}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
@@ -71,7 +76,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={!canSubmit || isSubmitting}
+          disabled={!canSubmit}
           type="submit"
         >
           <div className="flex justify-center">
