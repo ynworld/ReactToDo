@@ -9,11 +9,11 @@ const ItemEditFormStore = types
   })
   .volatile(() => ({
     initialValues: {},
-    isSubmitting: false,
+    isSubmitted: false,
   }))
   .views((self) => ({
     get canSubmit() {
-      return !self.isSubmitting && self.isValid
+      return !self.isSubmitted && self.isValid
     },
 
     get isTextValid() {
@@ -44,6 +44,8 @@ const ItemEditFormStore = types
     submit: flow(function* submit() {
       if (!self.canSubmit) throw new Error('ItemEditFormStore | submit | Invalid form')
 
+      self.isSubmitted = true
+
       try {
         const areFieldsChanged =
           self.payload.text !== self.initialValues.text ||
@@ -51,14 +53,11 @@ const ItemEditFormStore = types
 
         if (!areFieldsChanged) return
 
-        self.isSubmitting = true
-
         yield getEnv(self).onSubmit(self.payload)
       } catch (error) {
+        self.isSubmitted = false
         logError(error, 'Submit Error:')
         throw new Error('ItemEditFormStore | submit | Error submitting form')
-      } finally {
-        self.isSubmitting = false
       }
     }),
 

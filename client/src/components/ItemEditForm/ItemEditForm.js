@@ -27,7 +27,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
     formStore.setDescription(event.target.value)
   }
 
-  const { canSubmit, description, errors, isSubmitting, text } = formStore
+  const { canSubmit, description, errors, isSubmitted, text } = formStore
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -84,7 +84,7 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
           type="submit"
         >
           <div className="flex justify-center">
-            {isSubmitting && <Spinner />}
+            {isSubmitted && <Spinner />}
             {todo ? 'Edit' : 'Add'}
           </div>
         </button>
