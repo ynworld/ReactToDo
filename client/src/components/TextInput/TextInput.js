@@ -3,9 +3,15 @@ import classnames from 'classnames'
 import { PropTypes } from 'prop-types'
 import { Truncate } from '..'
 
-const errorText = 'Please enter some text'
-
-const TextInput = ({ value, onChange, className, maxLength, isInvalid, ...inputProps }) => {
+const TextInput = ({
+  value,
+  onChange,
+  className,
+  maxLength,
+  isInvalid,
+  errorText,
+  ...inputProps
+}) => {
   return (
     <span
       className={classnames(
@@ -30,7 +36,7 @@ const TextInput = ({ value, onChange, className, maxLength, isInvalid, ...inputP
           {value.length} / {maxLength}
         </div>
       )}
-      {isInvalid && (
+      {isInvalid && Boolean(errorText) && (
         <div className="absolute -bottom-6 max-w-full text-sm font-medium text-alert">
           <Truncate>{errorText}</Truncate>
         </div>
@@ -43,6 +49,7 @@ export default observer(TextInput)
 
 TextInput.propTypes = {
   className: PropTypes.string,
+  errorText: PropTypes.string,
   isInvalid: PropTypes.bool,
   maxLength: PropTypes.number,
   onChange: PropTypes.func,

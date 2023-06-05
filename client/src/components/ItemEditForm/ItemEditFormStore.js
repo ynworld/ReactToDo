@@ -1,26 +1,27 @@
-import { flow, types, getEnv, applySnapshot } from 'mobx-state-tree'
+import { flow, types, getEnv } from 'mobx-state-tree'
 import { logError } from '../../helpers'
 
 const ItemEditFormStore = types
   .model('ItemEditFormStore', {
     description: '',
-    isNew: true, // prevents empty input on new Todos showing as invalid
+    errors: types.map(types.string),
     text: '',
   })
   .volatile(() => ({
-    isSubmitting: false,
+    initialValues: {},
+    isSubmitted: false,
   }))
   .views((self) => ({
     get canSubmit() {
-      return !self.isSubmitting && !(self.text.trim() === '')
+      return !self.isSubmitted && self.isValid
     },
 
-    get env() {
-      return getEnv(self)
+    get isTextValid() {
+      return self.text.trim().length > 0
     },
 
-    get isInvalid() {
-      return self.text.trim() === '' && !self.isNew
+    get isValid() {
+      return self.errors.size === 0 && self.isTextValid
     },
 
     get payload() {
@@ -29,25 +30,11 @@ const ItemEditFormStore = types
   }))
   .actions((self) => ({
     afterCreate() {
-      self.setInitialData()
+      self.initialValues = { description: self.description, text: self.text }
     },
 
     setDescription(value) {
       self.description = value
-    },
-
-    setInitialData() {
-      const { todo } = self.env
-
-      if (!todo) {
-        return
-      }
-
-      applySnapshot(self, { ...todo })
-    },
-
-    setIsNew(value) {
-      self.isNew = value
     },
 
     setText(value) {
@@ -55,26 +42,32 @@ const ItemEditFormStore = types
     },
 
     submit: flow(function* submit() {
-      if (self.isSubmitting) return
+      if (!self.canSubmit) throw new Error('ItemEditFormStore | submit | Invalid form')
+
+      self.isSubmitted = true
 
       try {
-        const { todo } = self.env
         const areFieldsChanged =
-          self.payload.text !== todo?.text || self.payload.description !== todo?.description
+          self.payload.text !== self.initialValues.text ||
+          self.payload.description !== self.initialValues.description
 
         if (!areFieldsChanged) return
 
-        self.isSubmitting = true
-
-        const handleSubmit = self.env.todo ? self.env.onUpdate : self.env.onCreate
-
-        yield handleSubmit(self.payload)
+        yield getEnv(self).onSubmit(self.payload)
       } catch (error) {
+        self.isSubmitted = false
         logError(error, 'Submit Error:')
-      } finally {
-        self.isSubmitting = false
+        throw new Error('ItemEditFormStore | submit | Error submitting form')
       }
     }),
+
+    validate() {
+      if (!self.isTextValid) {
+        self.errors.set('text', 'Title is required, please enter some text')
+      } else {
+        self.errors.delete('text')
+      }
+    },
   }))
 
 export default ItemEditFormStore

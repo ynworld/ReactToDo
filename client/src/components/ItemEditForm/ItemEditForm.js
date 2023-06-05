@@ -3,48 +3,50 @@ import { useState } from 'react'
 import { observer } from 'mobx-react'
 import classnames from 'classnames'
 import { TextInput, InputBlock, TextArea, ItemEditFormStore, Spinner } from '..'
+import { logError } from '../../helpers'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
 
 const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
-  const [formStore] = useState(ItemEditFormStore.create({}, { onCreate, onUpdate, todo }))
-
-  const {
-    canSubmit,
-    description,
-    isSubmitting,
-    isInvalid,
-    isNew,
-    setIsNew,
-    setDescription,
-    setText,
-    submit,
-    text,
-  } = formStore
+  const [formStore] = useState(() =>
+    ItemEditFormStore.create(
+      { description: todo?.description, text: todo?.text },
+      { onSubmit: todo ? onUpdate : onCreate },
+    ),
+  )
 
   const handleTextInputChange = (event) => {
-    if (isNew) setIsNew(false)
+    const { setText, validate } = formStore
+
     setText(event.target.value)
+    validate()
   }
 
   const handleDescriptionInputChange = (event) => {
-    setDescription(event.target.value)
+    formStore.setDescription(event.target.value)
   }
+
+  const { canSubmit, description, errors, isSubmitted, text } = formStore
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await submit()
-    if (!isSubmitting) onCancel()
+    try {
+      await formStore.submit()
+
+      onCancel()
+    } catch (error) {
+      logError(error, 'ItemEditForm | handleSubmit')
+    }
   }
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
       <InputBlock htmlFor="title" title="Title">
         <TextInput
-          id="title"
-          isInvalid={isInvalid}
+          errorText={errors.get('text')}
+          isInvalid={errors.has('text')}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
@@ -53,7 +55,6 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
       </InputBlock>
       <InputBlock htmlFor="description" title="Description">
         <TextArea
-          id="description"
           isResizable={false}
           maxLength={descriptionMaxLength}
           onChange={handleDescriptionInputChange}
@@ -79,11 +80,11 @@ const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
-          disabled={!canSubmit || isSubmitting}
+          disabled={!canSubmit}
           type="submit"
         >
           <div className="flex justify-center">
-            {isSubmitting && <Spinner />}
+            {isSubmitted && <Spinner />}
             {todo ? 'Edit' : 'Add'}
           </div>
         </button>
