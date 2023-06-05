@@ -1,65 +1,66 @@
 import { PropTypes } from 'prop-types'
 import { useState } from 'react'
+import { observer } from 'mobx-react'
 import classnames from 'classnames'
-import { post } from '../../api'
-import { TextInput, InputBlock, TextArea } from '..'
+import { TextInput, InputBlock, TextArea, ItemEditFormStore, Spinner } from '..'
+import { logError } from '../../helpers'
 
 const titleMaxLength = 35
 const descriptionMaxLength = 250
 
-const ItemEditForm = ({ onClose, todo, todoList }) => {
-  const [inputText, setInputText] = useState(todo?.text || '')
-  const [descriptionText, setDescriptionText] = useState(todo?.description || '')
+const ItemEditForm = ({ onCancel, onCreate, onUpdate, todo }) => {
+  const [formStore] = useState(() =>
+    ItemEditFormStore.create(
+      { description: todo?.description, text: todo?.text },
+      { onSubmit: todo ? onUpdate : onCreate },
+    ),
+  )
 
   const handleTextInputChange = (event) => {
-    setInputText(event.target.value)
+    const { setText, validate } = formStore
+
+    setText(event.target.value)
+    validate()
   }
 
   const handleDescriptionInputChange = (event) => {
-    setDescriptionText(event.target.value)
+    formStore.setDescription(event.target.value)
   }
 
-  const trimmedText = inputText.trim()
-  const trimmedDescription = descriptionText.trim()
-
-  const canSubmit =
-    trimmedText !== '' && (trimmedText !== todo?.text || trimmedDescription !== todo?.description)
+  const { canSubmit, description, errors, isSubmitted, text } = formStore
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (todo) {
-      todo.setText(trimmedText)
-      todo.setDescription(trimmedDescription)
-    } else {
-      const todoItem = await post('/todos', { description: trimmedDescription, text: trimmedText })
+    try {
+      await formStore.submit()
 
-      todoList.addItem(todoItem)
+      onCancel()
+    } catch (error) {
+      logError(error, 'ItemEditForm | handleSubmit')
     }
-
-    onClose()
   }
 
   return (
     <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
       <InputBlock htmlFor="title" title="Title">
         <TextInput
-          id="title"
+          errorText={errors.get('text')}
+          isInvalid={errors.has('text')}
           maxLength={titleMaxLength}
           onChange={handleTextInputChange}
           placeholder="I need to..."
-          value={inputText}
+          value={text}
         />
       </InputBlock>
       <InputBlock htmlFor="description" title="Description">
         <TextArea
-          id="description"
           isResizable={false}
           maxLength={descriptionMaxLength}
           onChange={handleDescriptionInputChange}
           placeholder="Enter description (optional)"
           rows={6}
-          value={descriptionText}
+          value={description}
         />
       </InputBlock>
       <div className="mt-2 flex grow justify-end gap-2">
@@ -68,31 +69,35 @@ const ItemEditForm = ({ onClose, todo, todoList }) => {
             'flex h-8 items-center rounded-md px-6 py-2 text-sm shadow-md',
             'hover:bg-gray-100 active:shadow-sm',
           )}
-          onClick={onClose}
+          onClick={onCancel}
           type="button"
         >
           Cancel
         </button>
         <button
           className={classnames(
-            'flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
+            'relative flex h-8 items-center rounded-md bg-primary px-6 py-2 text-sm text-white shadow-md',
             'hover:bg-primary-dark active:shadow-sm disabled:bg-gray-300 disabled:shadow-md',
             'transition-all duration-300',
           )}
           disabled={!canSubmit}
           type="submit"
         >
-          {todo ? 'Edit' : 'Add'}
+          <div className="flex justify-center">
+            {isSubmitted && <Spinner />}
+            {todo ? 'Edit' : 'Add'}
+          </div>
         </button>
       </div>
     </form>
   )
 }
 
-export default ItemEditForm
+export default observer(ItemEditForm)
 
 ItemEditForm.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
+  onUpdate: PropTypes.func,
   todo: PropTypes.object,
-  todoList: PropTypes.object,
 }

@@ -2,7 +2,7 @@ import { destroy, flow, types } from 'mobx-state-tree'
 import TodoListItem from './TodoListItem'
 import { logError, sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
-import { put } from '../../api'
+import { post, put } from '../../api'
 
 const TodoListStore = types
   .model('TodoListStore', {
@@ -28,9 +28,13 @@ const TodoListStore = types
     },
   }))
   .actions((self) => ({
-    addItem(todoItem) {
+    createTodo: flow(function* createTodo(todoText) {
+      const todoItem = yield post('/todos', {
+        ...todoText,
+      })
+
       self.items.unshift(todoItem)
-    },
+    }),
 
     deleteItem(todoItem) {
       destroy(todoItem)

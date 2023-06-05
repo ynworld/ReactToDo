@@ -1,9 +1,9 @@
-import { addDisposer, flow, getParentOfType, getSnapshot, types } from 'mobx-state-tree'
+import { flow, getParentOfType, getSnapshot, applySnapshot, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
 import { del, put } from '../../api'
 import TodoListStore from './TodoListStore'
-import { logError, onChildAction } from '../../helpers'
+import { logError } from '../../helpers'
 
 const TodoListItem = types
   .model('TodoItem', {
@@ -26,42 +26,34 @@ const TodoListItem = types
     },
   }))
   .actions((self) => ({
-    afterCreate() {
-      addDisposer(self, onChildAction(self, self.save, true, ['delete']))
-    },
-
     delete: flow(function* remove() {
       try {
         yield del(`/todos/${self.id}`)
-
         self.todoListStore.deleteItem(self)
       } catch (error) {
         logError(error, 'Delete Error:')
       }
     }),
 
-    save: flow(function* save() {
+    save: flow(function* save(payload) {
       try {
-        yield put(`/todos/${self.id}`, getSnapshot(self))
+        const updatedTodo = yield put(`/todos/${self.id}`, {
+          ...getSnapshot(self),
+          ...payload,
+        })
+
+        applySnapshot(self, updatedTodo)
       } catch (error) {
         logError(error, 'Save Error:')
       }
     }),
 
-    setDescription(description) {
-      self.description = description
-    },
-
-    setText(text) {
-      self.text = text
-    },
-
     toggle() {
-      self.isChecked = !self.isChecked
+      self.save({ isChecked: !self.isChecked })
     },
 
     toggleIsImportant() {
-      self.isImportant = !self.isImportant
+      self.save({ isImportant: !self.isImportant })
     },
   }))
 
