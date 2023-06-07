@@ -1,6 +1,7 @@
 import { flow, getParentOfType, getSnapshot, applySnapshot, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
+import { toast } from 'react-toastify'
 import { del, put } from '../../api'
 import TodoListStore from './TodoListStore'
 import { logError } from '../../helpers'
@@ -43,6 +44,11 @@ const TodoListItem = types
         })
 
         applySnapshot(self, updatedTodo)
+
+        const whatChanged = Object.keys(payload)[0] === 'isChecked' ? 'completed.' : 'important.'
+        const howChanged = Object.values(payload)[0] === true ? 'marked' : 'marked not'
+
+        toast(`Success! ${self.text}: ${howChanged} ${whatChanged}`)
       } catch (error) {
         logError(error, 'Save Error:')
       }
