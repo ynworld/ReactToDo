@@ -1,7 +1,8 @@
 import { flow, getParentOfType, getSnapshot, applySnapshot, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
-import AddToast from '../../components/AddToast/AddToast'
+import { toastTypes } from '../../constants/toasts'
+import addToast from '../../helpers/addToast'
 import { del, put } from '../../api'
 import TodoListStore from './TodoListStore'
 import { logError } from '../../helpers'
@@ -34,9 +35,9 @@ const TodoListItem = types
 
         self.todoListStore.deleteItem(self)
 
-        AddToast({ text: `Deleted: ${deletedText}`, type: 'success' })
+        addToast({ text: `Deleted: ${deletedText}` })
       } catch (error) {
-        AddToast({ text: `Oops! Failed to delete  ${self.text}. ${error}`, type: 'error' })
+        addToast({ text: `Oops! Failed to delete  ${self.text}. ${error}`, type: toastTypes.error })
         logError(error, 'Delete Error:')
       }
     }),
@@ -50,9 +51,9 @@ const TodoListItem = types
 
         applySnapshot(self, updatedTodo)
 
-        AddToast({ text: `${self.text} updated.`, type: 'success' })
+        addToast({ text: `${self.text} updated.` })
       } catch (error) {
-        AddToast({ text: `Oops! Failed to update  ${self.text}. ${error}`, type: 'error' })
+        addToast({ text: `Oops! Failed to update  ${self.text}. ${error}`, type: toastTypes.error })
         logError(error, 'Save Error:')
       }
     }),
