@@ -30,12 +30,17 @@ const TodoListStore = types
   }))
   .actions((self) => ({
     createTodo: flow(function* createTodo(todoText) {
-      const todoItem = yield post('/todos', {
-        ...todoText,
-      })
+      try {
+        const todoItem = yield post('/todos', {
+          ...todoText,
+        })
 
-      self.items.unshift(todoItem)
-      toast(`Success! Added: ${todoItem.text}`)
+        self.items.unshift(todoItem)
+        toast.success(`Success! Added: ${todoItem.text}`)
+      } catch (error) {
+        toast.error(`Failed to add new todo! ${error}`)
+        logError(error, 'Create Error:')
+      }
     }),
 
     deleteItem(todoItem) {
@@ -53,9 +58,9 @@ const TodoListStore = types
 
       try {
         yield put(`/todos/reorder`, { itemIds })
-        toast(`Success! Items reordered.`)
+        toast.success(`Success! Items reordered.`)
       } catch (error) {
-        toast(`Oops! Failed to reorder. ${error}`)
+        toast.error(`Oops! Failed to reorder. ${error}`)
         logError(error, 'Reorder Error:')
       }
     }),

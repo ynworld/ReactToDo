@@ -34,25 +34,25 @@ const TodoListItem = types
 
         self.todoListStore.deleteItem(self)
 
-        toast(`Success! Deleted: ${deletedText}`)
+        toast.success(`Success! Deleted: ${deletedText}`)
       } catch (error) {
-        toast(`Oops! Failed to delete ${self.text}. ${error}`)
+        toast.error(`Oops! Failed to delete ${self.text}. ${error}`)
         logError(error, 'Delete Error:')
       }
     }),
 
     save: flow(function* save(payload) {
       try {
-        const updatedTodo = yield put(`/todos/${self.id}`, {
+        const updatedTodo = yield put(`/todoss/${self.id}`, {
           ...getSnapshot(self),
           ...payload,
         })
 
         applySnapshot(self, updatedTodo)
 
-        toast(`Success! ${self.text} updated.`)
+        toast.success(`${self.text} updated.`)
       } catch (error) {
-        toast(`Oops! Failed to update  ${self.text}. ${error}`)
+        toast.error(`Oops! Failed to update  ${self.text}. ${error}`)
         logError(error, 'Save Error:')
       }
     }),
