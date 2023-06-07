@@ -39,10 +39,7 @@ const TodoListStore = types
     }),
 
     deleteItem(todoItem) {
-      const deletedText = todoItem.text
-
       destroy(todoItem)
-      toast(`Success! Deleted: ${deletedText}`)
     },
 
     moveItem(fromIndex, toIndex) {
@@ -58,6 +55,7 @@ const TodoListStore = types
         yield put(`/todos/reorder`, { itemIds })
         toast(`Success! Items reordered.`)
       } catch (error) {
+        toast(`Oops! Failed to reorder. ${error}`)
         logError(error, 'Reorder Error:')
       }
     }),

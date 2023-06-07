@@ -30,8 +30,13 @@ const TodoListItem = types
     delete: flow(function* remove() {
       try {
         yield del(`/todos/${self.id}`)
+        const deletedText = self.text
+
         self.todoListStore.deleteItem(self)
+
+        toast(`Success! Deleted: ${deletedText}`)
       } catch (error) {
+        toast(`Oops! Failed to delete ${self.text}. ${error}`)
         logError(error, 'Delete Error:')
       }
     }),
@@ -45,11 +50,9 @@ const TodoListItem = types
 
         applySnapshot(self, updatedTodo)
 
-        const whatChanged = Object.keys(payload)[0] === 'isChecked' ? 'completed.' : 'important.'
-        const howChanged = Object.values(payload)[0] === true ? 'marked' : 'marked not'
-
-        toast(`Success! ${self.text}: ${howChanged} ${whatChanged}`)
+        toast(`Success! ${self.text} updated.`)
       } catch (error) {
+        toast(`Oops! Failed to update  ${self.text}. ${error}`)
         logError(error, 'Save Error:')
       }
     }),
