@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify'
 import { toastTypes } from '../constants/toasts'
 
-const addToast = ({ text, type = 'success' }) => {
+const addToast = ({ text, type = toastTypes.success }) => {
   switch (type) {
     case toastTypes.success:
       toast.success(text)
