@@ -1,6 +1,8 @@
 import { flow, getParentOfType, getSnapshot, applySnapshot, types } from 'mobx-state-tree'
 
 import { format } from 'date-fns'
+import { toastTypes } from '../../constants/toasts'
+import addToast from '../../helpers/addToast'
 import { del, put } from '../../api'
 import TodoListStore from './TodoListStore'
 import { logError } from '../../helpers'
@@ -29,8 +31,13 @@ const TodoListItem = types
     delete: flow(function* remove() {
       try {
         yield del(`/todos/${self.id}`)
+        const deletedText = self.text
+
         self.todoListStore.deleteItem(self)
+
+        addToast({ text: `Deleted: ${deletedText}` })
       } catch (error) {
+        addToast({ text: `Oops! Failed to delete  ${self.text}. ${error}`, type: toastTypes.error })
         logError(error, 'Delete Error:')
       }
     }),
@@ -43,7 +50,10 @@ const TodoListItem = types
         })
 
         applySnapshot(self, updatedTodo)
+
+        addToast({ text: `${self.text} updated.` })
       } catch (error) {
+        addToast({ text: `Oops! Failed to update  ${self.text}. ${error}`, type: toastTypes.error })
         logError(error, 'Save Error:')
       }
     }),

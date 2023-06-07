@@ -1,4 +1,6 @@
 import { destroy, flow, types } from 'mobx-state-tree'
+import addToast from '../../helpers/addToast'
+import { toastTypes } from '../../constants/toasts'
 import TodoListItem from './TodoListItem'
 import { logError, sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
@@ -29,11 +31,17 @@ const TodoListStore = types
   }))
   .actions((self) => ({
     createTodo: flow(function* createTodo(todoText) {
-      const todoItem = yield post('/todos', {
-        ...todoText,
-      })
+      try {
+        const todoItem = yield post('/todos', {
+          ...todoText,
+        })
 
-      self.items.unshift(todoItem)
+        self.items.unshift(todoItem)
+        addToast({ text: `Success! Added: ${todoText.text}` })
+      } catch (error) {
+        addToast({ text: `Oops! Failed to add todo. ${error}`, type: toastTypes.error })
+        logError(error, 'Create Error:')
+      }
     }),
 
     deleteItem(todoItem) {
@@ -51,7 +59,9 @@ const TodoListStore = types
 
       try {
         yield put(`/todos/reorder`, { itemIds })
+        addToast({ text: `Items reordered!` })
       } catch (error) {
+        addToast({ text: `Oops! Failed to reorder. ${error}`, type: toastTypes.error })
         logError(error, 'Reorder Error:')
       }
     }),
