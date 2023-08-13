@@ -9,7 +9,7 @@ const useTodoListItems = () => {
   useEffect(() => {
     setIsLoading(true)
 
-    get('/todos')
+    get(process.env.REACT_APP_API_URL)
       .then(({ items: todos }) => {
         setItems(todos)
       })
