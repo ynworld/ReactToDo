@@ -3,9 +3,11 @@ import { flow, getParentOfType, getSnapshot, applySnapshot, types } from 'mobx-s
 import { format } from 'date-fns'
 import { toastTypes } from '../../constants/toasts'
 import addToast from '../../helpers/addToast'
-import { del, put } from '../../api'
+import * as api from '../../api'
 import TodoListStore from './TodoListStore'
 import { logError } from '../../helpers'
+
+const { put, del } = api.default
 
 const TodoListItem = types
   .model('TodoItem', {
