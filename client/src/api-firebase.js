@@ -31,7 +31,7 @@ const transformFirebaseData = async (response) => {
     })
   }
 
-  return { items: body }
+  return { items: body.reverse() }
 }
 
 const get = (url) => fetch(url).then(transformFirebaseData)
