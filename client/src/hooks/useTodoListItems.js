@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import * as api from '../api'
+import { get } from '../api'
 import { logError } from '../helpers'
-
-const { get } = api.default
 
 const useTodoListItems = () => {
   const [items, setItems] = useState([])

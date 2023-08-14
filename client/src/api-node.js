@@ -8,23 +8,25 @@ const handleResponse = (response) => {
   return body
 }
 
-export const get = (url) => fetch(url).then(handleResponse)
+const get = (url) => fetch(url).then(handleResponse)
 
-export const post = (url, data) =>
+const post = (url, data) =>
   fetch(url, {
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   }).then(handleResponse)
 
-export const del = (url) =>
+const del = (url) =>
   fetch(url, {
     method: 'DELETE',
   }).then(handleResponse)
 
-export const put = (url, data) =>
+const put = (url, data) =>
   fetch(url, {
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
   }).then(handleResponse)
+
+export { del, get, post, put }
