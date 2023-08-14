@@ -32,7 +32,7 @@ const TodoListStore = types
   .actions((self) => ({
     createTodo: flow(function* createTodo(todoText) {
       try {
-        const todoItem = yield post('/todos', {
+        const todoItem = yield post(process.env.REACT_APP_POST_URL, {
           ...todoText,
         })
 
