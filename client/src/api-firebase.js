@@ -61,9 +61,8 @@ const post = async (url, data) => {
   return { ...todo, id: body.name }
 }
 
-// TODO: Make delete work with Firebase
 const del = (url) =>
-  fetch(url, {
+  fetch(`${firebaseURL}${url}.json`, {
     method: 'DELETE',
   }).then(handleResponse)
 
