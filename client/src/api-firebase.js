@@ -10,6 +10,9 @@ const handleResponse = (response) => {
   return body
 }
 
+const getFirebaseReorderList = () =>
+  fetch(`${firebaseURL}/todos/reorder/itemIds.json`).then(handleResponse)
+
 const transformFirebaseData = async (response) => {
   const data = await response.json()
 
@@ -43,16 +46,28 @@ const post = async (url, data) => {
     isImportant: false,
   }
 
-  const response = await fetch(`${firebaseURL}${url}.json`, {
+  const response = await fetch(`${firebaseURL}${url}/${todo.id}.json`, {
     body: JSON.stringify(todo),
     headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
+    method: 'PUT',
   })
 
   const body = await response.json()
 
   if (response.status !== 200) {
     throw new Error(body.message)
+  }
+
+  const todoIds = await getFirebaseReorderList()
+
+  if (todoIds) {
+    todoIds.unshift(todo.id)
+
+    fetch(`${firebaseURL}/todos/reorder/itemIds.json`, {
+      body: JSON.stringify(todoIds),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+    })
   }
 
   return { ...todo }
