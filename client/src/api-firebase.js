@@ -17,22 +17,19 @@ const transformFirebaseData = async (response) => {
     throw new Error(data.message)
   }
 
-  const body = []
+  const todos = Array.from(Object.values(data)).filter((todo) => !todo.itemIds)
 
-  // TODO: Use more efficient iteration logic
-  // eslint-disable-next-line
-  for (const [key, value] of Object.entries(data)) {
-    body.push({
-      createdAt: value.createdAt,
-      description: value.description,
-      id: key,
-      isChecked: value.isChecked,
-      isImportant: value.isImportant,
-      text: value.text,
-    })
+  const todoOrder = Array.from(Object.values(data)).filter((todo) => todo.itemIds)
+
+  if (todoOrder.length !== 0) {
+    const { itemIds } = Array.from(Object.values(data)).filter((todo) => todo.itemIds)[0]
+
+    const orderedTodos = itemIds.map((id) => todos.find((item) => item.id === id))
+
+    return { items: orderedTodos }
   }
 
-  return { items: body.reverse() }
+  return { items: todos.reverse() }
 }
 
 const get = (url) => fetch(`${firebaseURL}${url}.json`).then(transformFirebaseData)
@@ -58,7 +55,7 @@ const post = async (url, data) => {
     throw new Error(body.message)
   }
 
-  return { ...todo, id: body.name }
+  return { ...todo }
 }
 
 const del = (url) =>
