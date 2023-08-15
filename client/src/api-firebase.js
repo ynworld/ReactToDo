@@ -13,20 +13,12 @@ const handleResponse = (response) => {
 const getFirebaseReorderList = () =>
   fetch(`${firebaseURL}/todos/reorder/itemIds.json`).then(handleResponse)
 
-const transformFirebaseData = async (response) => {
-  const data = await response.json()
-
-  if (response.status !== 200) {
-    throw new Error(data.message)
-  }
-
+const transformFirebaseData = (data) => {
   const todos = Array.from(Object.values(data)).filter((todo) => !todo.itemIds)
-
   const todoOrder = Array.from(Object.values(data)).filter((todo) => todo.itemIds)
 
   if (todoOrder.length !== 0) {
     const { itemIds } = Array.from(Object.values(data)).filter((todo) => todo.itemIds)[0]
-
     const orderedTodos = itemIds.map((id) => todos.find((item) => item.id === id))
 
     return { items: orderedTodos }
@@ -35,54 +27,41 @@ const transformFirebaseData = async (response) => {
   return { items: todos.reverse() }
 }
 
-const get = (url) => fetch(`${firebaseURL}${url}.json`).then(transformFirebaseData)
-
-const post = async (url, data) => {
-  const todo = {
-    ...data,
-    createdAt: Date.now(),
-    id: Date.now(),
-    isChecked: false,
-    isImportant: false,
-  }
-
-  const response = await fetch(`${firebaseURL}${url}/${todo.id}.json`, {
-    body: JSON.stringify(todo),
-    headers: { 'Content-Type': 'application/json' },
-    method: 'PUT',
-  })
-
-  const body = await response.json()
-
-  if (response.status !== 200) {
-    throw new Error(body.message)
-  }
-
-  const todoIds = await getFirebaseReorderList()
-
-  if (todoIds) {
-    todoIds.unshift(todo.id)
-
-    fetch(`${firebaseURL}/todos/reorder/itemIds.json`, {
-      body: JSON.stringify(todoIds),
-      headers: { 'Content-Type': 'application/json' },
-      method: 'PUT',
-    })
-  }
-
-  return { ...todo }
-}
-
-const del = (url) =>
-  fetch(`${firebaseURL}${url}.json`, {
-    method: 'DELETE',
-  }).then(handleResponse)
+const get = (url) =>
+  fetch(`${firebaseURL}${url}.json`).then(handleResponse).then(transformFirebaseData)
 
 const put = (url, data) =>
   fetch(`${firebaseURL}${url}.json`, {
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
+  }).then(handleResponse)
+
+const post = async (url, data) => {
+  const todo = {
+    createdAt: Date.now(),
+    description: data.description,
+    id: Date.now(),
+    isChecked: false,
+    isImportant: false,
+    text: data.text,
+  }
+
+  put(`${url}/${todo.id}`, todo)
+
+  const todoIds = await getFirebaseReorderList()
+
+  if (todoIds) {
+    todoIds.unshift(todo.id)
+    put('/todos/reorder/itemIds', todoIds)
+  }
+
+  return todo
+}
+
+const del = (url) =>
+  fetch(`${firebaseURL}${url}.json`, {
+    method: 'DELETE',
   }).then(handleResponse)
 
 export { del, get, post, put }
