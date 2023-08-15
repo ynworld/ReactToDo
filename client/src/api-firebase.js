@@ -67,7 +67,7 @@ const del = (url) =>
   }).then(handleResponse)
 
 const put = (url, data) =>
-  fetch(url, {
+  fetch(`${firebaseURL}${url}.json`, {
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
