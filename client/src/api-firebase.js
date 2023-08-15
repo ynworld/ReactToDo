@@ -12,7 +12,6 @@ const handleResponse = (response) => {
 
 const transformFirebaseData = async (response) => {
   const data = await response.json()
-  const { items } = data
 
   if (response.status !== 200) {
     throw new Error(data.message)
@@ -22,7 +21,7 @@ const transformFirebaseData = async (response) => {
 
   // TODO: Use more efficient iteration logic
   // eslint-disable-next-line
-  for (const [key, value] of Object.entries(items)) {
+  for (const [key, value] of Object.entries(data)) {
     body.push({
       createdAt: value.createdAt,
       description: value.description,
@@ -47,7 +46,7 @@ const post = async (url, data) => {
     isImportant: false,
   }
 
-  const response = await fetch(url, {
+  const response = await fetch(`${firebaseURL}${url}.json`, {
     body: JSON.stringify(todo),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
