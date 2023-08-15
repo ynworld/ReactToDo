@@ -1,3 +1,5 @@
+const firebaseURL = process.env.REACT_APP_FIREBASE_URL
+
 const handleResponse = (response) => {
   const body = response.json()
 
@@ -34,7 +36,7 @@ const transformFirebaseData = async (response) => {
   return { items: body.reverse() }
 }
 
-const get = (url) => fetch(url).then(transformFirebaseData)
+const get = (url) => fetch(`${firebaseURL}${url}.json`).then(transformFirebaseData)
 
 const post = async (url, data) => {
   const todo = {
@@ -57,9 +59,10 @@ const post = async (url, data) => {
     throw new Error(body.message)
   }
 
-  return { ...todo, key: body.name }
+  return { ...todo, id: body.name }
 }
 
+// TODO: Make delete work with Firebase
 const del = (url) =>
   fetch(url, {
     method: 'DELETE',
