@@ -30,7 +30,7 @@ const TodoListItem = types
   .actions((self) => ({
     delete: flow(function* remove() {
       try {
-        yield del(`/todos/${self.id}`)
+        yield del(`/todos/${self.id}`, self.id)
         const deletedText = self.text
 
         self.todoListStore.deleteItem(self)
