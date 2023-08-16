@@ -17,7 +17,7 @@ const getFirebaseReorderList = () =>
 
 const processFirebaseData = (data) => {
   const [todos, [sortedTodoIds]] = partition(Object.values(data), (todo) => {
-    return todo && !todo.itemIds
+    return todo && todo.id
   })
 
   if (sortedTodoIds) {
