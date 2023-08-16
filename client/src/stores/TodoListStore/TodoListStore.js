@@ -4,7 +4,7 @@ import { toastTypes } from '../../constants/toasts'
 import TodoListItem from './TodoListItem'
 import { logError, sortByDate } from '../../helpers'
 import { move } from '../../helpers/array'
-import { post, put } from '../../api'
+import { put, post } from '../../api'
 
 const TodoListStore = types
   .model('TodoListStore', {

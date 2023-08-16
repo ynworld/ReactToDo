@@ -3,7 +3,7 @@ import { flow, getParentOfType, getSnapshot, applySnapshot, types } from 'mobx-s
 import { format } from 'date-fns'
 import { toastTypes } from '../../constants/toasts'
 import addToast from '../../helpers/addToast'
-import { del, put } from '../../api'
+import { put, del } from '../../api'
 import TodoListStore from './TodoListStore'
 import { logError } from '../../helpers'
 
@@ -30,7 +30,7 @@ const TodoListItem = types
   .actions((self) => ({
     delete: flow(function* remove() {
       try {
-        yield del(`/todos/${self.id}`)
+        yield del(`/todos/${self.id}`, self.id)
         const deletedText = self.text
 
         self.todoListStore.deleteItem(self)

@@ -1,30 +1,8 @@
-const handleResponse = (response) => {
-  const body = response.json()
+import * as nodeAPI from './api-node'
+import * as firebaseAPI from './api-firebase'
 
-  if (response.status !== 200) {
-    throw new Error(body.message)
-  }
+const api = process.env.REACT_APP_FIREBASE ? firebaseAPI : nodeAPI
 
-  return body
-}
+const { get, put, post, del } = api
 
-export const get = (url) => fetch(url).then(handleResponse)
-
-export const post = (url, data) =>
-  fetch(url, {
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
-  }).then(handleResponse)
-
-export const del = (url) =>
-  fetch(url, {
-    method: 'DELETE',
-  }).then(handleResponse)
-
-export const put = (url, data) =>
-  fetch(url, {
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' },
-    method: 'PUT',
-  }).then(handleResponse)
+export { del, get, post, put }

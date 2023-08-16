@@ -31,7 +31,7 @@
   "scripts": {
     "lint": "eslint ./src --fix",
     "start": "PORT=3031 react-scripts start",
-    "build": "react-scripts build && surge ./build --domain yn-react-todo.surge.sh",
+    "build": "REACT_APP_FIREBASE=true react-scripts build && surge ./build --domain yn-react-todo.surge.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
