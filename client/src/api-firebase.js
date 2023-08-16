@@ -1,3 +1,5 @@
+import { partition } from 'lodash'
+
 const firebaseURL = process.env.REACT_APP_FIREBASE_URL
 
 const handleResponse = (response) => {
@@ -13,12 +15,13 @@ const handleResponse = (response) => {
 const getFirebaseReorderList = () =>
   fetch(`${firebaseURL}/todos/reorder/itemIds.json`).then(handleResponse)
 
-const transformFirebaseData = (data) => {
-  const todos = Object.values(data).filter((todo) => !todo.itemIds)
-  const sortedTodoIds = Object.values(data).filter((todo) => todo.itemIds)
+const processFirebaseData = (data) => {
+  const [todos, [sortedTodoIds]] = partition(Object.values(data), (todo) => {
+    return !todo.itemIds
+  })
 
-  if (sortedTodoIds.length !== 0) {
-    const { itemIds } = sortedTodoIds[0]
+  if (sortedTodoIds) {
+    const { itemIds } = sortedTodoIds
     const orderedTodos = itemIds.map((id) => todos.find((item) => item.id === id))
 
     return { items: orderedTodos }
@@ -28,7 +31,7 @@ const transformFirebaseData = (data) => {
 }
 
 const get = (url) =>
-  fetch(`${firebaseURL}${url}.json`).then(handleResponse).then(transformFirebaseData)
+  fetch(`${firebaseURL}${url}.json`).then(handleResponse).then(processFirebaseData)
 
 const put = (url, data) =>
   fetch(`${firebaseURL}${url}.json`, {
