@@ -16,18 +16,25 @@ const getFirebaseReorderList = () =>
   fetch(`${firebaseURL}/todos/reorder/itemIds.json`).then(handleResponse)
 
 const processFirebaseData = (data) => {
-  const sortedTodoIds = data.reorder
+  const reorderData = data.reorder
 
-  const todos = Object.values(data).filter((item) => item.type === 'todo')
+  const todosArray = Object.values(data).filter((item) => item.type === 'todo')
 
-  if (sortedTodoIds) {
-    const { itemIds } = sortedTodoIds
-    const orderedTodos = itemIds.map((id) => todos.find((item) => item.id === id))
-
-    return { items: orderedTodos }
+  if (!reorderData) {
+    return { items: todosArray }
   }
 
-  return { items: todos }
+  const { itemIds: orderedIds } = reorderData
+
+  const todosMap = new Map()
+
+  todosArray.forEach((todo) => {
+    todosMap.set(todo.id, todo)
+  })
+
+  const orderedTodos = orderedIds.map((id) => todosMap.get(id))
+
+  return { items: orderedTodos }
 }
 
 const get = (url) =>
