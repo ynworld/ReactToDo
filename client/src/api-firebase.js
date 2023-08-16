@@ -1,4 +1,4 @@
-import { pull } from 'lodash'
+import _pull from 'lodash/pull'
 
 const firebaseURL = process.env.REACT_APP_FIREBASE_URL
 
@@ -18,7 +18,7 @@ const getFirebaseReorderList = () =>
 const processFirebaseData = (data) => {
   const sortedTodoIds = data.reorder
 
-  const todos = Object.values(data).filter((item) => item?.type === 'todo')
+  const todos = Object.values(data).filter((item) => item.type === 'todo')
 
   if (sortedTodoIds) {
     const { itemIds } = sortedTodoIds
@@ -67,7 +67,7 @@ const updateFirebaseReorderList = async (id) => {
   const todoIds = await getFirebaseReorderList()
 
   if (todoIds) {
-    pull(todoIds, id)
+    _pull(todoIds, id)
     put('/todos/reorder/itemIds', todoIds)
   }
 }
