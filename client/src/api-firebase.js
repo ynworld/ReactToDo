@@ -19,7 +19,7 @@ const getFirebaseReorderList = () =>
 const processFirebaseData = (data) => {
   const reorderData = data.reorder
 
-  const todosArray = Object.values(data).filter((item) => item.type === 'todo')
+  const todosArray = Object.values(data).filter((item) => item.id && item.text)
 
   if (!reorderData) {
     return { items: todosArray.reverse() }
@@ -64,7 +64,6 @@ const post = async (url, data) => {
     isChecked: false,
     isImportant: false,
     text: data.text,
-    type: 'todo',
   }
 
   put(`${url}/${todo.id}`, todo)
