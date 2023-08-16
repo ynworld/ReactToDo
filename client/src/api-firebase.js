@@ -17,7 +17,7 @@ const getFirebaseReorderList = () =>
 
 const processFirebaseData = (data) => {
   const [todos, [sortedTodoIds]] = partition(Object.values(data), (todo) => {
-    return todo && !todo?.itemIds
+    return todo && !todo.itemIds
   })
 
   if (sortedTodoIds) {
@@ -27,7 +27,7 @@ const processFirebaseData = (data) => {
     return { items: orderedTodos }
   }
 
-  return { items: todos.reverse() }
+  return { items: todos }
 }
 
 const get = (url) =>
