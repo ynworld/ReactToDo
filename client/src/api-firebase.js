@@ -14,11 +14,11 @@ const getFirebaseReorderList = () =>
   fetch(`${firebaseURL}/todos/reorder/itemIds.json`).then(handleResponse)
 
 const transformFirebaseData = (data) => {
-  const todos = Array.from(Object.values(data)).filter((todo) => !todo.itemIds)
-  const todoOrder = Array.from(Object.values(data)).filter((todo) => todo.itemIds)
+  const todos = Object.values(data).filter((todo) => !todo.itemIds)
+  const sortedTodoIds = Object.values(data).filter((todo) => todo.itemIds)
 
-  if (todoOrder.length !== 0) {
-    const { itemIds } = Array.from(Object.values(data)).filter((todo) => todo.itemIds)[0]
+  if (sortedTodoIds.length !== 0) {
+    const { itemIds } = sortedTodoIds[0]
     const orderedTodos = itemIds.map((id) => todos.find((item) => item.id === id))
 
     return { items: orderedTodos }
