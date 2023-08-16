@@ -1,4 +1,5 @@
 import _pull from 'lodash/pull'
+import { toast } from 'react-toastify'
 
 const firebaseURL = process.env.REACT_APP_FIREBASE_URL
 
@@ -25,6 +26,12 @@ const processFirebaseData = (data) => {
   }
 
   const { itemIds: orderedIds } = reorderData
+
+  if (orderedIds.length !== todosArray.length) {
+    toast.error('Unable to sort: id count mismatch')
+
+    return { items: todosArray }
+  }
 
   const todosMap = new Map()
 
