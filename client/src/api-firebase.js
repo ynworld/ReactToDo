@@ -28,7 +28,9 @@ const processFirebaseData = (data) => {
   const { itemIds: orderedIds } = reorderData
 
   if (orderedIds.length !== todosArray.length) {
-    toast.error('Unable to sort: id count mismatch')
+    // eslint-disable-next-line
+    console.error('Unable to sort: id count mismatch')
+    toast.error(`Sorry: We couldn't sort your todos. We are working on a fix!`)
 
     return { items: todosArray }
   }
